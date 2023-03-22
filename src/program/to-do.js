@@ -25,7 +25,15 @@ const projects = [
   { project: demoProject2 },
 ];
 
-console.log(projects);
-console.log(projects[0]);
-console.log(projects[1]);
-console.log(projects[2]);
+const printProjects = () => {
+  console.log("Project List");
+  let index = 0;
+  projects.forEach((object) => {
+    console.log(index, object.project);
+    index++;
+  });
+};
+
+printProjects();
+
+//const moveProject = (positionA, positionB) => {};
