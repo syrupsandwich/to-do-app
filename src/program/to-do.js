@@ -19,10 +19,17 @@ const demoProject2 = {
   tasks: [],
 };
 
+const demoProject3 = {
+  title: "To-do app",
+  description: "A place store all your tasks.",
+  tasks: [],
+};
+
 const projects = [
   { project: emptyProject },
   { project: demoProject1 },
   { project: demoProject2 },
+  { project: demoProject3 },
 ];
 
 const printProjects = () => {
@@ -36,4 +43,10 @@ const printProjects = () => {
 
 printProjects();
 
-//const moveProject = (positionA, positionB) => {};
+const moveProject = (positionA, positionB) => {
+  let objectA = projects.splice(positionA, 1)[0];
+  projects.splice(positionB, 0, objectA);
+  printProjects();
+};
+
+moveProject(3, 0);
