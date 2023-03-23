@@ -21,7 +21,7 @@ const demoProject2 = {
 
 const demoProject3 = {
   title: "To-do app",
-  description: "A place store all your tasks.",
+  description: "A place to store all of your tasks.",
   tasks: [],
 };
 
