@@ -46,3 +46,10 @@ const moveProject = (positionA, positionB) => {
 
 projects[0].title = "Other Tasks";
 moveProject(3, 0);
+
+const removeProject = (index) => {
+  projects.splice(index, 1);
+  printProjects();
+};
+
+removeProject(1);
