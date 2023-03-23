@@ -25,18 +25,13 @@ const demoProject3 = {
   tasks: [],
 };
 
-const projects = [
-  { project: emptyProject },
-  { project: demoProject1 },
-  { project: demoProject2 },
-  { project: demoProject3 },
-];
+const projects = [emptyProject, demoProject1, demoProject2, demoProject3];
 
 const printProjects = () => {
   console.log("Project List");
   let index = 0;
-  projects.forEach((object) => {
-    console.log(index, object.project);
+  projects.forEach((project) => {
+    console.log(index, project);
     index++;
   });
 };
@@ -49,4 +44,5 @@ const moveProject = (positionA, positionB) => {
   printProjects();
 };
 
+projects[0].title = "Other Tasks";
 moveProject(3, 0);
