@@ -59,4 +59,50 @@ const makeProject = ({ title = "", description = "" }) => {
   printProjects();
 };
 
-makeProject({ title: "garb", description: "trassh" });
+const taskFactory = ({
+  title = "",
+  description = "",
+  dueDate = "",
+  priority,
+}) => {
+  let taskStatus = false;
+  const checkCompletionStatus = () => {
+    if (taskStatus) {
+      console.log(`Task "${title}" has been completed. :D`);
+    }
+    if (!taskStatus) {
+      console.log(`Task "${title}" hast not been completed. :/`);
+    }
+    return taskStatus;
+  };
+  const changeCompletionStatus = () => {
+    taskStatus = taskStatus ? false : true;
+  };
+  return {
+    title,
+    description,
+    dueDate,
+    priority,
+    checkCompletionStatus,
+    changeCompletionStatus,
+  };
+};
+
+const addTask = (projectIndex, task = {}) => {
+  if (projectIndex > projects.length - 1 || projectIndex < 0) {
+    return console.log(Error("No project was specified."));
+  }
+  projects[projectIndex].tasks.push(taskFactory(task));
+  printProjects();
+};
+
+addTask(0);
+
+addTask(0, {
+  title: "climb the stairs",
+  description: "Get those glutes working!",
+});
+
+projects[0].tasks[1].checkCompletionStatus();
+projects[0].tasks[1].changeCompletionStatus();
+projects[0].tasks[1].checkCompletionStatus();
