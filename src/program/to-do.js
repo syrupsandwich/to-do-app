@@ -53,3 +53,10 @@ const removeProject = (index) => {
 };
 
 removeProject(1);
+
+const makeProject = ({ title = "", description = "" }) => {
+  projects.push({ title, description, tasks: [] });
+  printProjects();
+};
+
+makeProject({ title: "garb", description: "trassh" });
