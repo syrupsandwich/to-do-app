@@ -122,7 +122,7 @@ const printTasks = (projectIndex) => {
   console.log(`Tasks in "${projects[projectIndex].title}"`);
   projects[projectIndex].tasks.forEach((task) => {
     console.log(index, task);
-    index;
+    index++;
   });
 };
 
