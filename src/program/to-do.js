@@ -63,7 +63,7 @@ const taskFactory = ({
   title = "",
   description = "",
   dueDate = "",
-  priority,
+  priority = "",
 }) => {
   let taskStatus = false;
   const checkCompletionStatus = () => {
