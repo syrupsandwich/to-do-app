@@ -106,3 +106,13 @@ addTask(0, {
 projects[0].tasks[1].checkCompletionStatus();
 projects[0].tasks[1].changeCompletionStatus();
 projects[0].tasks[1].checkCompletionStatus();
+
+const updateProject = (index, { title, description }) => {
+  if (title) {
+    projects[index].title = title;
+  }
+  if (description) {
+    projects[index].description = description;
+  }
+  printProjects();
+};
