@@ -31,7 +31,7 @@ const printProjects = () => {
   console.log("Project List");
   let index = 0;
   projects.forEach((project) => {
-    console.log(index, (JSON.parse(JSON.stringify(project))));
+    console.log(index, JSON.parse(JSON.stringify(project)));
     index++;
   });
 };
@@ -158,4 +158,12 @@ const removeTask = (projectIndex, taskIndex) => {
   printTasks(projectIndex);
 };
 
-removeTask(0, 1);
+const transferTask = (projectIndexA, projectIndexB, taskIndex) => {
+  let task = projects[projectIndexA].tasks.splice(taskIndex, 1)[0];
+  addTask(projectIndexB, { task });
+  printProjects();
+};
+
+transferTask(0, 2, 0);
+printTasks(0);
+transferTask(2, 0, 0);
