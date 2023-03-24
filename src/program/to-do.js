@@ -71,7 +71,7 @@ const taskFactory = ({
       console.log(`Task "${title}" has been completed. :D`);
     }
     if (!taskStatus) {
-      console.log(`Task "${title}" hast not been completed. :/`);
+      console.log(`Task "${title}" has not been completed. :/`);
     }
     return taskStatus;
   };
