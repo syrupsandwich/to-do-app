@@ -31,7 +31,7 @@ const printProjects = () => {
   console.log("Project List");
   let index = 0;
   projects.forEach((project) => {
-    console.log(index, project);
+    console.log(index, (JSON.parse(JSON.stringify(project))));
     index++;
   });
 };
