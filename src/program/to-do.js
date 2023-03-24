@@ -119,7 +119,9 @@ const updateProject = (index, { title, description }) => {
 
 const printTasks = (projectIndex) => {
   let index = 0;
-  console.log(`Tasks in "${projects[projectIndex].title}"`);
+  let projectTitle = projects[projectIndex].title;
+  let length = projects[projectIndex].tasks.length;
+  console.log(`Tasks in "${projectTitle}": ${length}`);
   projects[projectIndex].tasks.forEach((task) => {
     console.log(index, task);
     index++;
