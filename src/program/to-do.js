@@ -150,3 +150,10 @@ const updateTask = (
 };
 
 updateTask(0, 0, { title: "Chop the mangos", priority: "important" });
+
+const removeTask = (projectIndex, taskIndex) => {
+  projects[projectIndex].tasks.splice(taskIndex, 1);
+  printTasks(projectIndex);
+};
+
+removeTask(0, 1);
