@@ -122,7 +122,31 @@ const printTasks = (projectIndex) => {
   console.log(`Tasks in "${projects[projectIndex].title}"`);
   projects[projectIndex].tasks.forEach((task) => {
     console.log(index, task);
+    index;
   });
 };
 
 printTasks(0);
+
+const updateTask = (
+  projectIndex,
+  taskIndex,
+  { title, description, dueDate, priority }
+) => {
+  let task = projects[projectIndex].tasks[taskIndex];
+  if (title) {
+    task.title = title;
+  }
+  if (description) {
+    task.description = description;
+  }
+  if (dueDate) {
+    task.dueDate = dueDate;
+  }
+  if (priority) {
+    task.priority = priority;
+  }
+  printTasks(projectIndex);
+};
+
+updateTask(0, 0, { title: "Chop the mangos", priority: "important" });
