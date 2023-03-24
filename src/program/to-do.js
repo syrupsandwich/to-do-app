@@ -116,3 +116,13 @@ const updateProject = (index, { title, description }) => {
   }
   printProjects();
 };
+
+const printTasks = (projectIndex) => {
+  let index = 0;
+  console.log(`Tasks in "${projects[projectIndex].title}"`);
+  projects[projectIndex].tasks.forEach((task) => {
+    console.log(index, task);
+  });
+};
+
+printTasks(0);
