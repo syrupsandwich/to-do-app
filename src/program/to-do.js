@@ -164,6 +164,15 @@ const transferTask = (projectIndexA, projectIndexB, taskIndex) => {
   printProjects();
 };
 
-transferTask(0, 2, 0);
-printTasks(0);
-transferTask(2, 0, 0);
+const moveTask = (projectIndex, positionA, positionB) => {
+  let task = projects[projectIndex].tasks.splice(positionA, 1)[0];
+  projects[projectIndex].tasks.splice(positionB, 0, task);
+  printTasks(projectIndex);
+};
+
+addTask(0, {
+  title: "Car project.",
+  description: "Customize a Hotwheels car.",
+});
+moveTask(0, 1, 0);
+moveTask(0, 1, 2);
