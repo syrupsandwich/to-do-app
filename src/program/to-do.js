@@ -88,12 +88,23 @@ const taskFactory = ({
   };
 };
 
+const printTasks = (projectIndex) => {
+  let index = 0;
+  let projectTitle = projects[projectIndex].title;
+  let length = projects[projectIndex].tasks.length;
+  console.log(`Tasks in "${projectTitle}": ${length}`);
+  projects[projectIndex].tasks.forEach((task) => {
+    console.log(index, task);
+    index++;
+  });
+};
+
 const addTask = (projectIndex, task = {}) => {
   if (projectIndex > projects.length - 1 || projectIndex < 0) {
     return console.log(Error("No project was specified."));
   }
   projects[projectIndex].tasks.push(taskFactory(task));
-  printProjects();
+  printTasks(projectIndex);
 };
 
 addTask(0);
@@ -115,17 +126,6 @@ const updateProject = (index, { title, description }) => {
     projects[index].description = description;
   }
   printProjects();
-};
-
-const printTasks = (projectIndex) => {
-  let index = 0;
-  let projectTitle = projects[projectIndex].title;
-  let length = projects[projectIndex].tasks.length;
-  console.log(`Tasks in "${projectTitle}": ${length}`);
-  projects[projectIndex].tasks.forEach((task) => {
-    console.log(index, task);
-    index++;
-  });
 };
 
 printTasks(0);
