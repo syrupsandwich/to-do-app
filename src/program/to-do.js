@@ -1,8 +1,8 @@
 import "../style/default.css";
 
-const emptyProject = {
-  title: "",
-  description: "",
+const welcomeProject = {
+  title: "To-do app",
+  description: "A place to store all of your tasks",
   tasks: [],
 };
 
@@ -19,13 +19,7 @@ const demoProject2 = {
   tasks: [],
 };
 
-const demoProject3 = {
-  title: "To-do app",
-  description: "A place to store all of your tasks.",
-  tasks: [],
-};
-
-const projects = [emptyProject, demoProject1, demoProject2, demoProject3];
+const projects = [welcomeProject, demoProject1, demoProject2];
 
 const printProjects = () => {
   console.log("Project List");
@@ -36,23 +30,16 @@ const printProjects = () => {
   });
 };
 
-printProjects();
-
 const moveProject = (positionA, positionB) => {
   let objectA = projects.splice(positionA, 1)[0];
   projects.splice(positionB, 0, objectA);
   printProjects();
 };
 
-projects[0].title = "Other Tasks";
-moveProject(3, 0);
-
 const removeProject = (index) => {
   projects.splice(index, 1);
   printProjects();
 };
-
-removeProject(1);
 
 const makeProject = ({ title = "", description = "" }) => {
   projects.push({ title, description, tasks: [] });
@@ -107,17 +94,6 @@ const addTask = (projectIndex, task = {}) => {
   printTasks(projectIndex);
 };
 
-addTask(0);
-
-addTask(0, {
-  title: "climb the stairs",
-  description: "Get those glutes working!",
-});
-
-projects[0].tasks[1].checkCompletionStatus();
-projects[0].tasks[1].changeCompletionStatus();
-projects[0].tasks[1].checkCompletionStatus();
-
 const updateProject = (index, { title, description }) => {
   if (title) {
     projects[index].title = title;
@@ -127,8 +103,6 @@ const updateProject = (index, { title, description }) => {
   }
   printProjects();
 };
-
-printTasks(0);
 
 const updateTask = (
   projectIndex,
@@ -151,8 +125,6 @@ const updateTask = (
   printTasks(projectIndex);
 };
 
-updateTask(0, 0, { title: "Chop the mangos", priority: "important" });
-
 const removeTask = (projectIndex, taskIndex) => {
   projects[projectIndex].tasks.splice(taskIndex, 1);
   printTasks(projectIndex);
@@ -170,9 +142,4 @@ const moveTask = (projectIndex, positionA, positionB) => {
   printTasks(projectIndex);
 };
 
-addTask(0, {
-  title: "Car project.",
-  description: "Customize a Hotwheels car.",
-});
-moveTask(0, 1, 0);
-moveTask(0, 1, 2);
+printProjects();
