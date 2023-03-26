@@ -133,7 +133,7 @@ const removeTask = (projectIndex, taskIndex) => {
 const transferTask = (projectIndexA, projectIndexB, taskIndex) => {
   let task = projects[projectIndexA].tasks.splice(taskIndex, 1)[0];
   addTask(projectIndexB, { task });
-  printProjects();
+  printTasks(projectIndexB);
 };
 
 const moveTask = (projectIndex, positionA, positionB) => {
