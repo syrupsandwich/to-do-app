@@ -1,28 +1,12 @@
 import "../style/default.css";
 
-const welcomeProject = {
-  title: "To-do app",
-  description: "A place to store all of your tasks",
-  tasks: [],
-};
+const projects = [];
 
-const demoProject1 = {
-  title: "Exercise solutions.",
-  description:
-    "Figure out an optimal exercise setup for each major muscle group.",
-  tasks: [],
-};
-
-const demoProject2 = {
-  title: "250 box challenge",
-  description: '"draw a box - then do it again another 249 times."',
-  tasks: [],
-};
-
-const projects = [welcomeProject, demoProject1, demoProject2];
-
-const printProjects = () => {
-  console.log("Project List");
+const printProjects = (message = "A list of all Projects:") => {
+  if (projects.length === 0) {
+    return console.log(Error("There are no projects."));
+  }
+  console.log(`${message}`);
   let index = 0;
   projects.forEach((project) => {
     console.log(index, JSON.parse(JSON.stringify(project)));
@@ -33,21 +17,18 @@ const printProjects = () => {
 const moveProject = (positionA, positionB) => {
   let objectA = projects.splice(positionA, 1)[0];
   projects.splice(positionB, 0, objectA);
-  console.log("The projects have been reordered.");
-  printProjects();
+  printProjects("The projects have been reordered");
 };
 
 const removeProject = (index) => {
   let title = projects[index].title;
   projects.splice(index, 1);
-  console.log(`Project "${title}" has been removed.`);
-  printProjects();
+  printProjects(`Project "${title}" has been removed.`);
 };
 
 const makeProject = ({ title = "", description = "" }) => {
   projects.push({ title, description, tasks: [] });
-  console.log("A new project has been made.");
-  printProjects();
+  printProjects("A new project has been made.");
 };
 
 const taskFactory = ({
@@ -106,8 +87,7 @@ const updateProject = (index, { title, description }) => {
   if (description) {
     projects[index].description = description;
   }
-  console.log(`The project at ${index} has been updated.`);
-  printProjects();
+  printProjects(`The project at ${index} has been updated.`);
 };
 
 const updateTask = (
