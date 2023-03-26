@@ -33,16 +33,20 @@ const printProjects = () => {
 const moveProject = (positionA, positionB) => {
   let objectA = projects.splice(positionA, 1)[0];
   projects.splice(positionB, 0, objectA);
+  console.log("The projects have been reordered.");
   printProjects();
 };
 
 const removeProject = (index) => {
+  let title = projects[index].title;
   projects.splice(index, 1);
+  console.log(`Project "${title}" has been removed.`);
   printProjects();
 };
 
 const makeProject = ({ title = "", description = "" }) => {
   projects.push({ title, description, tasks: [] });
+  console.log("A new project has been made.");
   printProjects();
 };
 
@@ -91,6 +95,7 @@ const addTask = (projectIndex, task = {}) => {
     return console.log(Error("No project was specified."));
   }
   projects[projectIndex].tasks.push(taskFactory(task));
+  console.log("A task has been added to the list");
   printTasks(projectIndex);
 };
 
@@ -101,6 +106,7 @@ const updateProject = (index, { title, description }) => {
   if (description) {
     projects[index].description = description;
   }
+  console.log(`The project at ${index} has been updated.`);
   printProjects();
 };
 
@@ -122,17 +128,21 @@ const updateTask = (
   if (priority) {
     task.priority = priority;
   }
+  console.log(`The task at ${taskIndex} has been updated.`);
   printTasks(projectIndex);
 };
 
 const removeTask = (projectIndex, taskIndex) => {
+  let title = projects[projectIndex].tasks[taskIndex].title;
   projects[projectIndex].tasks.splice(taskIndex, 1);
+  console.log(`The task "${title}" has been removed.`);
   printTasks(projectIndex);
 };
 
 const transferTask = (projectIndexA, projectIndexB, taskIndex) => {
   let task = projects[projectIndexA].tasks.splice(taskIndex, 1)[0];
   addTask(projectIndexB, { task });
+  console.log(`Task ${task.title} has been transfered.`);
   printTasks(projectIndexB);
 };
 
