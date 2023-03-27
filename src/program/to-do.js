@@ -1,8 +1,6 @@
-import "../style/default.css";
+export const projects = [];
 
-const projects = [];
-
-const printProjects = (message = "A list of all Projects:") => {
+export const printProjects = (message = "A list of all Projects:") => {
   if (projects.length === 0) {
     return console.log(Error("There are no projects."));
   }
@@ -14,7 +12,7 @@ const printProjects = (message = "A list of all Projects:") => {
   });
 };
 
-const moveProject = (positionA, positionB) => {
+export const moveProject = (positionA, positionB) => {
   if (!projects[positionA]) {
     return console.log(Error("The project does not exist."));
   }
@@ -26,7 +24,7 @@ const moveProject = (positionA, positionB) => {
   printProjects("The projects have been reordered");
 };
 
-const removeProject = (index) => {
+export const removeProject = (index) => {
   if (!projects[index]) {
     return console.log(Error("The specified index is out of range."));
   }
@@ -35,7 +33,7 @@ const removeProject = (index) => {
   printProjects(`Project "${title}" has been removed.`);
 };
 
-const makeProject = ({ title = "", description = "" }) => {
+export const makeProject = ({ title = "", description = "" }) => {
   projects.push({ title, description, tasks: [] });
   printProjects("A new project has been made.");
 };
@@ -69,7 +67,7 @@ const taskFactory = ({
   };
 };
 
-const printTasks = (projectIndex, message) => {
+export const printTasks = (projectIndex, message) => {
   if (!projects[projectIndex]) {
     return console.log(Error("The specified project index is out of range."));
   }
@@ -85,7 +83,7 @@ const printTasks = (projectIndex, message) => {
   });
 };
 
-const addTask = (projectIndex, task = {}) => {
+export const addTask = (projectIndex, task = {}) => {
   if (!projects[projectIndex]) {
     return console.log(Error("The specified index is out of range."));
   }
@@ -96,7 +94,7 @@ const addTask = (projectIndex, task = {}) => {
   );
 };
 
-const updateProject = (index, { title, description }) => {
+export const updateProject = (index, { title, description }) => {
   if (!projects[index]) {
     return console.log(Error("The specified project index is out of range."));
   }
@@ -109,7 +107,7 @@ const updateProject = (index, { title, description }) => {
   printProjects(`The project at ${index} has been updated.`);
 };
 
-const updateTask = (
+export const updateTask = (
   projectIndex,
   taskIndex,
   { title, description, dueDate, priority }
@@ -136,7 +134,7 @@ const updateTask = (
   printTasks(projectIndex, `The task at ${taskIndex} has been updated.`);
 };
 
-const removeTask = (projectIndex, taskIndex) => {
+export const removeTask = (projectIndex, taskIndex) => {
   if (!projects[projectIndex]) {
     return console.log(Error("The specified project index is out of range."));
   }
@@ -148,7 +146,7 @@ const removeTask = (projectIndex, taskIndex) => {
   printTasks(projectIndex, `The task "${title}" has been removed.`);
 };
 
-const transferTask = (projectIndexA, projectIndexB, taskIndex) => {
+export const transferTask = (projectIndexA, projectIndexB, taskIndex) => {
   if (!projects[projectIndexA]) {
     return console.log(Error("The specified project index is out of range."));
   }
@@ -163,7 +161,7 @@ const transferTask = (projectIndexA, projectIndexB, taskIndex) => {
   printTasks(projectIndexB, `Task ${task.title} has been transfered.`);
 };
 
-const moveTask = (projectIndex, positionA, positionB) => {
+export const moveTask = (projectIndex, positionA, positionB) => {
   if (!projects[projectIndex]) {
     return console.log(Error("The specified project index is out of range."));
   }
@@ -177,5 +175,3 @@ const moveTask = (projectIndex, positionA, positionB) => {
   projects[projectIndex].tasks.splice(positionB, 0, task);
   printTasks(projectIndex, "The task list has been reordered");
 };
-
-printProjects();
