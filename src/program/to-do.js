@@ -60,11 +60,13 @@ const taskFactory = ({
   };
 };
 
-const printTasks = (projectIndex) => {
+const printTasks = (projectIndex, message) => {
+  if (!message) {
+    console.log(`Tasks in ${projects[projectIndex].title}.`);
+  } else {
+    console.log(message);
+  }
   let index = 0;
-  let projectTitle = projects[projectIndex].title;
-  let length = projects[projectIndex].tasks.length;
-  console.log(`Tasks in "${projectTitle}": ${length}`);
   projects[projectIndex].tasks.forEach((task) => {
     console.log(index, task);
     index++;
@@ -76,8 +78,10 @@ const addTask = (projectIndex, task = {}) => {
     return console.log(Error("No project was specified."));
   }
   projects[projectIndex].tasks.push(taskFactory(task));
-  console.log("A task has been added to the list");
-  printTasks(projectIndex);
+  printTasks(
+    projectIndex,
+    `A task has been added to project "${projects[projectIndex].title}".`
+  );
 };
 
 const updateProject = (index, { title, description }) => {
@@ -108,28 +112,25 @@ const updateTask = (
   if (priority) {
     task.priority = priority;
   }
-  console.log(`The task at ${taskIndex} has been updated.`);
-  printTasks(projectIndex);
+  printTasks(projectIndex, `The task at ${taskIndex} has been updated.`);
 };
 
 const removeTask = (projectIndex, taskIndex) => {
   let title = projects[projectIndex].tasks[taskIndex].title;
   projects[projectIndex].tasks.splice(taskIndex, 1);
-  console.log(`The task "${title}" has been removed.`);
-  printTasks(projectIndex);
+  printTasks(projectIndex, `The task "${title}" has been removed.`);
 };
 
 const transferTask = (projectIndexA, projectIndexB, taskIndex) => {
   let task = projects[projectIndexA].tasks.splice(taskIndex, 1)[0];
-  addTask(projectIndexB, { task });
-  console.log(`Task ${task.title} has been transfered.`);
-  printTasks(projectIndexB);
+  projects[projectIndexB].tasks.push(taskFactory(task));
+  printTasks(projectIndexB, `Task ${task.title} has been transfered.`);
 };
 
 const moveTask = (projectIndex, positionA, positionB) => {
   let task = projects[projectIndex].tasks.splice(positionA, 1)[0];
   projects[projectIndex].tasks.splice(positionB, 0, task);
-  printTasks(projectIndex);
+  printTasks(projectIndex, "The task list has been reordered");
 };
 
 printProjects();
