@@ -241,4 +241,18 @@ const printCategories = (message) => {
   });
 };
 
-export { makeCategory, printCategories };
+const transferProject = (categoryIndexA, categoryIndexB, projectIndex) => {
+  if (!categories[categoryIndexA]) {
+    return console.log(Error("The specified origin index is out of range."));
+  }
+  if (!categories[categoryIndexB]) {
+    return console.log(
+      Error("The specified destination index is out of range.")
+    );
+  }
+  let project = categories[categoryIndexA].projects.splice(projectIndex, 1)[0];
+  categories[categoryIndexB].projects.push(project);
+  categories[categoryIndexB].printProjects(`The project has been added.`);
+};
+
+export { makeCategory, printCategories, transferProject };

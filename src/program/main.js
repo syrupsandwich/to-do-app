@@ -1,5 +1,5 @@
 import "../style/default.css";
-import { makeCategory, printCategories } from "./to-do.js";
+import { makeCategory, printCategories, transferProject } from "./to-do.js";
 
 const demo1 = makeCategory("Demo");
 
@@ -71,4 +71,7 @@ work.makeProject({
   description: "an original sandbox game where everything is blocky",
 });
 
+printCategories();
+
+transferProject(0, 1, 0);
 printCategories();
