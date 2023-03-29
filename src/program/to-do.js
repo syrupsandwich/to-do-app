@@ -5,8 +5,7 @@ export const printProjects = (message = "A list of all Projects:") => {
     return console.log(Error("There are no projects."));
   }
   console.log(`${message}`);
-  let index = 0;
-  projects.forEach((project) => {
+  projects.forEach((project, index) => {
     console.log(index, JSON.parse(JSON.stringify(project)));
     index++;
   });
@@ -76,8 +75,7 @@ export const printTasks = (projectIndex, message) => {
   } else {
     console.log(message);
   }
-  let index = 0;
-  projects[projectIndex].tasks.forEach((task) => {
+  projects[projectIndex].tasks.forEach((task, index) => {
     console.log(index, task);
     index++;
   });
