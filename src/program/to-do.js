@@ -13,14 +13,16 @@ export const printProjects = (message = "A list of all Projects:") => {
 
 export const moveProject = (positionA, positionB) => {
   if (!projects[positionA]) {
-    return console.log(Error("The project does not exist."));
+    return console.log(Error("The specified origin index is out of range."));
   }
   if (!projects[positionB]) {
-    return console.log(Error("The destination out of range."));
+    return console.log(
+      Error("The specified destination index is out of range.")
+    );
   }
   let objectA = projects.splice(positionA, 1)[0];
   projects.splice(positionB, 0, objectA);
-  printProjects("The projects have been reordered");
+  printProjects("The projects have been reordered.");
 };
 
 export const removeProject = (index) => {
@@ -83,7 +85,7 @@ export const printTasks = (projectIndex, message) => {
 
 export const addTask = (projectIndex, task = {}) => {
   if (!projects[projectIndex]) {
-    return console.log(Error("The specified index is out of range."));
+    return console.log(Error("The specified project index is out of range."));
   }
   projects[projectIndex].tasks.push(taskFactory(task));
   printTasks(
@@ -146,10 +148,12 @@ export const removeTask = (projectIndex, taskIndex) => {
 
 export const transferTask = (projectIndexA, projectIndexB, taskIndex) => {
   if (!projects[projectIndexA]) {
-    return console.log(Error("The specified project index is out of range."));
+    return console.log(Error("The specified origin index is out of range."));
   }
   if (!projects[projectIndexB]) {
-    return console.log(Error("The specified project index is out of range."));
+    return console.log(
+      Error("The specified destination index is out of range.")
+    );
   }
   if (!projects[projectIndexA].tasks[taskIndex]) {
     return console.log(Error("The specified task index is out of range."));
@@ -164,10 +168,14 @@ export const moveTask = (projectIndex, positionA, positionB) => {
     return console.log(Error("The specified project index is out of range."));
   }
   if (!projects[projectIndex].tasks[positionA]) {
-    return console.log(Error("The specified task index is out of range."));
+    return console.log(
+      Error("The first specified task index is out of range.")
+    );
   }
   if (!projects[projectIndex].tasks[positionB]) {
-    return console.log(Error("The specified task index is out of range."));
+    return console.log(
+      Error("The second specified task index is out of range.")
+    );
   }
   let task = projects[projectIndex].tasks.splice(positionA, 1)[0];
   projects[projectIndex].tasks.splice(positionB, 0, task);
