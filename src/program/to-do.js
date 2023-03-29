@@ -225,4 +225,20 @@ const makeCategory = (title) => {
   return categories[categories.length - 1];
 };
 
-export { makeCategory };
+const printCategories = (message) => {
+  if (!message) {
+    console.log("A list of all categories:");
+  } else {
+    console.log("message");
+  }
+  categories.forEach((category, index) => {
+    console.log(
+      " ",
+      `${index}:`,
+      category.getTitle(),
+      `(${category.projects.length} projects)`
+    );
+  });
+};
+
+export { makeCategory, printCategories };
