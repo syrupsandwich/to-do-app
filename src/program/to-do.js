@@ -6,7 +6,7 @@ export const printProjects = (message = "A list of all Projects:") => {
   }
   console.log(`${message}`);
   projects.forEach((project, index) => {
-    console.log(index, JSON.parse(JSON.stringify(project)));
+    console.log(" ", index, JSON.parse(JSON.stringify(project)));
     index++;
   });
 };
@@ -78,7 +78,7 @@ export const printTasks = (projectIndex, message) => {
     console.log(message);
   }
   projects[projectIndex].tasks.forEach((task, index) => {
-    console.log(index, task);
+    console.log(" ", index, task);
     index++;
   });
 };
