@@ -81,7 +81,8 @@ const categoryFactory = (title) => {
     };
   };
 
-  const makeProject = ({ title = "", description = "", tasks = [] }) => {
+  const projectFactory = ({ title = "", description = "" }) => {
+    const tasks = [];
     const printTasks = (message = `Tasks in "${title}"`) => {
       if (tasks.length === 0) {
         return Error(`There are no tasks in "${title}".`);
@@ -95,7 +96,12 @@ const categoryFactory = (title) => {
       tasks.push(taskFactory(task));
       printTasks(`A new task has been added to "${title}".`);
     };
-    projects.push({ title, description, tasks, printTasks, addTask });
+
+    return { title, description, tasks, printTasks, addTask };
+  };
+
+  const makeProject = ({ title, description }) => {
+    projects.push(projectFactory({ title, description }));
     printProjects("A new project has been made.");
   };
 
