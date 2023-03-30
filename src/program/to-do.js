@@ -15,12 +15,14 @@ const categoryFactory = (title) => {
 
   const printProjects = (message) => {
     if (projects.length === 0) {
-      return console.log(Error(`There are no projects in ${title} category.`));
+      return console.log(
+        Error(`There are no projects in ${getTitle()} category.`)
+      );
     }
     if (!message) {
-      console.log(`A list of all projects in "${title}" category:`);
+      console.log(`A list of all projects in "${getTitle()}" category:`);
     } else {
-      console.log(`${message} (${title} category)`);
+      console.log(`${message} (${getTitle()} category)`);
     }
     projects.forEach((project, index) => {
       console.log(" ", index, JSON.parse(JSON.stringify(project)));
@@ -80,13 +82,11 @@ const categoryFactory = (title) => {
   };
 
   const makeProject = ({ title = "", description = "", tasks = [] }) => {
-    const printTasks = (contextWasProvided = false) => {
+    const printTasks = (message = `Tasks in "${title}"`) => {
       if (tasks.length === 0) {
         return Error(`There are no tasks in "${title}".`);
       }
-      if (!contextWasProvided) {
-        console.log(`Tasks in "${title}":`);
-      }
+      console.log(`${message} ("${getTitle()}" category)`);
       tasks.forEach((task, index) => {
         console.log(" ", index, task);
       });
@@ -97,11 +97,6 @@ const categoryFactory = (title) => {
     };
     projects.push({ title, description, tasks, printTasks, addTask });
     printProjects("A new project has been made.");
-  };
-
-  const printTaskUpdate = (projectIndex, message) => {
-    console.log(`${message} (${title} category)`);
-    projects[projectIndex].printTasks(true);
   };
 
   const updateProject = (index, { title, description }) => {
@@ -141,7 +136,9 @@ const categoryFactory = (title) => {
     if (priority) {
       task.priority = priority;
     }
-    printTaskUpdate(projectIndex, `The task at ${taskIndex} has been updated.`);
+    projects[projectIndex].printTasks(
+      `The task at ${taskIndex} has been updated.`
+    );
   };
 
   const removeTask = (projectIndex, taskIndex) => {
@@ -153,7 +150,7 @@ const categoryFactory = (title) => {
     }
     let title = projects[projectIndex].tasks[taskIndex].title;
     projects[projectIndex].tasks.splice(taskIndex, 1);
-    printTaskUpdate(projectIndex, `The task "${title}" has been removed.`);
+    projects[projectIndex].printTasks(`The task "${title}" has been removed.`);
   };
 
   const transferTask = (projectIndexA, projectIndexB, taskIndex) => {
@@ -170,7 +167,9 @@ const categoryFactory = (title) => {
     }
     let task = projects[projectIndexA].tasks.splice(taskIndex, 1)[0];
     projects[projectIndexB].tasks.push(taskFactory(task));
-    printTaskUpdate(projectIndexB, `Task ${task.title} has been transfered.`);
+    projects[projectIndexB].printTasks(
+      `Task ${task.title} has been transfered.`
+    );
   };
 
   const moveTask = (projectIndex, positionA, positionB) => {
@@ -189,7 +188,7 @@ const categoryFactory = (title) => {
     }
     let task = projects[projectIndex].tasks.splice(positionA, 1)[0];
     projects[projectIndex].tasks.splice(positionB, 0, task);
-    printTaskUpdate(projectIndex, "The task list has been reordered");
+    projects[projectIndex].projects("The task list has been reordered");
   };
 
   return {
