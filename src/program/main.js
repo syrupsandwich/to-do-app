@@ -75,3 +75,7 @@ printCategories();
 
 transferProject(0, 1, 0);
 printCategories();
+
+demo1.projects[0].printTasks();
+demo1.printProjects();
+demo1.transferTask(0, 1, 0);
