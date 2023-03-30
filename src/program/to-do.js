@@ -91,19 +91,13 @@ const categoryFactory = (title) => {
         console.log(" ", index, task);
       });
     };
+    const addTask = (task = {}) => {
+      tasks.push(taskFactory(task));
+      printTasks(`A new task has been added to "${title}".`);
+    };
     projects.push({ title, description, tasks, printTasks, addTask });
     printProjects("A new project has been made.");
   };
-
-  const addTask = (projectIndex, task = {}) => {
-    if (!projects[projectIndex]) {
-      return console.log(Error("The specified index is out of range."));
-    }
-    projects[projectIndex].tasks.push(taskFactory(task));
-    printTaskUpdate(
-      projectIndex,
-      `A task has been added to project "${projects[projectIndex].title}".`
-    );
 
   const printTaskUpdate = (projectIndex, message) => {
     console.log(`${message} (${title} category)`);
@@ -206,7 +200,6 @@ const categoryFactory = (title) => {
     moveProject,
     removeProject,
     makeProject,
-    addTask,
     updateProject,
     updateTask,
     removeTask,

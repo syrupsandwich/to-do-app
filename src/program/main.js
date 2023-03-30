@@ -9,7 +9,7 @@ demo1.makeProject({
   tasks: [],
 });
 
-demo1.addTask(0, {
+demo1.projects[0].addTask({
   title: "Look around",
   description: "Get to know the app.",
 });
@@ -20,22 +20,22 @@ demo1.makeProject({
   tasks: [],
 });
 
-demo1.addTask(1, {
+demo1.projects[1].addTask({
   title: "Buy pulleys",
   description: "For exercises that require an upward dirction of resistance.",
 });
 
-demo1.addTask(1, {
+demo1.projects[1].addTask({
   title: "Get weight plates",
   description: "A minimalistic set that allows increments of 5lb.",
 });
 
-demo1.addTask(1, {
+demo1.projects[1].addTask({
   title: "Find supplies",
   description: "Things like rope, webbing, caribiners, chains, foam... ",
 });
 
-demo1.addTask(1, {
+demo1.projects[1].addTask({
   title: "Make some equipment",
   description: "Ask mom to sew together my inventions",
 });
@@ -46,17 +46,17 @@ demo1.makeProject({
   tasks: [],
 });
 
-demo1.addTask(2, {
+demo1.projects[2].addTask({
   title: "Find drawing supplies",
   description: "a large stack of priter paper and a .5 pen.",
 });
 
-demo1.addTask(2, {
+demo1.projects[2].addTask({
   title: "draw 5 boxes on a page",
   description: "5 leaves enough room to check the convergences",
 });
 
-demo1.addTask(2, {
+demo1.projects[2].addTask({
   title: "50% rule",
   description:
     "Draw whatever you want for the same amount of time spent practicing.",
