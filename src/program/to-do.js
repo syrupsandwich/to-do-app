@@ -1,28 +1,26 @@
-const categoryFactory = (title) => {
-  const setTitle = (input) => {
+const categoryFactory = (category) => {
+  const renameCategory = (input) => {
     if (typeof input !== "string") {
       return console.log(Error("The specified title is not a string."));
     } else {
-      title = input;
+      category = input;
     }
   };
 
-  const getTitle = () => {
-    return title;
+  let getTitle = () => {
+    return category;
   };
 
   const projects = [];
 
   const printProjects = (message) => {
     if (projects.length === 0) {
-      return console.log(
-        Error(`There are no projects in ${getTitle()} category.`)
-      );
+      return console.log(Error(`${category} : empty`));
     }
     if (!message) {
-      console.log(`A list of all projects in "${getTitle()}" category:`);
+      console.log(`${category} : A list of all projects:`);
     } else {
-      console.log(`${message} (${getTitle()} category)`);
+      console.log(`${category} : ${message}`);
     }
     projects.forEach((project, index) => {
       console.log(" ", index, JSON.parse(JSON.stringify(project)));
@@ -87,7 +85,7 @@ const categoryFactory = (title) => {
       if (tasks.length === 0) {
         return Error(`There are no tasks in "${title}".`);
       }
-      console.log(`${message} ("${getTitle()}" category)`);
+      console.log(`${category} : ${message}`);
       tasks.forEach((task, index) => {
         console.log(" ", index, task);
       });
@@ -185,7 +183,7 @@ const categoryFactory = (title) => {
   };
 
   return {
-    setTitle,
+    renameCategory,
     getTitle,
     projects,
     printProjects,
