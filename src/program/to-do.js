@@ -27,17 +27,17 @@ const categoryFactory = (category) => {
     });
   };
 
-  const moveProject = (positionA, positionB) => {
-    if (!projects[positionA]) {
+  const moveProject = (index, { destination }) => {
+    if (!projects[index]) {
       return console.log(Error("The specified origin index is out of range."));
     }
-    if (!projects[positionB]) {
+    if (!projects[destination]) {
       return console.log(
         Error("The specified destination index is out of range.")
       );
     }
-    let objectA = projects.splice(positionA, 1)[0];
-    projects.splice(positionB, 0, objectA);
+    let objectA = projects.splice(index, 1)[0];
+    projects.splice(destination, 0, objectA);
     printProjects("The projects have been reordered.");
   };
 

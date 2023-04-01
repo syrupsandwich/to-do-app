@@ -88,5 +88,5 @@ demo1.projects[0].tasks[0].description = "space out to some bops";
 demo1.projects[0].tasks[0].priority = "important";
 demo1.projects[0].printTasks();
 
-demo1.projects[0].moveTask(0, 2);
-demo1.projects[0].moveTask(2, 1);
+demo1.printProjects();
+demo1.moveProject(0, { destination: 1 });
