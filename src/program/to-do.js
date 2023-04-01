@@ -102,32 +102,36 @@ const categoryFactory = (category) => {
       tasks.splice(index, 1);
       printTasks(`The task "${title}" has been removed.`);
     };
+    const transferTask = (taskIndex, { destinationProject }) => {
+      if (!tasks[taskIndex]) {
+        return console.log(Error("The specified task index is out of range."));
+      }
+      if (!projects[destinationProject]) {
+        return console.log(
+          Error("The specified destination index is out of range.")
+        );
+      }
+      let task = tasks.splice(taskIndex, 1)[0];
+      projects[destinationProject].tasks.push(task);
+      projects[destinationProject].printTasks(
+        `Task ${task.title} has been transfered.`
+      );
+    };
 
-    return { title, description, tasks, printTasks, makeTask, removeTask };
+    return {
+      title,
+      description,
+      tasks,
+      printTasks,
+      makeTask,
+      removeTask,
+      transferTask,
+    };
   };
 
   const makeProject = ({ title, description }) => {
     projects.push(projectFactory({ title, description }));
     printProjects("A new project has been made.");
-  };
-
-  const transferTask = (projectIndexA, projectIndexB, taskIndex) => {
-    if (!projects[projectIndexA]) {
-      return console.log(Error("The specified origin index is out of range."));
-    }
-    if (!projects[projectIndexB]) {
-      return console.log(
-        Error("The specified destination index is out of range.")
-      );
-    }
-    if (!projects[projectIndexA].tasks[taskIndex]) {
-      return console.log(Error("The specified task index is out of range."));
-    }
-    let task = projects[projectIndexA].tasks.splice(taskIndex, 1)[0];
-    projects[projectIndexB].tasks.push(taskFactory(task));
-    projects[projectIndexB].printTasks(
-      `Task ${task.title} has been transfered.`
-    );
   };
 
   const moveTask = (projectIndex, positionA, positionB) => {
@@ -157,7 +161,6 @@ const categoryFactory = (category) => {
     moveProject,
     removeProject,
     makeProject,
-    transferTask,
     moveTask,
   };
 };
