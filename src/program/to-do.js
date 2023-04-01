@@ -18,9 +18,9 @@ const categoryFactory = (category) => {
       return console.log(Error(`${category} : empty`));
     }
     if (!message) {
-      console.log(`${category} : A list of all projects:`);
+      console.log(`${category} - A list of all projects:`);
     } else {
-      console.log(`${category} : ${message}`);
+      console.log(`${category} - ${message}`);
     }
     projects.forEach((project, index) => {
       console.log(" ", index, JSON.parse(JSON.stringify(project)));
@@ -81,11 +81,11 @@ const categoryFactory = (category) => {
 
   const projectFactory = ({ title = "", description = "" }) => {
     const tasks = [];
-    const printTasks = (message = `Tasks in "${title}"`) => {
+    const printTasks = (message = `A list of all tasks:`) => {
       if (tasks.length === 0) {
         return Error(`There are no tasks in "${title}".`);
       }
-      console.log(`${category} : ${message}`);
+      console.log(`${category} / ${title} - ${message}`);
       tasks.forEach((task, index) => {
         console.log(" ", index, task);
       });
