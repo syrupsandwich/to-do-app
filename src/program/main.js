@@ -89,4 +89,4 @@ demo1.projects[0].tasks[0].priority = "important";
 demo1.projects[0].printTasks();
 
 demo1.printProjects();
-demo1.moveProject(0, { destination: 1 });
+demo1.moveProject(3, { destination: 1 });

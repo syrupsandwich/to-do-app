@@ -1,7 +1,7 @@
 const categoryFactory = (category) => {
   const renameCategory = (input) => {
     if (typeof input !== "string") {
-      return console.log(Error("The specified title is not a string."));
+      return console.error("The specified title is not a string.");
     } else {
       category = input;
     }
@@ -15,7 +15,7 @@ const categoryFactory = (category) => {
 
   const printProjects = (message) => {
     if (projects.length === 0) {
-      return console.log(Error(`${category} : empty`));
+      return console.error(`${category} : empty`);
     }
     if (!message) {
       console.log(`${category} - A list of all projects:`);
@@ -29,12 +29,10 @@ const categoryFactory = (category) => {
 
   const moveProject = (index, { destination }) => {
     if (!projects[index]) {
-      return console.log(Error("The specified origin index is out of range."));
+      return console.error("The specified origin index is out of range.");
     }
     if (!projects[destination]) {
-      return console.log(
-        Error("The specified destination index is out of range.")
-      );
+      return console.error("The specified destination index is out of range.");
     }
     let objectA = projects.splice(index, 1)[0];
     projects.splice(destination, 0, objectA);
@@ -43,7 +41,7 @@ const categoryFactory = (category) => {
 
   const removeProject = (index) => {
     if (!projects[index]) {
-      return console.log(Error("The specified index is out of range."));
+      return console.error("The specified index is out of range.");
     }
     let title = projects[index].title;
     projects.splice(index, 1);
@@ -96,7 +94,7 @@ const categoryFactory = (category) => {
     };
     const removeTask = (index) => {
       if (!tasks[index]) {
-        return console.log(Error("The specified task index is out of range."));
+        return console.error("The specified task index is out of range.");
       }
       let title = tasks[index].title;
       tasks.splice(index, 1);
@@ -104,7 +102,7 @@ const categoryFactory = (category) => {
     };
     const transferTask = (taskIndex, { destinationProject }) => {
       if (!tasks[taskIndex]) {
-        return console.log(Error("The specified task index is out of range."));
+        return console.error("The specified task index is out of range.");
       }
       if (!projects[destinationProject]) {
         return console.log(
