@@ -82,3 +82,8 @@ demo1.transferTask(0, 1, 0);
 
 demo1.projects[1].title = "Institutionalized";
 demo1.printProjects();
+
+demo1.projects[0].tasks[0].title = "chill";
+demo1.projects[0].tasks[0].description = "space out to some bops";
+demo1.projects[0].tasks[0].priority = "important";
+demo1.projects[0].printTasks();

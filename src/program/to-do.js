@@ -103,35 +103,6 @@ const categoryFactory = (category) => {
     printProjects("A new project has been made.");
   };
 
-  const updateTask = (
-    projectIndex,
-    taskIndex,
-    { title, description, dueDate, priority }
-  ) => {
-    if (!projects[projectIndex]) {
-      return console.log(Error("The specified project index is out of range."));
-    }
-    if (!projects[projectIndex].tasks[taskIndex]) {
-      return console.log(Error("The specified task index is out of range."));
-    }
-    let task = projects[projectIndex].tasks[taskIndex];
-    if (title) {
-      task.title = title;
-    }
-    if (description) {
-      task.description = description;
-    }
-    if (dueDate) {
-      task.dueDate = dueDate;
-    }
-    if (priority) {
-      task.priority = priority;
-    }
-    projects[projectIndex].printTasks(
-      `The task at ${taskIndex} has been updated.`
-    );
-  };
-
   const removeTask = (projectIndex, taskIndex) => {
     if (!projects[projectIndex]) {
       return console.log(Error("The specified project index is out of range."));
@@ -190,7 +161,6 @@ const categoryFactory = (category) => {
     moveProject,
     removeProject,
     makeProject,
-    updateTask,
     removeTask,
     transferTask,
     moveTask,
