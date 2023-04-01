@@ -114,7 +114,7 @@ const categoryFactory = (category) => {
       let task = tasks.splice(taskIndex, 1)[0];
       projects[destinationProject].tasks.push(task);
       projects[destinationProject].printTasks(
-        `Task ${task.title} has been transfered.`
+        `Task "${task.title}" has been transferred.`
       );
     };
     const moveTask = (positionA, positionB) => {
