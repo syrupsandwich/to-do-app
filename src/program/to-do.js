@@ -150,6 +150,19 @@ const categoryFactory = (category) => {
     printProjects("A new project has been made.");
   };
 
+  const transferProject = (projectIndex, { destinationCategory }) => {
+    if (!categories[destinationCategory]) {
+      return console.log(
+        Error("The specified destination index is out of range.")
+      );
+    }
+    let project = projects.splice(projectIndex, 1)[0];
+    categories[destinationCategory].projects.push(project);
+    categories[destinationCategory].printProjects(
+      `The project "${project.title}" has been transfered.`
+    );
+  };
+
   return {
     renameCategory,
     getTitle,
@@ -158,6 +171,7 @@ const categoryFactory = (category) => {
     moveProject,
     removeProject,
     makeProject,
+    transferProject,
   };
 };
 
@@ -185,18 +199,4 @@ const printCategories = (message) => {
   });
 };
 
-const transferProject = (categoryIndexA, categoryIndexB, projectIndex) => {
-  if (!categories[categoryIndexA]) {
-    return console.log(Error("The specified origin index is out of range."));
-  }
-  if (!categories[categoryIndexB]) {
-    return console.log(
-      Error("The specified destination index is out of range.")
-    );
-  }
-  let project = categories[categoryIndexA].projects.splice(projectIndex, 1)[0];
-  categories[categoryIndexB].projects.push(project);
-  categories[categoryIndexB].printProjects(`The project has been added.`);
-};
-
-export { makeCategory, printCategories, transferProject };
+export { makeCategory, printCategories };

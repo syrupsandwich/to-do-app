@@ -1,5 +1,5 @@
 import "../style/default.css";
-import { makeCategory, printCategories, transferProject } from "./to-do.js";
+import { makeCategory, printCategories } from "./to-do.js";
 
 const demo1 = makeCategory("Demo");
 
@@ -73,7 +73,7 @@ work.makeProject({
 
 printCategories();
 
-transferProject(0, 1, 0);
+demo1.transferProject(0, { destinationCategory: 1 });
 printCategories();
 
 demo1.projects[0].printTasks();
