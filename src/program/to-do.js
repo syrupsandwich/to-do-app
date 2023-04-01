@@ -90,12 +90,12 @@ const categoryFactory = (category) => {
         console.log(" ", index, task);
       });
     };
-    const addTask = (task = {}) => {
+    const makeTask = (task = {}) => {
       tasks.push(taskFactory(task));
       printTasks(`A new task has been added to "${title}".`);
     };
 
-    return { title, description, tasks, printTasks, addTask };
+    return { title, description, tasks, printTasks, makeTask };
   };
 
   const makeProject = ({ title, description }) => {
