@@ -115,19 +115,19 @@ const categoryFactory = (category) => {
         `Task "${task.title}" has been transferred.`
       );
     };
-    const moveTask = (positionA, positionB) => {
-      if (!tasks[positionA]) {
+    const moveTask = (index, { destination }) => {
+      if (!tasks[index]) {
         return console.log(
           Error("The first specified task index is out of range.")
         );
       }
-      if (!tasks[positionB]) {
+      if (!tasks[destination]) {
         return console.log(
           Error("The second specified task index is out of range.")
         );
       }
-      let task = tasks.splice(positionA, 1)[0];
-      tasks.splice(positionB, 0, task);
+      let task = tasks.splice(index, 1)[0];
+      tasks.splice(destination, 0, task);
       printTasks("The task list has been reordered.");
     };
 
