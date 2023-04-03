@@ -1,3 +1,5 @@
+import { formatDistanceToNowStrict, parseISO, isValid } from "date-fns";
+
 const categoryFactory = (category) => {
   const renameCategory = (input) => {
     if (typeof input !== "string") {
@@ -67,10 +69,28 @@ const categoryFactory = (category) => {
     const changeCompletionStatus = () => {
       taskStatus = taskStatus ? false : true;
     };
+    const getDueDate = () => {
+      return dueDate;
+    };
+    const setDueDate = (date) => {
+      if (!isValid(parseISO(date))) {
+        return console.error("The specified date is not valid.");
+      }
+      dueDate = date;
+    };
+    const getTimeLeft = () => {
+      if (dueDate === "") {
+        console.error("The due date has not been set.");
+      }
+      return formatDistanceToNowStrict(parseISO(dueDate));
+    };
+
     return {
       title,
       description,
-      dueDate,
+      getDueDate,
+      setDueDate,
+      getTimeLeft,
       priority,
       checkCompletionStatus,
       changeCompletionStatus,

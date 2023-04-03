@@ -90,3 +90,7 @@ demo1.projects[0].printTasks();
 
 demo1.projects[0].printTasks();
 demo1.projects[0].moveTask(1, { destination: 2 });
+
+demo1.projects[0].tasks[0].setDueDate("2023-04-05T12:00:00");
+console.log(demo1.projects[0].tasks[0].getDueDate());
+console.log(demo1.projects[0].tasks[0].getTimeLeft());
