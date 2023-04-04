@@ -1,4 +1,4 @@
-import { formatDistanceToNowStrict, parseISO, isValid } from "date-fns";
+import { formatDistanceToNowStrict, parseISO, isValid, add } from "date-fns";
 
 const categoryFactory = (category) => {
   const renameCategory = (input) => {
@@ -54,9 +54,17 @@ const categoryFactory = (category) => {
     title = "",
     description = "",
     dueDate = "",
+    dueTime = "",
     priority = "",
   }) => {
     let taskStatus = false;
+    const getDeadLine = () => {
+      return add(parseISO(dueDate), {
+        hours: dueTime.slice(0, 2),
+        minutes: dueTime.slice(3, 5),
+        seconds: dueTime.slice(6),
+      });
+    };
     const checkCompletionStatus = () => {
       if (taskStatus) {
         console.log(`Task "${title}" has been completed. :D`);
@@ -82,7 +90,16 @@ const categoryFactory = (category) => {
       if (dueDate === "") {
         console.error("The due date has not been set.");
       }
-      return formatDistanceToNowStrict(parseISO(dueDate));
+      return formatDistanceToNowStrict(getDeadLine());
+    };
+    const getDueTime = () => {
+      if (dueTime === "") {
+        return console.error("The due time has not been set.");
+      }
+      return dueTime;
+    };
+    const setDueTime = (time) => {
+      dueTime = time;
     };
 
     return {
@@ -90,6 +107,8 @@ const categoryFactory = (category) => {
       description,
       getDueDate,
       setDueDate,
+      getDueTime,
+      setDueTime,
       getTimeLeft,
       priority,
       checkCompletionStatus,
