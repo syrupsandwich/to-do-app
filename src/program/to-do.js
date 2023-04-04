@@ -1,4 +1,10 @@
-import { formatDistanceToNowStrict, parseISO, isValid, add } from "date-fns";
+import {
+  formatDistanceToNowStrict,
+  parseISO,
+  isValid,
+  add,
+  isToday,
+} from "date-fns";
 
 const categoryFactory = (category) => {
   const renameCategory = (input) => {
@@ -101,6 +107,9 @@ const categoryFactory = (category) => {
     const setDueTime = (time) => {
       dueTime = time;
     };
+    const isDueToday = () => {
+      return isToday(getDeadLine());
+    };
 
     return {
       title,
@@ -113,6 +122,7 @@ const categoryFactory = (category) => {
       priority,
       checkCompletionStatus,
       changeCompletionStatus,
+      isDueToday,
     };
   };
 
@@ -236,4 +246,18 @@ const printCategories = (message) => {
   });
 };
 
-export { makeCategory, printCategories };
+const getTasksForToday = () => {
+  let tasksForToday = [];
+  categories.forEach((category) => {
+    category.projects.forEach((project) => {
+      project.tasks.forEach((task) => {
+        if (task.isDueToday()) {
+          tasksForToday.push(task);
+        }
+      });
+    });
+  });
+  return tasksForToday;
+};
+
+export { categories, makeCategory, printCategories, getTasksForToday };

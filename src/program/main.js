@@ -1,5 +1,5 @@
 import "../style/default.css";
-import { makeCategory, printCategories } from "./to-do.js";
+import { makeCategory, printCategories, getTasksForToday } from "./to-do.js";
 
 const demo1 = makeCategory("Demo");
 
@@ -96,3 +96,11 @@ console.log(demo1.projects[0].tasks[0].getDueDate());
 demo1.projects[0].tasks[0].setDueTime("12:00");
 console.log(demo1.projects[0].tasks[0].getDueTime());
 console.log(demo1.projects[0].tasks[0].getTimeLeft());
+
+console.log(demo1.projects[0].tasks[0].isDueToday());
+demo1.projects[0].tasks[0].setDueDate("2023-04-03");
+console.log(demo1.projects[0].tasks[0].isDueToday());
+
+demo1.projects[1].tasks[0].setDueDate("2023-04-03");
+
+console.log("Tasks for today:", getTasksForToday());
