@@ -1,9 +1,11 @@
 import {
+  format,
   formatDistanceToNowStrict,
   parseISO,
   isValid,
   add,
   isToday,
+  isPast,
 } from "date-fns";
 
 const categoryFactory = (category) => {
@@ -63,14 +65,14 @@ const categoryFactory = (category) => {
     dueTime = "",
     priority = "",
   }) => {
-    let taskStatus = false;
-    const getDeadLine = () => {
+    const getDeadline = () => {
       return add(parseISO(dueDate), {
         hours: dueTime.slice(0, 2),
         minutes: dueTime.slice(3, 5),
         seconds: dueTime.slice(6),
       });
     };
+    let taskStatus = false;
     const checkCompletionStatus = () => {
       if (taskStatus) {
         console.log(`Task "${title}" has been completed. :D`);
@@ -80,6 +82,7 @@ const categoryFactory = (category) => {
       }
       return taskStatus;
     };
+    let timeExtension = {};
     const changeCompletionStatus = () => {
       taskStatus = taskStatus ? false : true;
     };
@@ -97,9 +100,9 @@ const categoryFactory = (category) => {
         return console.error("The due date has not been set.");
       }
       if (isPast(parseISO(dueDate))) {
-        return `${formatDistanceToNowStrict(getDeadLine())} ago.`;
+        return `${formatDistanceToNowStrict(getDeadline())} ago.`;
       }
-      return formatDistanceToNowStrict(getDeadLine());
+      return formatDistanceToNowStrict(getDeadline());
     };
     const getDueTime = () => {
       if (dueTime === "") {
@@ -111,7 +114,35 @@ const categoryFactory = (category) => {
       dueTime = time;
     };
     const isDueToday = () => {
-      return isToday(getDeadLine());
+      return isToday(getDeadline());
+    };
+    const setTimeExtension = (time) => {
+      if (typeof time !== "object" || Array.isArray(time) || time === null) {
+        return console.error(
+          "The specified time parameter should at least be an empty object."
+        );
+      }
+      timeExtension = time;
+    };
+    let timesRepeated = 0;
+    const getTimesRepeated = () => {
+      return timesRepeated;
+    };
+    const extendDeadline = () => {
+      if (taskStatus) {
+        return console.error("The task has already been completed.");
+      }
+      if (!timeExtension) {
+        return console.warn("The repeat time has not been set.");
+      }
+      let currentDayAndTime = new Date();
+      let nextDueDate = add(currentDayAndTime, timeExtension);
+      dueDate = format(nextDueDate, "yyyy-MM-dd");
+      let dateWithPreviousTime = getDeadline();
+      let nextDeadline = add(dateWithPreviousTime, timeExtension);
+      dueTime = format(nextDeadline, "HH:mm:ss");
+      timesRepeated++;
+      return;
     };
 
     return {
@@ -126,6 +157,9 @@ const categoryFactory = (category) => {
       checkCompletionStatus,
       changeCompletionStatus,
       isDueToday,
+      setTimeExtension,
+      getTimesRepeated,
+      extendDeadline,
     };
   };
 

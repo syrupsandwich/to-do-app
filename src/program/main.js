@@ -93,7 +93,8 @@ demo1.projects[0].moveTask(1, { destination: 2 });
 
 demo1.projects[0].tasks[0].setDueDate("2023-04-05");
 console.log(demo1.projects[0].tasks[0].getDueDate());
-demo1.projects[0].tasks[0].setDueTime("12:00");
+console.log("what is the due time?");
+demo1.projects[0].tasks[0].setDueTime("14:00:00");
 console.log(demo1.projects[0].tasks[0].getDueTime());
 console.log(demo1.projects[0].tasks[0].getTimeLeft());
 
@@ -104,3 +105,34 @@ console.log(demo1.projects[0].tasks[0].isDueToday());
 demo1.projects[1].tasks[0].setDueDate("2023-04-03");
 
 console.log("Tasks for today:", getTasksForToday());
+
+console.log("");
+console.log("what is the due time?");
+console.log(demo1.projects[0].tasks[0].getDueTime());
+
+console.log("the due date is", demo1.projects[0].tasks[0].getDueDate());
+demo1.projects[0].tasks[0].setTimeExtension({ days: 1 });
+demo1.projects[0].tasks[0].extendDeadline();
+console.log("the deadline should now be extended.");
+console.log("the due date is", demo1.projects[0].tasks[0].getDueDate());
+console.log("what is the due time?");
+console.log(demo1.projects[0].tasks[0].getDueTime());
+demo1.projects[0].tasks[0].setTimeExtension({ hours: 1 });
+console.log("time extension has been set to 1 hour");
+demo1.projects[0].tasks[0].extendDeadline();
+console.log(demo1.projects[0].tasks[0].getDueTime());
+console.log("the due date is", demo1.projects[0].tasks[0].getDueDate());
+
+console.log(
+  "extend deadline when there is no time extension for seconds/minutes/hours?"
+);
+demo1.projects[0].tasks[0].setTimeExtension({});
+demo1.projects[0].tasks[0].extendDeadline();
+console.log("the due date is", demo1.projects[0].tasks[0].getDueDate());
+console.log(demo1.projects[0].tasks[0].getDueTime());
+console.log("nothing seems to happen :)");
+
+//console.log("");
+//demo1.projects[0].tasks[0].changeCompletionStatus();
+//demo1.projects[0].tasks[0].extendDeadline();
+//demo1.projects[0].tasks[0].changeCompletionStatus();
