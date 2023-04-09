@@ -94,7 +94,10 @@ const categoryFactory = (category) => {
     };
     const getTimeLeft = () => {
       if (dueDate === "") {
-        console.error("The due date has not been set.");
+        return console.error("The due date has not been set.");
+      }
+      if (isPast(parseISO(dueDate))) {
+        return `${formatDistanceToNowStrict(getDeadLine())} ago.`;
       }
       return formatDistanceToNowStrict(getDeadLine());
     };
