@@ -8,29 +8,32 @@ import {
   isPast,
 } from "date-fns";
 
-const categoryFactory = (category) => {
-  const renameCategory = (input) => {
-    if (typeof input !== "string") {
-      return console.error("The specified title is not a string.");
-    } else {
-      category = input;
-    }
+const categoryFactory = (title) => {
+  const getTitle = () => {
+    return title;
   };
 
-  let getTitle = () => {
-    return category;
+  const setTitle = (input) => {
+    if (typeof input !== "string") {
+      return console.error("The title must be a string.");
+    }
+    title = input;
+  };
+
+  const getCategoryTitle = () => {
+    return getTitle();
   };
 
   const projects = [];
 
   const printProjects = (message) => {
     if (projects.length === 0) {
-      return console.error(`${category} : empty`);
+      return console.error(`${getCategoryTitle()} : empty`);
     }
     if (!message) {
-      console.log(`${category} - A list of all projects:`);
+      console.log(`${getCategoryTitle()} - A list of all projects:`);
     } else {
-      console.log(`${category} - ${message}`);
+      console.log(`${getCategoryTitle()} - ${message}`);
     }
     projects.forEach((project, index) => {
       console.log(" ", index, JSON.parse(JSON.stringify(project)));
@@ -169,7 +172,7 @@ const categoryFactory = (category) => {
       if (tasks.length === 0) {
         return Error(`There are no tasks in "${title}".`);
       }
-      console.log(`${category} / ${title} - ${message}`);
+      console.log(`${getCategoryTitle()} / ${title} - ${message}`);
       tasks.forEach((task, index) => {
         console.log(" ", index, task);
       });
@@ -248,8 +251,8 @@ const categoryFactory = (category) => {
   };
 
   return {
-    renameCategory,
     getTitle,
+    setTitle,
     projects,
     printProjects,
     moveProject,
