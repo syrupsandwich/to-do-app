@@ -271,15 +271,10 @@ const printCategories = (message) => {
   if (!message) {
     console.log("A list of all categories:");
   } else {
-    console.log("message");
+    console.log(message);
   }
   categories.forEach((category, index) => {
-    console.log(
-      " ",
-      `${index}:`,
-      category.getTitle(),
-      `(${category.projects.length} projects)`
-    );
+    console.log(" ", `${index}:`, category);
   });
 };
 
@@ -297,4 +292,16 @@ const getTasksForToday = () => {
   return tasksForToday;
 };
 
-export { categories, makeCategory, printCategories, getTasksForToday };
+const moveCategory = (origin, destination) => {
+  let tempObj = categories.splice(origin, 1)[0];
+  categories.splice(destination, 0, tempObj);
+  printCategories("The categories have been reordered.");
+};
+
+export {
+  categories,
+  makeCategory,
+  printCategories,
+  getTasksForToday,
+  moveCategory,
+};

@@ -1,5 +1,10 @@
 import "../style/default.css";
-import { makeCategory, printCategories, getTasksForToday } from "./to-do.js";
+import {
+  makeCategory,
+  printCategories,
+  getTasksForToday,
+  moveCategory,
+} from "./to-do.js";
 
 const demo1 = makeCategory("Demo");
 
@@ -136,3 +141,6 @@ console.log("nothing seems to happen :)");
 //demo1.projects[0].tasks[0].changeCompletionStatus();
 //demo1.projects[0].tasks[0].extendDeadline();
 //demo1.projects[0].tasks[0].changeCompletionStatus();
+
+moveCategory(0, 1);
+moveCategory(0, 1);
