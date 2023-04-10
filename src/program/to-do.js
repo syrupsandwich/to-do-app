@@ -68,6 +68,30 @@ const categoryFactory = (title) => {
     dueTime = "",
     priority = "",
   }) => {
+    const getTitle = () => {
+      return title;
+    };
+
+    const setTitle = (input) => {
+      title = input;
+    };
+
+    const getDescription = () => {
+      return description;
+    };
+
+    const setDescription = (input) => {
+      description = input;
+    };
+
+    const getPriority = () => {
+      return priority;
+    };
+
+    const setPriority = (input) => {
+      priority = input;
+    };
+
     const getDeadline = () => {
       return add(parseISO(dueDate), {
         hours: dueTime.slice(0, 2),
@@ -75,7 +99,9 @@ const categoryFactory = (title) => {
         seconds: dueTime.slice(6),
       });
     };
+
     let taskStatus = false;
+
     const checkCompletionStatus = () => {
       if (taskStatus) {
         console.log(`Task "${title}" has been completed. :D`);
@@ -85,19 +111,24 @@ const categoryFactory = (title) => {
       }
       return taskStatus;
     };
+
     let timeExtension = {};
+
     const changeCompletionStatus = () => {
       taskStatus = taskStatus ? false : true;
     };
+
     const getDueDate = () => {
       return dueDate;
     };
+
     const setDueDate = (date) => {
       if (!isValid(parseISO(date))) {
         return console.error("The specified date is not valid.");
       }
       dueDate = date;
     };
+
     const getTimeLeft = () => {
       if (dueDate === "") {
         return console.error("The due date has not been set.");
@@ -107,18 +138,22 @@ const categoryFactory = (title) => {
       }
       return formatDistanceToNowStrict(getDeadline());
     };
+
     const getDueTime = () => {
       if (dueTime === "") {
         return console.error("The due time has not been set.");
       }
       return dueTime;
     };
+
     const setDueTime = (time) => {
       dueTime = time;
     };
+
     const isDueToday = () => {
       return isToday(getDeadline());
     };
+
     const setTimeExtension = (time) => {
       if (typeof time !== "object" || Array.isArray(time) || time === null) {
         return console.error(
@@ -127,10 +162,13 @@ const categoryFactory = (title) => {
       }
       timeExtension = time;
     };
+
     let timesRepeated = 0;
+
     const getTimesRepeated = () => {
       return timesRepeated;
     };
+
     const extendDeadline = () => {
       if (taskStatus) {
         return console.error("The task has already been completed.");
@@ -149,14 +187,17 @@ const categoryFactory = (title) => {
     };
 
     return {
-      title,
-      description,
+      getTitle,
+      setTitle,
+      getDescription,
+      setDescription,
       getDueDate,
       setDueDate,
       getDueTime,
       setDueTime,
       getTimeLeft,
-      priority,
+      getPriority,
+      setPriority,
       checkCompletionStatus,
       changeCompletionStatus,
       isDueToday,
@@ -167,7 +208,24 @@ const categoryFactory = (title) => {
   };
 
   const projectFactory = ({ title = "", description = "" }) => {
+    const getTitle = () => {
+      return title;
+    };
+
+    const setTitle = (input) => {
+      title = input;
+    };
+
+    const getDescription = () => {
+      return description;
+    };
+
+    const setDescription = (input) => {
+      description = input;
+    };
+
     const tasks = [];
+
     const printTasks = (message = `A list of all tasks:`) => {
       if (tasks.length === 0) {
         return Error(`There are no tasks in "${title}".`);
@@ -177,10 +235,12 @@ const categoryFactory = (title) => {
         console.log(" ", index, task);
       });
     };
+
     const makeTask = (task = {}) => {
       tasks.push(taskFactory(task));
       printTasks(`A new task has been added to "${title}".`);
     };
+
     const removeTask = (index) => {
       if (!tasks[index]) {
         return console.error("The specified task index is out of range.");
@@ -189,6 +249,7 @@ const categoryFactory = (title) => {
       tasks.splice(index, 1);
       printTasks(`The task "${title}" has been removed.`);
     };
+
     const transferTask = (taskIndex, { destinationProject }) => {
       if (!tasks[taskIndex]) {
         return console.error("The specified task index is out of range.");
@@ -204,6 +265,7 @@ const categoryFactory = (title) => {
         `Task "${task.title}" has been transferred.`
       );
     };
+
     const moveTask = (index, { destination }) => {
       if (!tasks[index]) {
         return console.log(
@@ -221,8 +283,10 @@ const categoryFactory = (title) => {
     };
 
     return {
-      title,
-      description,
+      getTitle,
+      setTitle,
+      getDescription,
+      setDescription,
       tasks,
       printTasks,
       makeTask,
