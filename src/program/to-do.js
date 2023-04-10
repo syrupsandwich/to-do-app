@@ -224,13 +224,17 @@ const categoryFactory = (title) => {
       description = input;
     };
 
+    const getProjectTitle = () => {
+      return getTitle();
+    };
+
     const tasks = [];
 
     const printTasks = (message = `A list of all tasks:`) => {
       if (tasks.length === 0) {
-        return Error(`There are no tasks in "${title}".`);
+        return Error(`There are no tasks in "${getProjectTitle()}".`);
       }
-      console.log(`${getCategoryTitle()} / ${title} - ${message}`);
+      console.log(`${getCategoryTitle()} / ${getProjectTitle()} - ${message}`);
       tasks.forEach((task, index) => {
         console.log(" ", index, task);
       });
@@ -238,7 +242,7 @@ const categoryFactory = (title) => {
 
     const makeTask = (task = {}) => {
       tasks.push(taskFactory(task));
-      printTasks(`A new task has been added to "${title}".`);
+      printTasks(`A new task has been added to "${getProjectTitle()}".`);
     };
 
     const removeTask = (index) => {
