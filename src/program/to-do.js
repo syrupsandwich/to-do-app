@@ -104,10 +104,10 @@ const categoryFactory = (title) => {
 
     const checkCompletionStatus = () => {
       if (taskStatus) {
-        console.log(`Task "${title}" has been completed. :D`);
+        console.log(`Task "${getTitle()}" has been completed. :D`);
       }
       if (!taskStatus) {
-        console.log(`Task "${title}" has not been completed. :/`);
+        console.log(`Task "${getTitle()}" has not been completed. :/`);
       }
       return taskStatus;
     };
