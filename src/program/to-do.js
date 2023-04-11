@@ -36,7 +36,8 @@ const categoryFactory = (title) => {
       console.log(`${getCategoryTitle()} - ${message}`);
     }
     projects.forEach((project, index) => {
-      console.log(" ", index, JSON.parse(JSON.stringify(project)));
+      //console.log(" ", index, JSON.parse(JSON.stringify(project)));
+      console.log("", index, project.exportOwnData());
     });
   };
 
@@ -103,16 +104,8 @@ const categoryFactory = (title) => {
     let taskStatus = false;
 
     const checkCompletionStatus = () => {
-      if (taskStatus) {
-        console.log(`Task "${getTitle()}" has been completed. :D`);
-      }
-      if (!taskStatus) {
-        console.log(`Task "${getTitle()}" has not been completed. :/`);
-      }
       return taskStatus;
     };
-
-    let timeExtension = {};
 
     const changeCompletionStatus = () => {
       taskStatus = taskStatus ? false : true;
@@ -122,11 +115,11 @@ const categoryFactory = (title) => {
       return dueDate;
     };
 
-    const setDueDate = (date) => {
-      if (!isValid(parseISO(date))) {
+    const setDueDate = (input) => {
+      if (!isValid(parseISO(input))) {
         return console.error("The specified date is not valid.");
       }
-      dueDate = date;
+      dueDate = input;
     };
 
     const getTimeLeft = () => {
@@ -140,21 +133,24 @@ const categoryFactory = (title) => {
     };
 
     const getDueTime = () => {
-      if (dueTime === "") {
-        return console.error("The due time has not been set.");
-      }
       return dueTime;
     };
 
-    const setDueTime = (time) => {
-      dueTime = time;
+    const setDueTime = (input) => {
+      dueTime = input;
     };
 
     const isDueToday = () => {
       return isToday(getDeadline());
     };
 
-    const setTimeExtension = (time) => {
+    let timeExtension = {};
+
+    const getTimeExtension = () => {
+      return timeExtension;
+    };
+
+    const setTimeExtension = (time = {}) => {
       if (typeof time !== "object" || Array.isArray(time) || time === null) {
         return console.error(
           "The specified time parameter should at least be an empty object."
@@ -186,6 +182,21 @@ const categoryFactory = (title) => {
       return;
     };
 
+    const exportOwnData = () => {
+      let data = {
+        title: getTitle(),
+        description: getDescription(),
+        priority: getPriority(),
+        dueDate: getDueDate(),
+        dueTime: getDueTime(),
+        completionStatus: checkCompletionStatus(),
+        timesRepeated: getTimesRepeated(),
+        timeExtension: getTimeExtension(),
+      };
+
+      return data;
+    };
+
     return {
       getTitle,
       setTitle,
@@ -204,6 +215,7 @@ const categoryFactory = (title) => {
       setTimeExtension,
       getTimesRepeated,
       extendDeadline,
+      exportOwnData,
     };
   };
 
@@ -236,7 +248,8 @@ const categoryFactory = (title) => {
       }
       console.log(`${getCategoryTitle()} / ${getProjectTitle()} - ${message}`);
       tasks.forEach((task, index) => {
-        console.log(" ", index, task);
+        //console.log(" ", index, task);
+        console.log(" ", index, task.exportOwnData());
       });
     };
 
@@ -286,6 +299,16 @@ const categoryFactory = (title) => {
       printTasks("The task list has been reordered.");
     };
 
+    const exportOwnData = () => {
+      let data = {
+        title: getTitle(),
+        description: getDescription(),
+        tasks: tasks.length,
+      };
+
+      return data;
+    };
+
     return {
       getTitle,
       setTitle,
@@ -297,6 +320,7 @@ const categoryFactory = (title) => {
       removeTask,
       transferTask,
       moveTask,
+      exportOwnData,
     };
   };
 
@@ -318,6 +342,15 @@ const categoryFactory = (title) => {
     );
   };
 
+  const exportOwnData = () => {
+    let data = {
+      title: getTitle(),
+      projects: projects.length,
+    };
+
+    return data;
+  };
+
   return {
     getTitle,
     setTitle,
@@ -327,6 +360,7 @@ const categoryFactory = (title) => {
     removeProject,
     makeProject,
     transferProject,
+    exportOwnData,
   };
 };
 
@@ -345,7 +379,7 @@ const printCategories = (message) => {
     console.log(message);
   }
   categories.forEach((category, index) => {
-    console.log(" ", `${index}:`, category);
+    console.log(" ", `${index}:`, category.exportOwnData());
   });
 };
 
