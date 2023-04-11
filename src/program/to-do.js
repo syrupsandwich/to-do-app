@@ -314,7 +314,7 @@ const categoryFactory = (title) => {
     let project = projects.splice(projectIndex, 1)[0];
     categories[destinationCategory].projects.push(project);
     categories[destinationCategory].printProjects(
-      `The project "${project.title}" has been transfered.`
+      `The project "${project.getTitle()}" has been transferred.`
     );
   };
 
