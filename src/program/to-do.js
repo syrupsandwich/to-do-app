@@ -342,6 +342,16 @@ const categoryFactory = (title) => {
     );
   };
 
+  const transferTask = (
+    taskIndex,
+    { originProjectIndex, destinationCategoryIndex, destinationProjectIndex }
+  ) => {
+    let tempTask = projects[originProjectIndex].tasks.splice(taskIndex, 1)[0];
+    categories[destinationCategoryIndex].projects[
+      destinationProjectIndex
+    ].tasks.push(tempTask);
+  };
+
   const exportOwnData = () => {
     let data = {
       title: getTitle(),
@@ -360,6 +370,7 @@ const categoryFactory = (title) => {
     removeProject,
     makeProject,
     transferProject,
+    transferTask,
     exportOwnData,
   };
 };

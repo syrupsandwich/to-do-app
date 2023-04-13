@@ -79,6 +79,12 @@ work.makeProject({
   description: "an original sandbox game where everything is blocky",
 });
 
+demo1.transferTask(0, {
+  originProjectIndex: 0,
+  destinationCategoryIndex: 1,
+  destinationProjectIndex: 0,
+});
+
 printCategories();
 
 work.printProjects();
