@@ -36,7 +36,6 @@ const categoryFactory = (title) => {
       console.log(`${getCategoryTitle()} - ${message}`);
     }
     projects.forEach((project, index) => {
-      //console.log(" ", index, JSON.parse(JSON.stringify(project)));
       console.log("", index, project.exportOwnData());
     });
   };
