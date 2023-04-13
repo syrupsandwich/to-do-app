@@ -403,7 +403,92 @@ const moveCategory = (origin, destination) => {
   printCategories("The categories have been reordered.");
 };
 
+let printingContainer = document.createElement("div");
+printingContainer.id = "printing-output";
+
+let printingContainerTitle = document.createElement("h3");
+printingContainerTitle.textContent = `Displaying all tasks:`;
+
+let dataContainer = document.createElement("div");
+
+printingContainer.appendChild(printingContainerTitle);
+printingContainer.appendChild(dataContainer);
+document.body.appendChild(printingContainer);
+
+const printTasks = () => {
+  let categoryListElement = document.createElement("ol");
+  categoryListElement.start = "0";
+  categoryListElement.id = "category-list";
+  dataContainer.appendChild(categoryListElement);
+
+  categories.forEach((category) => {
+    let categoryTitleElement = document.createElement("li");
+    let categoryListTitle = document.createElement("span");
+    categoryListTitle.id = "category-title";
+    categoryListTitle.textContent = category.getTitle();
+    categoryTitleElement.appendChild(categoryListTitle);
+
+    categoryListElement.appendChild(categoryTitleElement);
+
+    let projectListElement = document.createElement("ol");
+    projectListElement.start = "0";
+    projectListElement.id = "project-list";
+
+    categoryTitleElement.appendChild(projectListElement);
+
+    category.projects.forEach((project) => {
+      let projectTitleElement = document.createElement("li");
+      let projectListTitle = document.createElement("span");
+      projectListTitle.id = "project-title";
+      projectListTitle.textContent = project.getTitle();
+      projectTitleElement.appendChild(projectListTitle);
+
+      projectListElement.appendChild(projectTitleElement);
+
+      let taskListElement = document.createElement("ol");
+      taskListElement.stars = "0";
+      taskListElement.start = "0";
+      taskListElement.id = "task-list";
+
+      projectTitleElement.appendChild(taskListElement);
+
+      project.tasks.forEach((task) => {
+        let taskDataElement = document.createElement("li");
+        taskDataElement.id = "task-data";
+
+        taskDataElement.appendChild(document.createTextNode("{"));
+
+        let taskExport = task.exportOwnData();
+
+        Object.entries(taskExport).forEach(([key, value], index) => {
+          if (index !== 0) {
+            taskDataElement.appendChild(document.createTextNode(", "));
+          }
+          let text = document.createTextNode(`${key}: `);
+          taskDataElement.appendChild(text);
+
+          let propertySpanElement = document.createElement("span");
+
+          if (typeof value === "object") {
+            propertySpanElement.textContent = JSON.stringify(value);
+            propertySpanElement.textContent.replaceAll('"', "");
+          } else {
+            propertySpanElement.textContent = `"${value}"`;
+          }
+
+          taskDataElement.appendChild(propertySpanElement);
+        });
+
+        taskDataElement.appendChild(document.createTextNode("}"));
+
+        taskListElement.appendChild(taskDataElement);
+      });
+    });
+  });
+};
+
 export {
+  printTasks,
   categories,
   makeCategory,
   printCategories,

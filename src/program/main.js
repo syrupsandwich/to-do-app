@@ -4,6 +4,7 @@ import {
   printCategories,
   getTasksForToday,
   moveCategory,
+  printTasks,
 } from "./to-do.js";
 
 const demo1 = makeCategory("Demo");
@@ -18,6 +19,8 @@ demo1.projects[0].makeTask({
   title: "Look around",
   description: "Get to know the app.",
 });
+
+demo1.projects[0].tasks[0].setTimeExtension({ minutes: 5 });
 
 demo1.makeProject({
   title: "Exercise solutions",
@@ -77,3 +80,7 @@ work.makeProject({
 });
 
 printCategories();
+
+work.printProjects();
+
+printTasks();

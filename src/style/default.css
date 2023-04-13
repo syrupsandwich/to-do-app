@@ -1,3 +1,78 @@
-h3 {
+#context-title {
   font-style: italic;
+  color: gray;
+  letter-spacing: 1px;
 }
+
+#printing-output {
+}
+
+#printing-output>h3{
+  color: midnightblue;
+  margin-left: 10px;
+  margin-top: 50px;
+}
+
+#category-list {
+  padding-left: 34px;
+}
+
+#project-list,
+#task-list{
+  padding-left: 43px;
+  margin-left: -20px;
+  border-left: solid 2px gainsboro;
+}
+
+#category-list>li{
+  padding-bottom: 10px;
+}
+
+#project-list> li{
+  padding-top: 6px;
+}
+
+#task-list>li{
+  padding-top: 4px;
+}
+
+
+#printing-output {
+  font-family: monospace;
+  white-space: nowrap;
+}
+
+#task-data {
+  color: gray;
+}
+
+#task-data span {
+  color: maroon;
+}
+
+li::marker {
+  color: black;
+}
+
+#project-title::after{
+  content: ' (project)';
+}
+
+#category-title::after {
+  content: ' (category)';
+}
+
+#project-title::after,
+#category-title::after {
+  font-weight: normal;
+  font-size: 10px;
+  color: gray;
+}
+
+#category-title,
+#project-title,
+#task-title{
+  font-weight: bold;
+  color: darkslategray;
+}
+
