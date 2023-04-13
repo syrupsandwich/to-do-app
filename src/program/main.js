@@ -12,7 +12,6 @@ const demo1 = makeCategory("Demo");
 demo1.makeProject({
   title: "To-do app",
   description: "A place to store all of your tasks",
-  tasks: [],
 });
 
 demo1.projects[0].makeTask({
@@ -25,12 +24,12 @@ demo1.projects[0].tasks[0].setTimeExtension({ minutes: 5 });
 demo1.makeProject({
   title: "Exercise solutions",
   description: "Figure out an optimal setup for each major muscle group.",
-  tasks: [],
 });
 
 demo1.projects[1].makeTask({
   title: "Buy pulleys",
   description: "For exercises that require an upward dirction of resistance.",
+  timeExtension: { days: 1 },
 });
 
 demo1.projects[1].makeTask({
@@ -72,6 +71,8 @@ demo1.projects[2].makeTask({
 
 demo1.printProjects();
 
+demo1.projects[2].transferTaskData(0, { destinationProject: 0 });
+
 const work = makeCategory("Work");
 
 work.makeProject({
@@ -79,7 +80,7 @@ work.makeProject({
   description: "an original sandbox game where everything is blocky",
 });
 
-demo1.transferTask(0, {
+demo1.transferTaskData(0, {
   originProjectIndex: 0,
   destinationCategoryIndex: 1,
   destinationProjectIndex: 0,

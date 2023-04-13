@@ -67,6 +67,9 @@ const categoryFactory = (title) => {
     dueDate = "",
     dueTime = "",
     priority = "",
+    taskStatus = false,
+    timesRepeated = 0,
+    timeExtension = {},
   }) => {
     const getTitle = () => {
       return title;
@@ -99,8 +102,6 @@ const categoryFactory = (title) => {
         seconds: dueTime.slice(6),
       });
     };
-
-    let taskStatus = false;
 
     const checkCompletionStatus = () => {
       return taskStatus;
@@ -143,8 +144,6 @@ const categoryFactory = (title) => {
       return isToday(getDeadline());
     };
 
-    let timeExtension = {};
-
     const getTimeExtension = () => {
       return timeExtension;
     };
@@ -157,8 +156,6 @@ const categoryFactory = (title) => {
       }
       timeExtension = time;
     };
-
-    let timesRepeated = 0;
 
     const getTimesRepeated = () => {
       return timesRepeated;
@@ -188,7 +185,7 @@ const categoryFactory = (title) => {
         priority: getPriority(),
         dueDate: getDueDate(),
         dueTime: getDueTime(),
-        completionStatus: checkCompletionStatus(),
+        taskStatus: checkCompletionStatus(),
         timesRepeated: getTimesRepeated(),
         timeExtension: getTimeExtension(),
       };
@@ -266,7 +263,7 @@ const categoryFactory = (title) => {
       printTasks(`The task "${title}" has been removed.`);
     };
 
-    const transferTask = (taskIndex, { destinationProject }) => {
+    const transferTaskData = (taskIndex, { destinationProject }) => {
       if (!tasks[taskIndex]) {
         return console.error("The specified task index is out of range.");
       }
@@ -275,10 +272,11 @@ const categoryFactory = (title) => {
           Error("The specified destination index is out of range.")
         );
       }
-      let task = tasks.splice(taskIndex, 1)[0];
-      projects[destinationProject].tasks.push(task);
+      let taskExport = tasks[taskIndex].exportOwnData();
+      removeTask(taskIndex);
+      projects[destinationProject].makeTask(taskExport);
       projects[destinationProject].printTasks(
-        `Task "${task.title}" has been transferred.`
+        `Task "${taskExport.title}" has been transferred.`
       );
     };
 
@@ -317,7 +315,7 @@ const categoryFactory = (title) => {
       printTasks,
       makeTask,
       removeTask,
-      transferTask,
+      transferTaskData,
       moveTask,
       exportOwnData,
     };
@@ -341,14 +339,34 @@ const categoryFactory = (title) => {
     );
   };
 
-  const transferTask = (
+  const transferTaskData = (
     taskIndex,
     { originProjectIndex, destinationCategoryIndex, destinationProjectIndex }
   ) => {
-    let tempTask = projects[originProjectIndex].tasks.splice(taskIndex, 1)[0];
+    if (!projects[originProjectIndex]) {
+      return console.log("The specified origin project index is out of range.");
+    }
+    if (!projects[originProjectIndex].tasks[taskIndex]) {
+      return console.error("The specified task index is out of range.");
+    }
+    if (!categories[destinationCategoryIndex]) {
+      return console.log(
+        "The specified destination category index is out of range."
+      );
+    }
+    if (
+      !categories[destinationCategoryIndex].projects[destinationProjectIndex]
+    ) {
+      return console.log(
+        "The specified destination project index is out of range."
+      );
+    }
+    let taskExport =
+      projects[originProjectIndex].tasks[taskIndex].exportOwnData();
+    projects[originProjectIndex].removeTask(taskIndex);
     categories[destinationCategoryIndex].projects[
       destinationProjectIndex
-    ].tasks.push(tempTask);
+    ].makeTask(taskExport);
   };
 
   const exportOwnData = () => {
@@ -369,7 +387,7 @@ const categoryFactory = (title) => {
     removeProject,
     makeProject,
     transferProject,
-    transferTask,
+    transferTaskData,
     exportOwnData,
   };
 };
