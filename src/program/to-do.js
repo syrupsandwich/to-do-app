@@ -244,7 +244,6 @@ const categoryFactory = (title) => {
       }
       console.log(`${getCategoryTitle()} / ${getProjectTitle()} - ${message}`);
       tasks.forEach((task, index) => {
-        //console.log(" ", index, task);
         console.log(" ", index, task.exportOwnData());
       });
     };
