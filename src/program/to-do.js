@@ -498,8 +498,8 @@ const printTasks = () => {
           let propertySpanElement = document.createElement("span");
 
           if (typeof value === "object") {
-            propertySpanElement.textContent = JSON.stringify(value);
-            propertySpanElement.textContent.replaceAll('"', "");
+            let valueString = JSON.stringify(value);
+            propertySpanElement.textContent = valueString.replaceAll('"', "");
           } else {
             propertySpanElement.textContent = `"${value}"`;
           }
