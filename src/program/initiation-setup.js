@@ -1,4 +1,4 @@
-import { categories, makeCategory, displayEverything } from "./to-do.js";
+import { categories, makeCategory } from "./to-do.js";
 
 const initiateSetup = () => {
   if (sessionStorage.categoryTimestampsObject) {
@@ -19,23 +19,18 @@ const initiateSetup = () => {
         let category = categories[categories.length - 1];
         category.makeProject(projectDataImport);
 
-        console.log("projectDataImport", projectDataImport);
         projectDataImport.taskTimestamps.forEach((timestamp) => {
           let taskDataImport = JSON.parse(
             sessionStorage.getItem(`task${timestamp}`)
           );
-
-          console.log(taskDataImport);
 
           let project = category.projects[category.projects.length - 1];
           project.makeTask(taskDataImport);
         });
       });
     });
-    displayEverything();
   } else {
     loadDemo();
-    displayEverything();
   }
 };
 
