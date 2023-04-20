@@ -32,6 +32,11 @@
   padding-top: 6px;
 }
 
+#task-list {
+  padding-bottom: 4px;
+  margin-bottom: 4px;
+}
+
 #task-list>li{
   padding-top: 4px;
 }
@@ -54,8 +59,32 @@ li::marker {
   color: black;
 }
 
+#project-title {
+  font-size: 14px;
+}
+
 #project-title::after{
   content: ' (project)';
+}
+
+#category-title {
+  font-size: 15px;
+}
+
+.category-data,
+.project-data {
+color: silver;
+margin: 3px 0px;
+}
+
+.project-data {
+  margin: 0px 0px 4px;
+  font-size: 10px;
+}
+
+.category-data>span,
+.project-data>span {
+  color: gray;
 }
 
 #category-title::after {
