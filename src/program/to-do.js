@@ -299,7 +299,6 @@ const categoryFactory = (title) => {
       let data = {
         title: getTitle(),
         description: getDescription(),
-        tasks: tasks.length,
       };
 
       return data;
@@ -371,7 +370,6 @@ const categoryFactory = (title) => {
   const exportOwnData = () => {
     let data = {
       title: getTitle(),
-      projects: projects.length,
     };
 
     return data;
