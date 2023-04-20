@@ -473,7 +473,6 @@ const printTasks = () => {
       projectListElement.appendChild(projectTitleElement);
 
       let taskListElement = document.createElement("ol");
-      taskListElement.stars = "0";
       taskListElement.start = "0";
       taskListElement.id = "task-list";
 
