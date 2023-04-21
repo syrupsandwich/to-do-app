@@ -110,6 +110,7 @@ const categoryFactory = ({
     timesRepeated = 0,
     timeExtension = {},
     timestamp = Date.now(),
+    notes = [],
   }) => {
     const getTitle = () => {
       return title;
@@ -228,6 +229,62 @@ const categoryFactory = ({
       return;
     };
 
+    const makeNote = ({ type = "text", text = "" }) => {
+      if (type !== "checkbox" && type !== "text") {
+        return console.error("The note type must be checkbox or text.");
+      }
+      notes.push({ type, text });
+      updateSessionStorageObject(exportOwnData());
+    };
+
+    const removeNote = (index) => {
+      if (!notes[index]) {
+        return console.error("The specified note index is out of range.");
+      }
+      notes.splice(index, 1);
+      updateSessionStorageObject(exportOwnData());
+    };
+
+    const moveNote = (originIndex, { destination }) => {
+      let note = notes.splice(originIndex, 1)[0];
+      notes.splice(destination, 0, note);
+      updateSessionStorageObject(exportOwnData());
+    };
+
+    const changeNoteType = (index, type) => {
+      if (
+        type !== "informative" &&
+        type !== "assignment" &&
+        type !== "achievement"
+      ) {
+        return console.error(
+          'The note type must be one of the following strings: "informative", "assignment", or "achievement".'
+        );
+      }
+      notes[index].type = type;
+      updateSessionStorageObject(exportOwnData());
+    };
+
+    const changeNoteText = (index, text) => {
+      if (typeof text !== "string") {
+        return console.error("The input is not a string.");
+      }
+      notes[index].text = text;
+      updateSessionStorageObject(exportOwnData());
+    };
+
+    const updateNote = (index, { type, text }) => {
+      if (!notes[index]) {
+        return console.error("The specified note index is out of range.");
+      }
+      if (type) {
+        changeNoteType(index, type);
+      }
+      if (text) {
+        changeNoteText(index, text);
+      }
+    };
+
     const exportOwnData = () => {
       let data = {
         title: getTitle(),
@@ -239,6 +296,7 @@ const categoryFactory = ({
         timesRepeated: getTimesRepeated(),
         timeExtension: getTimeExtension(),
         timestamp: getTimestamp(),
+        notes: notes,
       };
 
       return data;
@@ -263,6 +321,10 @@ const categoryFactory = ({
       getTimesRepeated,
       getTimestamp,
       extendDeadline,
+      makeNote,
+      removeNote,
+      moveNote,
+      updateNote,
       exportOwnData,
     };
   };

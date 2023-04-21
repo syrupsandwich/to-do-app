@@ -105,6 +105,9 @@ const displayEverything = () => {
         let taskExport = task.exportOwnData();
 
         Object.entries(taskExport).forEach(([key, value], index) => {
+          if (key === "notes") {
+            return;
+          }
           if (index !== 0) {
             taskDataElement.appendChild(document.createTextNode(", "));
           }
@@ -124,6 +127,41 @@ const displayEverything = () => {
         });
 
         taskDataElement.appendChild(document.createTextNode("}"));
+
+        if (taskExport.notes.length > 0) {
+          let noteList = document.createElement("ol");
+          noteList.id = "note-list";
+          noteList.start = "0";
+
+          let notesLabel = document.createElement("p");
+          notesLabel.classList.add("notes-label");
+          notesLabel.textContent = "notes:";
+          noteList.appendChild(notesLabel);
+
+          taskExport.notes.forEach((note) => {
+            let noteListItem = document.createElement("li");
+
+            noteListItem.appendChild(document.createTextNode("{"));
+
+            Object.entries(note).forEach(([key, value], index) => {
+              if (index !== 0) {
+                noteListItem.appendChild(document.createTextNode(", "));
+              }
+              let text = document.createTextNode(`${key}: `);
+              noteListItem.appendChild(text);
+
+              let span = document.createElement("span");
+              span.textContent = `"${value}"`;
+              noteListItem.appendChild(span);
+            });
+
+            noteListItem.appendChild(document.createTextNode("}"));
+
+            noteList.appendChild(noteListItem);
+          });
+
+          taskDataElement.appendChild(noteList);
+        }
 
         taskListElement.appendChild(taskDataElement);
       });

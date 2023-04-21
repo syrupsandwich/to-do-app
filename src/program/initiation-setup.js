@@ -57,6 +57,12 @@ const loadDemo = () => {
     description: "Get to know the app.",
     timestamp: taskCount++,
     timeExtension: { minutes: 5 },
+    notes: [
+      {
+        type: "assignment",
+        text: "press some buttons",
+      },
+    ],
   });
 
   makeCategory({
@@ -76,6 +82,24 @@ const loadDemo = () => {
     title: "Buy equipment from Big 5",
     description: "",
     timestamp: taskCount++,
+    notes: [
+      {
+        type: "assignment",
+        text: "A pair of dumbbells",
+      },
+      {
+        type: "assignment",
+        text: "4 x 2.5lb weight plates",
+      },
+      {
+        type: "assignment",
+        text: "4 x 5lb weight plates",
+      },
+      {
+        type: "assignment",
+        text: "4 x 10lb weight plates",
+      },
+    ],
   });
 
   fitness.projects[0].makeTask({
@@ -131,6 +155,12 @@ const loadDemo = () => {
     description:
       "The site runs into problems when logging in with internet explorer.",
     timestamp: taskCount++,
+    notes: [
+      {
+        type: "informative",
+        text: "It seems to only happen after previously logging in as a guest.",
+      },
+    ],
   });
 
   finance.projects[0].makeTask({
@@ -142,9 +172,26 @@ const loadDemo = () => {
 
   finance.projects[0].makeTask({
     title: "Negotiate with the boss",
-    description:
-      "Get the boss to raise your salary for solving all the hardest problems.",
+    description: "Get the boss to raise your salary for being extra.",
     timestamp: taskCount++,
+    notes: [
+      {
+        type: "informative",
+        text: "People come to me to solve all the hardest problems.",
+      },
+      {
+        type: "informative",
+        text: "I've accomplished many feats while working here.",
+      },
+      {
+        type: "informative",
+        text: "I take initiative finding issues and fixing them.",
+      },
+      {
+        type: "informative",
+        text: "I get everything done sooner than the deadline.",
+      },
+    ],
   });
 
   finance.makeProject({
@@ -164,6 +211,12 @@ const loadDemo = () => {
     description: "This is the daily quota for the current draft.",
     timeExtension: { days: 1 },
     timestamp: taskCount++,
+    notes: [
+      {
+        type: "informative",
+        text: "Examine the research again if you need to.",
+      },
+    ],
   });
 
   finance.projects[1].makeTask({
@@ -178,6 +231,20 @@ const loadDemo = () => {
     description: "Address customer issues and collect positive reviews.",
     timeExtension: { days: 3 },
     timestamp: taskCount++,
+    notes: [
+      {
+        type: "assignment",
+        text: "check sales page review section",
+      },
+      {
+        type: "assignment",
+        text: "check gmail for author profile",
+      },
+      {
+        type: "assignment",
+        text: "check twitter",
+      },
+    ],
   });
 
   makeCategory({
@@ -199,6 +266,12 @@ const loadDemo = () => {
     description: "Draw 5 boxes on a page every day until 50 pages are done.",
     timeExtension: { days: 1 },
     timestamp: taskCount++,
+    notes: [
+      {
+        type: "assignment",
+        text: "check each box for convergences",
+      },
+    ],
   });
 
   otherInterests.projects[0].makeTask({
