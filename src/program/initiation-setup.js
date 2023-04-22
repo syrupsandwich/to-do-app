@@ -109,9 +109,8 @@ const loadDemo = () => {
   });
 
   fitness.makeProject({
-    title: "Health education",
-    description:
-      "Learning about health: mentally, physically, and spiritually.",
+    title: "Fitness knowledge",
+    description: "books im going to read next.",
     timestamp: projectCount++,
   });
 
@@ -119,13 +118,6 @@ const loadDemo = () => {
     title: "Read The Physics of Resistance Exercise",
     description:
       "Learn how to exercise muscles in accordance to biomechanical principles.",
-    taskStatus: "true",
-    timestamp: taskCount++,
-  });
-
-  fitness.projects[1].makeTask({
-    title: "Read The Way of Men",
-    description: "Learn what it has meant to be a man.",
     taskStatus: "true",
     timestamp: taskCount++,
   });
