@@ -1,11 +1,457 @@
 <!DOCTYPE html>
-<html>
+<html class='w-screen h-screen'>
   <head>
     <meta charset="UTF-8" />
     <title></title>
   <script defer src="to-do-bundle.js"></script><link href="main.css" rel="stylesheet"></head>
-  <body>
-    <h3 class="text-3xl font-bold underline">The to-do app is in development.</h3>
+  <body class='w-full h-full text-5xl flex border'>
+
+    <div id='left-panel' class='flex flex-col bg-gray-100 z-[1] absolute inset-y-0 left-0 transform 
+      -translate-x-full transition duration-200 ease-in-out'>
+
+      <div id='left-panel-header' class='border flex items-center w-screen justify-between h-64 px-16'>
+
+        <div class='flex items-center'>
+          <div class='h-28 w-28 bg-orange-100 border border-gray rounded-lg
+          mr-8 text-center flex items-center justify-center'>
+          <p class='text-6xl text-gray-500'>SP</p>
+          </div>
+
+          <div class=''>
+            <p id='username' class='text-gray-700'>Some Person's tasks</p>
+            <p id='user-email' class='text-4xl mt-3 text-gray-400'>user.email@example.com</p>
+          </div>
+        </div>
+
+        <button id='gear-btn' class="">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+          stroke="silver" class="w-24 h-24 m-2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 01-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 01-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.505-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.107-1.204l-.527-.738a1.125 1.125 0 01.12-1.45l.773-.773a1.125 1.125 0 011.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+        </button>
+
+      </div>
+
+      <div id='inner-left-panel-middle' class='border w-full h-full px-16 pt-16 overflow-y-scroll
+        text-gray-700 flex flex-col'>
+
+        <div class='pb-20'>
+          <button id='tasks-for-today-btn' class='text-left w-full py-6 px-4 rounded-md
+            flex items-center'>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="w-16 h-16 ml-4 mr-10">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 6.878V6a2.25 2.25 0 
+              012.25-2.25h7.5A2.25 2.25 0 0118 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 
+              .515.045.75.128m-12 0A2.25 2.25 0 004.5 9v.878m13.5-3A2.25 2.25 0 0119.5 9v.878m0
+              0a2.246 2.246 0 00-.75-.128H5.25c-.263 0-.515.045-.75.128m15 0A2.25 2.25 0 0121 
+              12v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18v-6c0-.98.626-1.813 1.5-2.122" />
+            </svg>
+            <p>View tasks for today</p>
+          </button> 
+        </div>
+
+        <div id='category-list-container' class='flex-1 overflow-y-scroll pb-36 border-4'>
+
+          <details class='group'>
+            <summary class='list-none flex cursor-pointer flex justify-between border-gray-300
+              items-center border-y-2 first:border-t-0 last:border-b-0'>
+
+              <div class='flex'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" 
+                stroke="currentColor" class="w-14 h-14 mx-10 group-open:rotate-90 transition-transform origin-center">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+
+                <p>fake category 0<p>
+              </div>
+
+              <button id='category-label-options-btn' class='m-6'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-16 h-16 stroke-gray-500">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 
+                  .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0
+                  11-1.5 0 .75.75 0 011.5 0z" />
+                </svg>
+              </button>
+
+            </summary>
+
+            <div class='relative flex justify-between group-open:border-b-2 border-gray-300'>
+                <button id='close-left-panel-btn' class='flex items-center text-left w-full rounded-md pl-12 py-8 text-4xl'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-14 h-14 mr-12">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                </svg>
+                  fake project button
+                </button>
+
+              <button id='project-label-options-btn' class='m-6'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-16 h-16 stroke-gray-500">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 
+                  .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0
+                  11-1.5 0 .75.75 0 011.5 0z" />
+                </svg>
+              </button>
+            </div>
+
+           <div class='relative flex justify-between group-open:border-b-2 border-gray-300'>
+                <button id='close-left-panel-btn' class='flex items-center text-left w-full rounded-md pl-12 py-8 text-4xl'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-14 h-14 mr-12">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                </svg>
+                  fake project button
+                </button>
+
+              <button id='project-label-options-btn' class='m-6'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-16 h-16 stroke-gray-500">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 
+                  .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0
+                  11-1.5 0 .75.75 0 011.5 0z" />
+                </svg>
+              </button>
+            </div>
+
+          </details>
+
+          <details class='group'>
+            <summary class='list-none flex cursor-pointer flex justify-between border-gray-300
+              items-center border-y-2 first:border-t-0 last:border-b-0'>
+
+              <div class='flex'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" 
+                stroke="currentColor" class="w-14 h-14 mx-10 group-open:rotate-90 transition-transform origin-center">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+
+                <p>fake category 1<p>
+              </div>
+
+              <button id='category-label-options-btn' class='m-6'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-16 h-16 stroke-gray-500">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 
+                  .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0
+                  11-1.5 0 .75.75 0 011.5 0z" />
+                </svg>
+              </button>
+
+            </summary>
+
+            <div class='relative flex justify-between group-open:border-b-2 border-gray-300'>
+                <button id='close-left-panel-btn' class='flex items-center text-left w-full rounded-md pl-12 py-8 text-4xl'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-14 h-14 mr-12">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                </svg>
+                  fake project button
+                </button>
+
+              <button id='project-label-options-btn' class='m-6'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-16 h-16 stroke-gray-500">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 
+                  .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0
+                  11-1.5 0 .75.75 0 011.5 0z" />
+                </svg>
+              </button>
+            </div>
+
+           <div class='relative flex justify-between group-open:border-b-2 border-gray-300'>
+                <button id='close-left-panel-btn' class='flex items-center text-left w-full rounded-md pl-12 py-8 text-4xl'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-14 h-14 mr-12">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                </svg>
+                  fake project button
+                </button>
+
+              <button id='project-label-options-btn' class='m-6'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-16 h-16 stroke-gray-500">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 
+                  .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0
+                  11-1.5 0 .75.75 0 011.5 0z" />
+                </svg>
+              </button>
+            </div>
+
+          </details>
+
+        <details class='group'>
+            <summary class='list-none flex cursor-pointer flex justify-between border-gray-300
+              items-center border-y-2 first:border-t-0 last:border-b-0'>
+
+              <div class='flex'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" 
+                stroke="currentColor" class="w-14 h-14 mx-10 group-open:rotate-90 transition-transform origin-center">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+
+                <p>fake category 2<p>
+              </div>
+
+              <button id='category-label-options-btn' class='m-6'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-16 h-16 stroke-gray-500">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 
+                  .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0
+                  11-1.5 0 .75.75 0 011.5 0z" />
+                </svg>
+              </button>
+
+            </summary>
+
+            <div class='relative flex justify-between group-open:border-b-2 border-gray-300'>
+                <button id='close-left-panel-btn' class='flex items-center text-left w-full rounded-md pl-12 py-8 text-4xl'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-14 h-14 mr-12">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                </svg>
+                  fake project button
+                </button>
+
+              <button id='project-label-options-btn' class='m-6'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-16 h-16 stroke-gray-500">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 
+                  .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0
+                  11-1.5 0 .75.75 0 011.5 0z" />
+                </svg>
+              </button>
+            </div>
+
+           <div class='relative flex justify-between group-open:border-b-2 border-gray-300'>
+                <button id='close-left-panel-btn' class='flex items-center text-left w-full rounded-md pl-12 py-8 text-4xl'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-14 h-14 mr-12">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                </svg>
+                  fake project button
+                </button>
+
+              <button id='project-label-options-btn' class='m-6'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-16 h-16 stroke-gray-500">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 
+                  .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0
+                  11-1.5 0 .75.75 0 011.5 0z" />
+                </svg>
+              </button>
+            </div>
+
+          </details>
+
+        </div>
+
+         <div class='flex justify-center py-20'>
+          <button class=''>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" 
+            stroke="silver" class="w-28 h-28">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </button>
+        </div>
+
+     </div>
+
+      <div class='border w-full flex items-center justify-center'>
+        <p class='text-gray-500 text-4xl py-12'>To-do app © 2023 Syrupsandwich</p>
+      </div>
+    </div>
+
+
+
+    <div id='right-panel' class='w-full h-full flex flex-col bg-slate-50'>
+
+      <div class='flex items-start border-b-4'>
+
+        <button id='open-left-panel-btn' class='p-8'>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+          stroke="currentColor" class="w-16 h-16 stroke-gray-500">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          </s8>
+        </button>
+
+        <details class='flex-1 text-center py-10'>
+          <summary class='list-none'>
+            <p id='project-title' class='text-gray-600 '>Project title</p>
+          </summary>
+          <p id='project-description' class='text-4xl text-gray-500 pt-6 px-8'>
+          falalalala blow up planet earth yae yeah. lets goooooo
+          </p>
+        </details>
+
+        <div class='relative z-[0]'>
+          <button id='task-options-btn' class='hover:bg-gray-200 peer p-8'>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" 
+            stroke="gray" class="w-16 h-16 stroke-gray-500">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+            </svg>
+          </button>
+          <div class='absolute right-0 bg-gray-50 border-4 border-gray-300 rounded-xl w-[440px]
+            peer-focus:flex peer-focus:flex-col items-stretch hidden peer-focus:block'>
+            <button id='edit-task-btn' class='hover:bg-gray-200 text-left px-8 border-b-4 py-6 last:border-b-0'>
+              Edit project
+            </button>
+            <button id='delete-task-btn' class='hover:bg-gray-200 text-left px-8 border-b-4 py-6 last:border-b-0'>
+              Delete project
+            </button>
+          </div>
+        </div>
+
+
+
+      </div>
+
+      <div id='project-task-container' class='flex-1 px-8 pt-8 pb-32 overflow-y-scroll'>
+
+        <div id='task-container' class='border-4 rounded-xl p-14'>
+
+          <div id='task-header' class='list-none flex items-center border-b-4 '>
+            <div class='hidden'>
+            <input id='completion-status' type='checkbox' class='h-14 w-14 mr-12'>
+            </div>
+
+            <input type='text' id='task-title' class='text-6xl text-violet-500 bg-gray-50 mr-10
+                   overflow-hidden focus:outline-0'
+            value='Feed Big Chungus'>
+
+            <div class='relative z-[0]'>
+            <button id='task-options-btn' class='hover:bg-gray-200 p-6 peer'>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" 
+              stroke="gray" class="w-16 h-16">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+              </svg>
+            </button>
+            <div class='absolute right-0 bg-gray-50 border-4 border-gray-300 rounded-xl w-[440px]
+              peer-focus:flex peer-focus:flex-col items-stretch hidden peer-focus:block'>
+              <button id='extend-deadline-btn' class='hover:bg-gray-200 text-left px-8 border-b-4 py-6 last:border-b-0'>
+                Extend deadline
+              </button>
+              <button id='edit-task-btn' class='hover:bg-gray-200 text-left px-8 border-b-4 py-6 last:border-b-0'>
+                Edit task
+              </button>
+              <button id='delete-task-btn' class='hover:bg-gray-200 text-left px-8 border-b-4 py-6 last:border-b-0'>
+                Delete task
+              </button>
+            </div>
+            </div>
+          </div>
+
+          <p id='task-description' class='pb-4 pt-6 leading-tight' contenteditable>
+          There is a 30% chance that Chungus will eat his food. The only thing you can do to increase the probability is to...
+          </p>
+
+
+          <div id='note-container' class='pt-8 pb-14 mr-10 text-gray-700'>
+
+            <div class='flex items-start ml-4 pb-6'>
+
+              <div class='h-14 w-14 flex justify-center items-center mr-4 ml-2'>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 20 20" stroke-width="8" 
+                  stroke="black" class="w-8 h-8">
+                    <path xmlns="http://www.w3.org/2000/svg" d="M7.8 10a2.2 2.2 0 0 0 4.4 0 2.2 2.2 0 0 0-4.4 0z"/>
+                  </svg>
+              </div>
+
+              <button id='switch-note-type-button' class='hidden h-14 w-14 border-4 border-dashed
+                border-gray-400 rounded-xl mr-8 shrink-0'>
+                <span class='flex justify-center align-center'>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="darkgray" viewBox="0 0 20 20" stroke-width="8" 
+                  stroke="darkgray" class="w-8 h-8">
+                    <path xmlns="http://www.w3.org/2000/svg" d="M7.8 10a2.2 2.2 0 0 0 4.4 0 2.2 2.2 0 0 0-4.4 0z"/>
+                  </svg>
+                </span>
+              </button>
+
+              <p class='leading-tight peer-checked:line-through peer-disabled:no-underline'>
+                let him starve
+              </p>
+
+            </div>
+
+            <div class='flex items-start ml-4 pb-6'>
+              <input id='task-note' type='checkbox' class='h-12 w-12 mr-8 mt-2 peer shrink-0 disabled:hidden'>
+              <button id='switch-note-type-button' class='peer-disabled:block hidden h-14 w-14 border-4 border-dashed
+                border-gray-400 rounded-xl mr-8 shrink-0'>
+                <span class='flex justify-center align-center'>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" 
+                  stroke="darkgray" class="w-12 h-12">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 7.5A2.25 2.25 0 017.5 5.25h9a2.25 2.25 0 012.25 2.25v9a2.25 2.25 0 01-2.25 2.25h-9a2.25 2.25 0 01-2.25-2.25v-9z" />
+                  </svg>
+                </span>
+              </button>
+              <label for='task-note' class='leading-tight peer-checked:line-through peer-disabled:no-underline' contenteditable>
+                feed him once
+              </label>
+            </div>
+
+          </div>
+
+          <div class='mb-10 flex flex-col gap-6'>
+          <p id='deadline-notification' class='text-gray-500 font-bold'>Due on Monday, Jun 24 at 15:00</p>
+          <p id='times-completed' class='text-gray-400'>Completed 5123834 times.</p>
+          </div>
+
+          <div id='property-settings-container' class='text-gray-400 border-2 rounded-xl p-10 flex flex-col gap-14'>
+
+            <div class='flex justify-between items-center'>
+              <label for='due-date' id='due-date-label' class='mr-2'>
+                Due date:
+              </label>
+              <input type='date' class='bg-transparent text-black invert-[65%]'>
+            </div>
+
+            <div class='flex justify-between items-center'>
+              <label for='due-time' id='due-time-label' class='mr-2'>
+                Due time:
+              </label>
+              <input type='time' class='bg-transparent text-black invert-[65%]'>
+            </div>
+
+            <div class='flex flex-col'>
+              <div>
+              <label for='priority-level' class='mr-8'>Priority:</label>
+              <span>(level indicator)</span>
+              </div>
+              <input name='priority-level' id='priority-level' type='range' min='1' max='4' class='grow mt-10'
+              value='1'>
+            </div>
+
+            <div class=''>
+              <p class='pb-6'>Time extension:</p>
+              <div class='flex gap-6'>
+                <div class='flex items-center'>
+                  <input id='minutes-to-extend' type='number' class='w-20 bg-transparent' placeholder='00'>
+                  <label for='minutes-to-extend'>minutes</label>
+                </div>
+                <div class='flex items-center'>
+                  <input id='hours-to-extend' type='number' class='w-20 bg-transparent' placeholder='00'>
+                  <label for='hours-to-extend'>hours</label>
+                </div>
+                <div class='flex items-center'>
+                  <input id='days-to-extend' type='number' class='w-20 bg-transparent' placeholder='00'>
+                  <label for='days-to-extend'>days</label>
+                </div>
+              </div>
+            </div>
+            
+            <div class=''>
+              <input id='display-times-done' type='checkbox' class='h-10 w-10 mr-4'>
+              <label for='display-times-done'>Show number of times done</label>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
   </body>
 </html>
 
