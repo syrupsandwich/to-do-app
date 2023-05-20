@@ -70,3 +70,57 @@ const getNextElement = (container, y) => {
     { offset: Number.POSITIVE_INFINITY }
   ).element;
 };
+
+let taskEditBtn = document.getElementById("task-edit-btn");
+let taskOptionsDrawer = document.getElementById("task-options-drawer");
+let deadlineSettingsContainer = document.getElementById(
+  "deadline-settings-container"
+);
+
+let completionBtn = document.getElementById("completion-btn");
+
+completionBtn.addEventListener("click", () => {
+  completionBtn.children[0].classList.toggle("hidden");
+  completionBtn.children[1].classList.toggle("hidden");
+});
+
+let projectOptionsBtn = document.getElementById("project-options-btn");
+let projectOptionsContainer = document.getElementById(
+  "project-options-container"
+);
+
+projectOptionsBtn.addEventListener("click", () => {
+  let buttons = projectOptionsContainer.children;
+  for (const button of buttons) {
+    button.classList.toggle("max-h-0");
+    button.classList.toggle("max-h-32");
+    button.classList.toggle("py-3");
+    button.classList.toggle("border-b-4");
+    button.classList.toggle("opacity-0");
+  }
+});
+
+let projectDetails = document.getElementById("project-details");
+let projectTitleContainer = document.getElementById("project-title-container");
+projectTitleContainer.addEventListener("click", (e) => {
+  e.preventDefault();
+  projectDetails.children[1].classList.toggle("max-h-0");
+  projectDetails.children[1].classList.toggle("max-h-32");
+  projectDetails.children[1].classList.toggle("pb-4");
+  projectDetails.children[1].classList.toggle("opacity-0");
+});
+
+let categoryDetails = document.getElementById("project-list-container-header");
+let projectList = document.getElementById("project-list");
+let dropdownArrow = document.getElementById("dropdown-arrow");
+
+categoryDetails.addEventListener("click", (e) => {
+  e.preventDefault();
+  let projectBtnContainers = projectList.children;
+  for (const container of projectBtnContainers) {
+    container.classList.toggle("max-h-0");
+    container.classList.toggle("max-h-32");
+    container.classList.toggle("opacity-0");
+  }
+  dropdownArrow.classList.toggle("rotate-90");
+});
