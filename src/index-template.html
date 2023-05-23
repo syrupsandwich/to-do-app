@@ -202,31 +202,30 @@
 
           <div class='flex text-gray-500 justify-between my-1'>
 
-            <div id='deadline-settings-container' class='overflow-hidden whitespace-nowrap flex items-baseline gap-1'>
-              <p id='deadline-template' class=''>
-              Due on <span id='deadline'>Monday, Jun 24</span>
-              </p>
-              <span class='flex overflow-hidden w-[2ch] shrink-0'>
-                <label for='due-date' id='due-date-label' class='hidden'>
-                  Date:<span class='text-transparent'>_</span> 
-                </label>
-                <input type='date' class='bg-transparent text-black opacity-[50%]'>
-              </span>
-  
+            <div id='deadline-settings-container' class='overflow-hidden whitespace-nowrap flex items-baseline 
+              gap-1 mr-4'>
+
               <span class='relative'>
-                <label for='due-time' id='due-time-label' class=''>
-                  at<span class='text-transparent'></span>
+                <input id='due-date' type='date' class='opacity-0 unison absolute inset-0 peer'>
+                <label for='due-date' id='due-date-label' class='peer-focus:bg-[#b5d5ff] peer-focus:text-black appearance-none'>
+                  Due on <span id='deadline' class=''>Monday, Jun 24</span>
                 </label>
-                <input id='due-time' type='time' class='bg-transparent text-black opacity-[50%]' value='00:00'>
-                <div class='absolute inset-0 right-[2.6ch]'></div>
+             </span>
+
+              <span class='relative'>
+                <input id='due-time' type='time' class='unison bg-transparent outline-0 focus:bg-[#b5d5ff]
+                focus:text-black peer pl-[2.1ch] appearance-none' value='00:00'>
+                <label for='due-time' id='due-time-label' class='absolute left-0 pl-[0.1ch] pt-[1px] peer-focus:text-black pointer-events-none'>at</label>
               </span>
 
             </div>
+
             <button id='move-task-btn'>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-4 opacity-40">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
               </svg>
             </button>
+
           </div>
 
           <div id='note-container' class='flex flex-col gap-5 bg-gray-50 p-2 pt-0'>
