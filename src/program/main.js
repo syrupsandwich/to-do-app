@@ -71,12 +71,6 @@ const getNextElement = (container, y) => {
   ).element;
 };
 
-let taskEditBtn = document.getElementById("task-edit-btn");
-let taskOptionsDrawer = document.getElementById("task-options-drawer");
-let deadlineSettingsContainer = document.getElementById(
-  "deadline-settings-container"
-);
-
 let completionBtn = document.getElementById("completion-btn");
 
 completionBtn.addEventListener("click", () => {
@@ -102,8 +96,7 @@ projectOptionsBtn.addEventListener("click", () => {
 
 let projectDetails = document.getElementById("project-details");
 let projectTitleContainer = document.getElementById("project-title-container");
-projectTitleContainer.addEventListener("click", (e) => {
-  e.preventDefault();
+projectTitleContainer.addEventListener("click", () => {
   projectDetails.children[1].classList.toggle("max-h-0");
   projectDetails.children[1].classList.toggle("max-h-32");
   projectDetails.children[1].classList.toggle("pb-4");
@@ -114,8 +107,7 @@ let categoryDetails = document.getElementById("project-list-container-header");
 let projectList = document.getElementById("project-list");
 let dropdownArrow = document.getElementById("dropdown-arrow");
 
-categoryDetails.addEventListener("click", (e) => {
-  e.preventDefault();
+categoryDetails.addEventListener("click", () => {
   let projectBtnContainers = projectList.children;
   for (const container of projectBtnContainers) {
     container.classList.toggle("max-h-0");
