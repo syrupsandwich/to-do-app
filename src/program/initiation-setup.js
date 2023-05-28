@@ -54,12 +54,15 @@ const loadDemo = () => {
 
   welcome.projects[0].makeTask({
     title: "Look around",
-    description: "Get to know the app.",
     timestamp: taskCount++,
     timeExtension: { minutes: 5 },
     notes: [
       {
-        type: "assignment",
+        type: "text",
+        text: "Get to know the app",
+      },
+      {
+        type: "checkbox",
         text: "press some buttons",
       },
     ],
@@ -80,23 +83,22 @@ const loadDemo = () => {
 
   fitness.projects[0].makeTask({
     title: "Buy equipment from Big 5",
-    description: "",
     timestamp: taskCount++,
     notes: [
       {
-        type: "assignment",
+        type: "checkbox",
         text: "A pair of dumbbells",
       },
       {
-        type: "assignment",
+        type: "checkbox",
         text: "4 x 2.5lb weight plates",
       },
       {
-        type: "assignment",
+        type: "checkbox",
         text: "4 x 5lb weight plates",
       },
       {
-        type: "assignment",
+        type: "checkbox",
         text: "4 x 10lb weight plates",
       },
     ],
@@ -104,7 +106,6 @@ const loadDemo = () => {
 
   fitness.projects[0].makeTask({
     title: "Buy supplies from Home Depo",
-    description: "",
     timestamp: taskCount++,
   });
 
@@ -116,17 +117,25 @@ const loadDemo = () => {
 
   fitness.projects[1].makeTask({
     title: "Read The Physics of Resistance Exercise",
-    description:
-      "Learn how to exercise muscles in accordance to biomechanical principles.",
     taskStatus: "true",
     timestamp: taskCount++,
+    notes: [
+      {
+        type: "text",
+        text: "Learn how to exercise muscles in accordance to biomechanical principles",
+      },
+    ],
   });
 
   fitness.projects[1].makeTask({
     title: "Read Nutrition and Physical Degeneration",
-    description:
-      "Learn about the effects nutrition has on your body's development.",
     timestamp: taskCount++,
+    notes: [
+      {
+        type: "text",
+        text: "Learn about the effects nutrition has on your body's development.",
+      },
+    ],
   });
 
   makeCategory({
@@ -144,12 +153,14 @@ const loadDemo = () => {
 
   finance.projects[0].makeTask({
     title: "Work on the minor login issue",
-    description:
-      "The site runs into problems when logging in with internet explorer.",
     timestamp: taskCount++,
     notes: [
       {
-        type: "informative",
+        type: "text",
+        text: "The site runs into problems when logging in with internet explorer",
+      },
+      {
+        type: "text",
         text: "It seems to only happen after previously logging in as a guest.",
       },
     ],
@@ -157,31 +168,39 @@ const loadDemo = () => {
 
   finance.projects[0].makeTask({
     title: "Reply to the HR email",
-    description: "A survey about your wellbeing and working conditions.",
     timeExtension: { days: 2 },
     timestamp: taskCount++,
+    notes: [
+      {
+        type: "text",
+        text: "A survey about your wellbeing and the working conditions.",
+      },
+    ],
   });
 
   finance.projects[0].makeTask({
     title: "Negotiate with the boss",
-    description: "Get the boss to raise your salary for being extra.",
     timestamp: taskCount++,
     notes: [
       {
-        type: "informative",
+        type: "text",
+        text: "Get the boss to raise your salary for being extra.",
+      },
+      {
+        type: "bullet",
         text: "People come to me to solve all the hardest problems.",
       },
       {
-        type: "informative",
+        type: "bullet",
         text: "I've accomplished many feats while working here.",
       },
       {
-        type: "informative",
+        type: "bullet",
         text: "I take initiative finding issues and fixing them.",
       },
       {
-        type: "informative",
-        text: "I get everything done sooner than the deadline.",
+        type: "bullet",
+        text: "I get everything done before the deadline.",
       },
     ],
   });
@@ -194,46 +213,56 @@ const loadDemo = () => {
 
   finance.projects[1].makeTask({
     title: "Check product analitics",
-    description: "How is the campain holding up?",
     timestamp: taskCount++,
   });
 
   finance.projects[1].makeTask({
     title: "Write 1000 words",
-    description: "This is the daily quota for the current draft.",
     timeExtension: { days: 1 },
     timestamp: taskCount++,
     notes: [
       {
-        type: "informative",
-        text: "Examine the research again if you need to.",
+        type: "text",
+        text: "This is the daily quota for the current draft.",
+      },
+      {
+        type: "bullet",
+        text: "Provide links to the research.",
       },
     ],
   });
 
   finance.projects[1].makeTask({
     title: "Post about the new book.",
-    description: "Advertize the new book using template 16.",
     timeExtension: { weeks: 1 },
     timestamp: taskCount++,
+    notes: [
+      {
+        type: "text",
+        text: "Use advertizing template #16.",
+      },
+    ],
   });
 
   finance.projects[1].makeTask({
     title: "Review feedback",
-    description: "Address customer issues and collect positive reviews.",
     timeExtension: { days: 3 },
     timestamp: taskCount++,
     notes: [
       {
-        type: "assignment",
+        type: "text",
+        text: "Address customer issues and collect positive reviews.",
+      },
+      {
+        type: "checkbox",
         text: "check sales page review section",
       },
       {
-        type: "assignment",
-        text: "check gmail for author profile",
+        type: "checkbox",
+        text: "check emails for author profile",
       },
       {
-        type: "assignment",
+        type: "checkbox",
         text: "check twitter",
       },
     ],
@@ -255,12 +284,15 @@ const loadDemo = () => {
 
   otherInterests.projects[0].makeTask({
     title: "250 box practice",
-    description: "Draw 5 boxes on a page every day until 50 pages are done.",
     timeExtension: { days: 1 },
     timestamp: taskCount++,
     notes: [
       {
-        type: "assignment",
+        type: "text",
+        text: "Draw 5 boxes on a page every day until 50 pages are done.",
+      },
+      {
+        type: "checkbox",
         text: "check each box for convergences",
       },
     ],
@@ -268,9 +300,13 @@ const loadDemo = () => {
 
   otherInterests.projects[0].makeTask({
     title: "50% rule",
-    description:
-      "Draw whatever you want for the same amount of time spent practicing.",
     timestamp: taskCount++,
+    notes: [
+      {
+        type: "text",
+        text: "Draw whatever you want for the same amount of time spent practicing.",
+      },
+    ],
   });
 };
 

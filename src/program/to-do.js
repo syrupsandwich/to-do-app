@@ -102,7 +102,6 @@ const categoryFactory = ({
 
   const taskFactory = ({
     title = "",
-    description = "",
     dueDate = "",
     dueTime = "",
     priority = "",
@@ -118,15 +117,6 @@ const categoryFactory = ({
 
     const setTitle = (input) => {
       title = input;
-      updateSessionStorageObject(exportOwnData());
-    };
-
-    const getDescription = () => {
-      return description;
-    };
-
-    const setDescription = (input) => {
-      description = input;
       updateSessionStorageObject(exportOwnData());
     };
 
@@ -230,8 +220,10 @@ const categoryFactory = ({
     };
 
     const makeNote = ({ type = "text", text = "" }) => {
-      if (type !== "checkbox" && type !== "text") {
-        return console.error("The note type must be checkbox or text.");
+      if (type !== "text" && type !== "checkbox" && type !== "bullet") {
+        return console.error(
+          'The note type must be either "text", "checkbox", or "bullet".'
+        );
       }
       notes.push({ type, text });
       updateSessionStorageObject(exportOwnData());
@@ -252,13 +244,9 @@ const categoryFactory = ({
     };
 
     const changeNoteType = (index, type) => {
-      if (
-        type !== "informative" &&
-        type !== "assignment" &&
-        type !== "achievement"
-      ) {
+      if (type !== "text" && type !== "checkbox" && type !== "bullet") {
         return console.error(
-          'The note type must be one of the following strings: "informative", "assignment", or "achievement".'
+          'The note type must be either "text", "checkbox", or "bullet".'
         );
       }
       notes[index].type = type;
@@ -267,7 +255,7 @@ const categoryFactory = ({
 
     const changeNoteText = (index, text) => {
       if (typeof text !== "string") {
-        return console.error("The input is not a string.");
+        return console.error("The input must be a string.");
       }
       notes[index].text = text;
       updateSessionStorageObject(exportOwnData());
@@ -288,7 +276,6 @@ const categoryFactory = ({
     const exportOwnData = () => {
       let data = {
         title: getTitle(),
-        description: getDescription(),
         priority: getPriority(),
         dueDate: getDueDate(),
         dueTime: getDueTime(),
@@ -305,8 +292,6 @@ const categoryFactory = ({
     return {
       getTitle,
       setTitle,
-      getDescription,
-      setDescription,
       getDueDate,
       setDueDate,
       getDueTime,
