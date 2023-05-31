@@ -9,6 +9,19 @@ import {
 } from "date-fns";
 import { updateSessionStorageObject } from "./session-storage-updater.js";
 
+const urgentTasks = [];
+
+const addToUrgentTasks = (taskTimestamp) => {
+  urgentTasks.push(taskTimestamp);
+  sessionStorage.setItem("urgentTasks", urgentTasks);
+};
+
+const removeFromUrgentTasks = (taskTimestamp) => {
+  let targetIndex = urgentTasks.indexOf(taskTimestamp);
+  urgentTasks.splice(targetIndex, 1);
+  sessionStorage.setItem("urgentTasks", urgentTasks);
+};
+
 const categoryFactory = ({
   title = "",
   projectTimestamps = [],
@@ -104,7 +117,7 @@ const categoryFactory = ({
     title = "",
     dueDate = "",
     dueTime = "",
-    priority = "",
+    pinned = false,
     taskStatus = false,
     timesRepeated = 0,
     timeExtension = {},
@@ -121,12 +134,13 @@ const categoryFactory = ({
     };
 
     const getPriority = () => {
-      return priority;
-    };
-
-    const setPriority = (input) => {
-      priority = input;
-      updateSessionStorageObject(exportOwnData());
+      if (dueDate && pinned === true) {
+        return "2";
+      } else if (dueDate) {
+        return "1";
+      } else {
+        return "0";
+      }
     };
 
     const getDeadline = () => {
@@ -182,6 +196,18 @@ const categoryFactory = ({
 
     const getTimeExtension = () => {
       return timeExtension;
+    };
+
+    const pin = () => {
+      pinned = true;
+      updateSessionStorageObject(exportOwnData());
+      addToUrgentTasks(getTimestamp());
+    };
+
+    const unpin = () => {
+      pinned = false;
+      updateSessionStorageObject(exportOwnData());
+      removeFromUrgentTasks;
     };
 
     const setTimeExtension = (time = {}) => {
@@ -276,8 +302,8 @@ const categoryFactory = ({
     const exportOwnData = () => {
       let data = {
         title: getTitle(),
-        priority: getPriority(),
         dueDate: getDueDate(),
+        pinned,
         dueTime: getDueTime(),
         taskStatus: checkCompletionStatus(),
         timesRepeated: getTimesRepeated(),
@@ -296,9 +322,10 @@ const categoryFactory = ({
       setDueDate,
       getDueTime,
       setDueTime,
+      pin,
+      unpin,
       getTimeLeft,
       getPriority,
-      setPriority,
       checkCompletionStatus,
       changeCompletionStatus,
       isDueToday,
