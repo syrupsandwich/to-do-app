@@ -71,13 +71,6 @@ const getNextElement = (container, y) => {
   ).element;
 };
 
-let completionBtn = document.getElementById("completion-btn");
-
-completionBtn.addEventListener("click", () => {
-  completionBtn.children[0].classList.toggle("hidden");
-  completionBtn.children[1].classList.toggle("hidden");
-});
-
 let projectOptionsBtn = document.getElementById("project-options-btn");
 let projectOptionsContainer = document.getElementById(
   "project-options-container"
@@ -115,4 +108,18 @@ categoryDetails.addEventListener("click", () => {
     container.classList.toggle("opacity-0");
   }
   dropdownArrow.classList.toggle("rotate-90");
+});
+
+let initialDatePlaceholderBtn = document.getElementById(
+  "initial-date-placeholder-btn"
+);
+initialDatePlaceholderBtn.addEventListener("click", () => {
+  initialDatePlaceholderBtn.classList.toggle("hidden");
+  console.dir(initialDatePlaceholderBtn);
+  initialDatePlaceholderBtn.parentElement.children[1].classList.toggle(
+    "hidden"
+  );
+  initialDatePlaceholderBtn.parentElement.children[2].classList.toggle(
+    "hidden"
+  );
 });
