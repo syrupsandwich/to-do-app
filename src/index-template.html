@@ -178,14 +178,25 @@
         </div>
       </div>
 
-      <div id='project-task-container' class='flex-1 px-2 pt-2 pb-32 overflow-y-scroll bg-gray-100 border-b-4 h-full'>
+      <div id='project-task-container' class='px-2 pt-2 pb-32 overflow-y-scroll bg-gray-100 border-b-4 h-full'>
 
-        <div id='task-1' class='border-2 rounded-lg p-6 drop-shadow-md bg-gray-50 mb-96 text-sm'>
+        <div id='task-0' class='border-2 rounded-lg p-6 drop-shadow-md bg-gray-50 mb-96 text-sm pl-10 relative overflow-hidden'>
+
+          <div class='absolute inset-y-0 left-0 w-7 border-r py-3 px-1 text-gray-200 gap-2 flex flex-col items-center justify-center'>
+              <div class='border-b-[16px] border-x-[14px] border-b-[currentcolor] border-x-transparent w-0 h-0'></div>
+              <button id='task-grip-btn' class='grow flex gap-0.5'>
+                <div class='h-full border-l-4 border-dotted border-[currentcolor]'></div>
+                <div class='h-full border-l-4 border-dotted border-[currentcolor]'></div>
+                <div class='h-full border-l-4 border-dotted border-[currentcolor]'></div>
+                <div class='h-full border-l-4 border-dotted border-[currentcolor]'></div>
+              </button>
+              <div class='border-t-[16px] border-x-[14px] border-t-[currentcolor] border-x-transparent w-0 h-0'></div>
+          </div>
 
           <div id='task-header' class='border-b-2 border-gray-400 text-xl text-gray-500 font-bold
            focus:outline-0 grow flex justify-between'>
             <p id='task-title' class='whitespace-nowrap overflow-hidden'>Lorem ipsum dolor sit amet sed ut perspiciatis</p>
-            <div class='self-stretch w-12 -ml-10 bg-gradient-to-l from-gray-50 via-gray-50'>
+            <div class='self-stretch w-8 -ml-8 -mr-2 bg-gradient-to-l from-gray-50 via-gray-50'>
               <!--this div gives the task title a fade at the end when it is close enough to the buttons-->
             </div>
             <button id='completion-btn' class='bg-gray-50'>
@@ -204,14 +215,18 @@
             <div id='deadline-settings-container' class='overflow-hidden whitespace-nowrap flex items-center 
               gap-1 mr-4'>
 
-              <span class='relative'>
+              <button class='text-gray-400 flex' id='initial-date-placeholder-btn'>
+                <p>Date and time not specified</p>
+              </button>
+
+              <span class='relative hidden' id='task-0-date-setting-element'>
                 <input id='due-date' type='date' class='opacity-0 unison absolute inset-0 peer'>
                 <label for='due-date' id='due-date-label' class='peer-focus:bg-[#b5d5ff] peer-focus:text-black'>
                   Due on <span id='deadline' class=''>Monday, Jun 24</span>
                 </label>
-             </span>
+              </span>
 
-              <span class='relative w-[179px]'>
+              <span class='relative w-[179px] hidden' id='task-0-time-setting-element'>
                 <input id='due-time' type='time' class='unison bg-transparent outline-0 focus:bg-[#b5d5ff]
                 focus:text-black peer pl-[2.1ch] appearance-none' value='00:00'>
                 <label for='due-time' id='due-time-label' class='absolute left-0 pl-[0.1ch] pt-[1px] peer-focus:text-black pointer-events-none'>at</label>
@@ -219,19 +234,18 @@
 
             </div>
 
-            <button id='move-task-btn'>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-4 opacity-40">
+            <button id='task-transfer-btn' class='flex mr-0.5 gap-0.5 text-gray-300'>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
               </svg>
             </button>
 
           </div>
 
-          <div id='note-container' class='flex flex-col gap-5 bg-gray-50 p-2 pt-0'>
 
-            <ul class='flex flex-col gap-0.5 flex'>
+            <ul class='flex flex-col gap-0.5 flex' id='task-0-note-container'>
               <li id='note-options-container' class='flex rounded text-gray-400 px-2 -mx-2 bg-white grow 
-                items-center mt-2 border-2 bg-gradient-to-t from-gray-50 via-gray-50 to-white drop-shadow-md'>
+                items-center mt-2 border-2 bg-gradient-to-t from-gray-50 via-gray-50 to-white drop-shadow-md hidden'>
                 <p class='mr-4'>note options:</p>
                 <div class='flex justify-stretch grow max-w-[1000px] items-stretch h-7 bg-gray-200 gap-[2px] border-x-2 grow min-w-[450px]'>
                   <button id='add-note-btn' class='grow flex justify-center items-center bg-white'>
@@ -271,7 +285,7 @@
                 </label>
               </li>
 
-              <li id='note-2'class='list-disc relative group ml-10'>
+              <li id='note-2'class='list-disc relative group ml-6'>
                 <input id='task-note-1' type='checkbox' class='absolute -left-[2.4ch] h-[1.5ch] top-[0.6ch] w-[1.5ch]
                 group-[.list-checkbox]:block hidden'>
                 <label for='task-note-1' class=''>
@@ -279,7 +293,7 @@
                 </label>
               </li>
  
-              <li id='note-3' class='list-checkbox relative group ml-10'>
+              <li id='note-3' class='list-checkbox relative group ml-6'>
                 <input id='task-note-2' type='checkbox' class='absolute -left-[2.4ch] h-[1.5ch] top-[0.6ch] w-[1.5ch]
                 group-[.list-checkbox]:block hidden'>
                 <label for='task-note-2' class=''>
@@ -288,7 +302,6 @@
               </li>
             </ul>
 
-          </div>
         </div>
       </div>
 
