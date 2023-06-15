@@ -156,7 +156,7 @@
         </div>
   
         <div id='project-options-container' class='w-full text-gray-500'>
-  
+
           <button class='w-full text-left px-4 flex justify-between
             overflow-hidden max-h-0 transition-[max-height;opacity] duration-300 ease-in-out opacity-0'>
             <span class=''>Edit project details</span>
@@ -168,60 +168,54 @@
           
           <button class='w-full text-left px-4 flex justify-between
             overflow-hidden max-h-0 transition-[max-height;opacity] duration-300 ease-in-out opacity-0'>
-            <span class=''>Delete Project</span>
+            <span class=''>Delete project</span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" 
               stroke="silver" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+
+          <button class='w-full text-left px-4 flex justify-between
+            overflow-hidden max-h-0 transition-[max-height;opacity] duration-300 ease-in-out opacity-0'>
+            <span class=''>Transfer selection to another project</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" 
+              stroke="silver" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+            </svg>
+          </button>
+
+          <button class='w-full text-left px-4 flex justify-between
+            overflow-hidden max-h-0 transition-[max-height;opacity] duration-300 ease-in-out opacity-0'>
+            <span class=''>Pin selection to the top</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" 
+              stroke="silver" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+            </svg>
+          </button>
+          
+          <button class='w-full text-left px-4 flex justify-between
+            overflow-hidden max-h-0 transition-[max-height;opacity] duration-300 ease-in-out opacity-0'>
+            <span class=''>Delete selection</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" 
+              stroke="silver" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
             </svg>
           </button>
   
         </div>
       </div>
 
-      <div id='project-task-container' class='px-2 pt-2 pb-32 overflow-y-scroll bg-gray-100 border-b-4 h-full'>
+      <div id='project-task-container' class='px-2 pt-2 pb-32 overflow-y-scroll bg-gray-100 h-full'>
 
-        <div id='task-0' class='border-2 rounded-lg py-5 pr-6 drop-shadow-md bg-gray-50 mb-96 text-sm pl-10 relative overflow-hidden'>
+        <div id='task-template' class='border-2 rounded-lg drop-shadow-md bg-gray-50 mb-96 text-sm relative overflow-hidden p-3 pl-3.5 pb-2.5'>
 
-          <div class='absolute inset-y-0 left-1 w-7 py-3 px-1 text-gray-200 gap-2 flex flex-col items-center justify-center'>
-              <div class='border-b-[16px] border-x-[14px] border-b-[currentcolor] border-x-transparent w-0 h-0'></div>
-              <button id='task-grip-btn' class='grow flex gap-0.5'>
-                <div class='h-full border-l-4 border-dotted border-[currentcolor]'></div>
-                <div class='h-full border-l-4 border-dotted border-[currentcolor]'></div>
-                <div class='h-full border-l-4 border-dotted border-[currentcolor]'></div>
-                <div class='h-full border-l-4 border-dotted border-[currentcolor]'></div>
-              </button>
-              <div class='border-t-[16px] border-x-[14px] border-t-[currentcolor] border-x-transparent w-0 h-0'></div>
+          <div class='text-xl text-gray-500 font-bold -mr-3
+            focus:outline-0 grow flex justify-between items-center'>
+            <p id='task-title' class='whitespace-nowrap overflow-hidden border-gray-400 w-full'>Lorem ipsum dolor sit amet sed ut perspiciatis</p>
+            <div id='fade' class='self-stretch w-8 -ml-8 -mr-1 bg-gradient-to-l from-gray-50 via-gray-50'></div>
           </div>
 
-          <div id='task-header' class='text-xl text-gray-500 font-bold
-           focus:outline-0 grow flex justify-between items-center'>
-            <p id='task-title' class='whitespace-nowrap overflow-hidden border-b-2 border-gray-400 w-full'>Lorem ipsum dolor sit amet sed ut perspiciatis</p>
-            <div id='fade' class='self-stretch w-10 -ml-8 -mr-1 bg-gradient-to-l from-gray-50 via-gray-50 -my-1'></div>
-            <div class='relative self-stretch w-4 flex justify-center items-center shrink-0 bg-gray-50 -mb-1'>
-              <input type='checkbox' class='absolute h-6 w-6 appearance-none border-4 border-[currentcolor] peer opacity-20 checked:opacity-50'> 
-              <div class='w-4 h-4 peer-checked:block hidden bg-blue-400'></div>
-            </div>
-          </div>
-
-          <div class='text-gray-500 my-1 overflow-hidden whitespace-nowrap'>
-
-            <button id='initial-date-placeholder-btn' class='text-gray-400 hover:underline'>
-              <p class='pointer-events-none h-[47px] pt-[1px]'>Date and time not specified.</p>
-            </button>
-
-            <span id='task-0-date-setting-element' class='relative hidden'>
-              <input id='due-date' type='date' class='opacity-0 unison absolute inset-0 peer'>
-              <label for='due-date' id='due-date-label' class='peer-focus:bg-[#b5d5ff] peer-focus:text-black'>Due on Monday, Jun 24</label>
-            </span>
-
-            <span id='task-0-time-setting-element' class='relative w-[179px] hidden'>
-              <input id='due-time' type='time' class='unison bg-transparent outline-0 focus:bg-[#b5d5ff] focus:text-black peer pl-[2.1ch] appearance-none' value='00:00'>
-              <label for='due-time' id='due-time-label' class='absolute left-0 pl-[0.1ch] pt-[1px] peer-focus:text-black pointer-events-none'>at</label>
-            </span>
-
-          </div>
-
-          <ul class='flex flex-col gap-0.5 flex' id='task-0-note-container'>
+         <ul class='flex flex-col gap-0.5 flex' id='task-0-note-container'>
             <li id='note-options-container' class='flex rounded text-gray-400 px-2 -mx-2 bg-white grow 
               items-center mt-2 border-2 bg-gradient-to-t from-gray-50 via-gray-50 to-white drop-shadow-md hidden'>
               <p class='mr-4'>note options:</p>
@@ -280,9 +274,32 @@
             </li>
           </ul>
 
+          <div class='flex justify-between pt-2 items-center'>
+            <div class='text-gray-400 overflow-hidden whitespace-nowrap flex'>
+              <span id='task-0-date-setting-element' class='relative'>
+                <input id='due-date' type='date' class='opacity-0 unison absolute inset-0 peer'>
+                <label for='due-date' id='due-date-label' class='peer-focus:bg-[#b5d5ff] peer-focus:text-black'>Due on Monday, Jun 24</label>
+              </span>
+              <span id='task-0-time-setting-element' class='relative w-[179px] ml-1'>
+                <input id='due-time' type='time' class='unison bg-transparent outline-0 focus:bg-[#b5d5ff] focus:text-black peer pl-[2.1ch] appearance-none' value='00:00'>
+                <label for='due-time' id='due-time-label' class='absolute left-0 pl-[0.1ch] pt-[1px] peer-focus:text-black pointer-events-none'>at</label>
+              </span>
+            </div>
+ 
+            <div class='relative w-10 h-4 shrink-0 bg-gray-50 flex grow'>
+              <input type='checkbox' id='task-selector' class='absolute h-4 w-4 appearance-none border-4 border-[currentcolor] peer opacity-10 checked:opacity-60 checked:border-blue-700 right-0 checked:bg-blue-500'> 
+              <button id='task-grip-btn' class='absolute left-4 inset-y-0 right-8 peer-checked:block hidden pt-0.5 -my-0.5 text-gray-300'>
+                <div class='border-t-4 border-dotted border-[currentcolor] h-1/5'></div>
+                <div class='border-t-4 border-dotted border-[currentcolor] h-1/5'></div>
+                <div class='border-t-4 border-dotted border-[currentcolor] h-1/5'></div>
+                <div class='border-t-4 border-dotted border-[currentcolor] h-1/5'></div>
+                <div class='border-t-4 border-dotted border-[currentcolor] h-1/5'></div>
+              </button>
+            </div>
+          </div>
+
         </div>
       </div>
-
     </div>
 
   </body>

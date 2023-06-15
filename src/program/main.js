@@ -109,17 +109,3 @@ categoryDetails.addEventListener("click", () => {
   }
   dropdownArrow.classList.toggle("rotate-90");
 });
-
-let initialDatePlaceholderBtn = document.getElementById(
-  "initial-date-placeholder-btn"
-);
-initialDatePlaceholderBtn.addEventListener("click", () => {
-  initialDatePlaceholderBtn.classList.toggle("hidden");
-  console.dir(initialDatePlaceholderBtn);
-  initialDatePlaceholderBtn.parentElement.children[1].classList.toggle(
-    "hidden"
-  );
-  initialDatePlaceholderBtn.parentElement.children[2].classList.toggle(
-    "hidden"
-  );
-});
