@@ -53,17 +53,25 @@ const loadDemo = () => {
   });
 
   welcome.projects[0].makeTask({
-    title: "Look around",
+    title: "Check out this task card :v",
     timestamp: taskCount++,
     timeExtension: { minutes: 5 },
     notes: [
       {
         type: "text",
-        text: "Get to know the app",
+        text: "Double click the text and the note options menu will open, allowing you to add, remove, convert, or reorder these notes",
       },
       {
         type: "checkbox",
-        text: "press some buttons",
+        text: "This is what a checkbox note looks like",
+      },
+      {
+        type: "bullet",
+        text: "And this is what a bullet note looks like",
+      },
+      {
+        type: "text",
+        text: "Pressing close on the note options menu will exit the edit mode and save the changes. Clicking on an input such as the date setting or the checkbox will do the same thing.",
       },
     ],
   });
@@ -84,7 +92,13 @@ const loadDemo = () => {
   fitness.projects[0].makeTask({
     title: "Buy equipment from Big 5",
     timestamp: taskCount++,
+    dueDate: "2023-09-03",
+    dueTime: "12:00",
     notes: [
+      {
+        type: "text",
+        text: "The following equipment should be the standard size",
+      },
       {
         type: "checkbox",
         text: "A pair of dumbbells",
@@ -101,12 +115,40 @@ const loadDemo = () => {
         type: "checkbox",
         text: "4 x 10lb weight plates",
       },
+      {
+        type: "bullet",
+        text: "color preference: black",
+      },
     ],
   });
 
   fitness.projects[0].makeTask({
     title: "Buy supplies from Home Depo",
     timestamp: taskCount++,
+    dueDate: "2023-09-08",
+    dueTime: "14:00",
+    notes: [
+      {
+        type: "text",
+        text: 'These are to be attached to the "tower" for a rear deltoid exercise.',
+      },
+      {
+        type: "checkbox",
+        text: "two pulleys",
+      },
+      {
+        type: "checkbox",
+        text: "1/8 paracord",
+      },
+      {
+        type: "checkbox",
+        text: "15ft of chain",
+      },
+      {
+        type: "checkbox",
+        text: "2 wirerope clamps",
+      },
+    ],
   });
 
   fitness.makeProject({
@@ -212,7 +254,7 @@ const loadDemo = () => {
   });
 
   finance.projects[1].makeTask({
-    title: "Check product analitics",
+    title: "Check product analytics",
     timestamp: taskCount++,
   });
 

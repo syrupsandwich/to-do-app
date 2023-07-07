@@ -6,10 +6,20 @@ import {
   getTasksForToday,
   moveCategory,
   printTasks,
+  findTask,
 } from "./to-do.js";
+import { format, parseISO } from "date-fns";
 import { initiateSetup } from "./initiation-setup.js";
+import "./task-events.js";
+import { appendTaskElements } from "./task-element-generator.js";
+import {
+  setTemplateTitle,
+  setTemplateNoteTexts,
+} from "./set-task-template-text";
 
 initiateSetup();
+setTemplateTitle();
+setTemplateNoteTexts();
 
 let leftPanel = document.getElementById("left-panel");
 let openLeftPanelBtn = document.getElementById("open-left-panel-btn");
@@ -109,3 +119,8 @@ categoryDetails.addEventListener("click", () => {
   }
   dropdownArrow.classList.toggle("rotate-90");
 });
+
+let projectTaskContainer = document.getElementById("project-task-container");
+
+let currentProject = categories[0].projects[0];
+appendTaskElements(projectTaskContainer, currentProject);

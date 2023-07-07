@@ -115,8 +115,8 @@ const categoryFactory = ({
 
   const taskFactory = ({
     title = "",
-    dueDate = "",
-    dueTime = "",
+    dueDate = "none",
+    dueTime = "00:00",
     pinned = false,
     taskStatus = false,
     timesRepeated = 0,
@@ -164,7 +164,7 @@ const categoryFactory = ({
     };
 
     const setDueDate = (input) => {
-      if (!isValid(parseISO(input))) {
+      if (!isValid(parseISO(input)) && input !== "none") {
         return console.error("The specified date is not valid.");
       }
       dueDate = input;
@@ -245,13 +245,13 @@ const categoryFactory = ({
       return;
     };
 
-    const makeNote = ({ type = "text", text = "" }) => {
+    const makeNote = ({ type = "text", text = "", checked = false }) => {
       if (type !== "text" && type !== "checkbox" && type !== "bullet") {
         return console.error(
           'The note type must be either "text", "checkbox", or "bullet".'
         );
       }
-      notes.push({ type, text });
+      notes.push({ type, text, checked });
       updateSessionStorageObject(exportOwnData());
     };
 
@@ -287,7 +287,12 @@ const categoryFactory = ({
       updateSessionStorageObject(exportOwnData());
     };
 
-    const updateNote = (index, { type, text }) => {
+    const checkNote = (index, value) => {
+      notes[index].checked = value;
+      updateSessionStorageObject(exportOwnData());
+    };
+
+    const updateNote = (index, { type, text, checked }) => {
       if (!notes[index]) {
         return console.error("The specified note index is out of range.");
       }
@@ -296,6 +301,9 @@ const categoryFactory = ({
       }
       if (text) {
         changeNoteText(index, text);
+      }
+      if (checked || !checked) {
+        checkNote(index, checked);
       }
     };
 
@@ -338,6 +346,7 @@ const categoryFactory = ({
       moveNote,
       updateNote,
       exportOwnData,
+      notes,
     };
   };
 
@@ -662,6 +671,24 @@ const moveCategory = (origin, destination) => {
   printCategories("The categories have been reordered.");
 };
 
+function findTask(timestamp) {
+  let tempTasks = [];
+
+  categories.forEach((category) => {
+    category.projects.forEach((project) => {
+      project.tasks.forEach((task) => {
+        tempTasks.push(task);
+      });
+    });
+  });
+
+  let foundTask = tempTasks.find((task) => {
+    return task.getTimestamp() === Number(timestamp);
+  });
+
+  return foundTask;
+}
+
 export {
   categories,
   makeCategory,
@@ -669,4 +696,5 @@ export {
   getTasksForToday,
   moveCategory,
   removeCategory,
+  findTask,
 };

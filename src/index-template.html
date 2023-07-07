@@ -125,7 +125,7 @@
 
 
 
-    <div id='right-panel' class='bg-gray-100 w-full h-full overflow-y-hidden'>
+    <div id='right-panel' class='bg-gray-100 w-full h-full overflow-y-hidden flex flex-col'>
 
       <div class='sticky bg-gray-100'>
         <div id='right-panel-header' class='border-b-4 text-gray-700 flex items-start'>
@@ -156,135 +156,178 @@
         </div>
   
         <div id='project-options-container' class='w-full text-gray-500'>
-          <button class='w-full text-left px-4 flex justify-between
+          <button class='w-full text-left px-4 flex hover:bg-gray-50
             overflow-hidden max-h-0 transition-[max-height;opacity] duration-300 ease-in-out opacity-0'>
-            <span class=''>Delete project</span>
+            <p class='grow'>Delete project</p>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" 
               stroke="silver" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
 
-          <button class='w-full text-left px-4 flex justify-between
+          <button class='w-full text-left px-4 flex hover:bg-gray-50
             overflow-hidden max-h-0 transition-[max-height;opacity] duration-300 ease-in-out opacity-0'>
-            <span class=''>Transfer selection to another project</span>
+            <p class='grow'>Transfer to another project</p>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="silver" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
             </svg>
           </button>
 
-          <button class='w-full text-left px-4 flex justify-between
+          <button class='w-full text-left px-4 flex hover:bg-gray-50
             overflow-hidden max-h-0 transition-[max-height;opacity] duration-300 ease-in-out opacity-0'>
-            <span class=''>Pin selection to the top</span>
+            <p class='grow'>Pin to the top</p>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="silver" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
             </svg>
           </button>
           
-          <button class='w-full text-left px-4 flex justify-between
+          <button class='w-full text-left px-4 flex hover:bg-gray-50
             overflow-hidden max-h-0 transition-[max-height;opacity] duration-300 ease-in-out opacity-0'>
-            <span class=''>Delete selection</span>
+            <p class='grow'>Delete</p>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="silver" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
             </svg>
           </button>
+
+       </div>
+     </div>
+
+      <div id='template-elements-container' class='px-2 pt-2 bg-gray-300 hidden'>
+
+        <div id='note-options-template' data-timestamp='template' class='flex justify-between text-gray-400 mb-1 grow items-center border-2 rounded bg-gray-50 shadow-md'>
+          <p class='grow text-center'>options:</p>
+          <div class='flex justify-stretch grow min-w-[600px] w-3/5 items-stretch h-7 bg-gray-200 gap-[2px] border-x-2 grow'>
+            <button data-name='add-note-btn' class='grow flex justify-center items-center bg-white'>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-4 pointer-events-none">
+                  <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+              </svg>
+
+            </button>
+            <button data-name='remove-note-btn' class='grow flex justify-center items-center bg-white'>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-4 pointer-events-none">
+                  <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+              </svg>
+            </button>
+            <button data-name='paragraph-btn' class='grow flex justify-center items-center bg-white'>
+              <p class='w-5 text-xs font-bold pointer-events-none'>&para;</p>
+            </button>
+            <button data-name='checkbox-btn' class='grow flex justify-center items-center bg-white'>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-4 pointer-events-none">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 7.5A2.25 2.25 0 017.5 5.25h9a2.25 2.25 0 012.25 2.25v9a2.25 2.25 0 01-2.25 2.25h-9a2.25 2.25 0 01-2.25-2.25v-9z" />
+              </svg>
+            </button>
+            <button data-name='bullet-btn' class='grow flex justify-center items-center bg-white'>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-2 pointer-events-none">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </button>
+            <button data-name='move-up-btn' class='grow flex justify-center items-center bg-white'>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-4 pointer-events-none">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18" />
+              </svg>
+            </button>
+            <button data-name='move-down-btn' class='grow flex justify-center items-center bg-white'>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-4 pointer-events-none">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" />
+              </svg>
+            </button>
+          </div>
+          <button data-name='close-note-options-container-btn' class='flex justify-center items-center grow text-center self-stretch'>
+            <p class='pointer-events-none'>close</p>
+          </button>
         </div>
-      </div>
 
-      <div id='project-task-container' class='px-2 pt-2 pb-32 overflow-y-scroll bg-gray-100 h-full'>
+        <div id='task-template' class='border-2 rounded-lg drop-shadow-md bg-gray-50 mb-2 text-sm relative overflow-hidden p-3 pl-3.5 pb-2.5'>
 
-        <div id='task-template' class='border-2 rounded-lg drop-shadow-md bg-gray-50 mb-96 text-sm relative overflow-hidden p-3 pl-3.5 pb-2.5'>
+          <div id='task-template-header' class='text-xl text-gray-500 font-bold min-h-[1.4rem] relative min-h-[1.4rem] border-2 border-transparent
+            after:content-[attr(data-replicated-value)] after:whitespace-pre-wrap after:invisible after:break-words after:block'>
 
-          <div class='text-xl text-gray-500 font-bold -mr-3 focus:outline-0 grow flex justify-between items-center mb-0.5'>
-            <p id='task-title' class='whitespace-nowrap overflow-hidden border-gray-400 w-full'>Lorem ipsum dolor sit amet sed ut perspiciatis</p>
-            <div id='fade' class='self-stretch w-8 -ml-8 -mr-1 bg-gradient-to-l from-gray-50 via-gray-50'></div>
+            <textarea data-timestamp='template' data-title disabled rows='1' autocomplete='off' onInput='this.parentNode.dataset.replicatedValue = this.value'
+            class='bg-transparent resize-none scroll-hidden overflow-hidden whitespace-pre-wrap absolute inset-0 focus:outline-none break-words'></textarea>
+
           </div>
 
-         <ul class='flex flex-col gap-0.5 flex' id='task-0-note-container'>
-            <li id='note-options-container' class='flex rounded text-gray-400 px-2 -mx-2 bg-white grow 
-              items-center mt-2 border-2 bg-gradient-to-t from-gray-50 via-gray-50 to-white drop-shadow-md hidden'>
-              <p class='mr-4'>note options:</p>
-              <div class='flex justify-stretch grow max-w-[1000px] items-stretch h-7 bg-gray-200 gap-[2px] border-x-2 grow min-w-[450px]'>
-                <button id='add-note-btn' class='grow flex justify-center items-center bg-white'>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                      <path d="M10.75 6.75a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z" />
-                  </svg>
-                </button>
-                <button id='remove-note-btn' class='grow flex justify-center items-center bg-white'>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                      <path d="M6.75 9.25a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5z" />
-                  </svg>
-                </button>
-                <button id='paragraph-btn' class='grow flex justify-center items-center bg-white'>
-                  <p class='w-5 text-xs font-bold'>&para;</p>
-                </button>
-                <button id='checkbox-btn' class='grow flex justify-center items-center bg-white'>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-4">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 7.5A2.25 2.25 0 017.5 5.25h9a2.25 2.25 0 012.25 2.25v9a2.25 2.25 0 01-2.25 2.25h-9a2.25 2.25 0 01-2.25-2.25v-9z" />
-                  </svg>
-                </button>
-                <button id='disc-btn' class='grow flex justify-center items-center bg-white'>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </button>
-              </div>
-              <button id='close-note-options-container-btn' class=' ml-2.5 flex justify-center items-center my-0.5 grow'>
-                <p class=''>Done</p>
-              </button>
+          <ul id='task-template-note-container' class=''>
+
+            <li class='-ml-1 rounded-sm relative group list-none after:content-[attr(data-replicated-value)] after:whitespace-pre-wrap min-h-[1.4rem] after:invisible after:break-words border-2 border-transparent after:block after:px-1'>
+
+              <textarea disabled data-timestamp='template' data-note-index='00' autocomplete='off' rows='1' onInput='this.parentNode.dataset.replicatedValue = this.value'
+                class='px-1 bg-gray-50 resize-none scroll-hidden overflow-hidden whitespace-pre-wrap absolute inset-0 focus:outline-none break-words'></textarea>
+
+              <input id='task-template-note-01' type='checkbox' class='absolute -left-[2.4ch] h-[1.5ch] top-[0.5ch] w-[1.5ch]
+                group-[.list-checkbox]:block hidden'>
+
             </li>
 
-            <li id='note-1'class='list-none relative group'>
-              <input id='task-note-3' type='checkbox' class='absolute -left-[2.4ch] h-[1.5ch] top-[0.5ch] w-[1.5ch]
-              group-[.list-checkbox]:block hidden'>
-              <label for='task-note-3' class=''>
-              consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </label>
+            <li class='rounded-sm list-disc relative group ml-6 after:content-[attr(data-replicated-value)] after:whitespace-pre-wrap min-h-[1.4rem] after:invisible after:break-words border-2 border-transparent after:block after:px-1'>
+
+              <textarea disabled data-timestamp='template' data-note-index='01' autocomplete='off' rows='1' onInput='this.parentNode.dataset.replicatedValue = this.value'
+                class='px-1 bg-gray-50 resize-none scroll-hidden overflow-hidden whitespace-pre-wrap absolute inset-0 focus:outline-none break-words'></textarea>
+
+              <input id='task-template-note-01' type='checkbox' class='absolute -left-[2.4ch] h-[1.5ch] top-[0.5ch] w-[1.5ch]
+                group-[.list-checkbox]:block hidden'>
             </li>
 
-            <li id='note-2'class='list-disc relative group ml-6'>
-              <input id='task-note-1' type='checkbox' class='absolute -left-[2.4ch] h-[1.5ch] top-[0.5ch] w-[1.5ch]
-              group-[.list-checkbox]:block hidden'>
-              <label for='task-note-1' class=''>
-                cillum dolore eu fugiat nulla pariatur
-              </label>
-            </li>
+            <li class='rounded-sm list-checkbox relative group ml-6 after:content-[attr(data-replicated-value)] after:whitespace-pre-wrap min-h-[1.4rem] after:invisible after:break-words border-2 border-transparent after:block after:px-1'>
 
-            <li id='note-3' class='list-checkbox relative group ml-6'>
-              <input id='task-note-2' type='checkbox' class='absolute -left-[2.4ch] h-[1.6ch] top-[0.5ch] w-[1.6ch]
-              group-[.list-checkbox]:block hidden'>
-              <label for='task-note-2' class=''>
-                Excepteur sint occaecat cupidatat non proident
-              </label>
+              <textarea disabled data-timestamp='template' data-note-index='02' autocomplete='off' rows='1' onInput='this.parentNode.dataset.replicatedValue = this.value'
+                        class='px-1 bg-gray-50 resize-none scroll-hidden overflow-hidden whitespace-pre-wrap absolute inset-0 focus:outline-none break-words'></textarea>
+
+              <input id='task-template-note-02' type='checkbox' class='absolute -left-[2.4ch] h-[1.6ch] top-[0.5ch] w-[1.6ch]
+                group-[.list-checkbox]:block hidden'>
             </li>
+ 
           </ul>
 
-          <div class='flex justify-between pt-2 items-center'>
-            <div class='text-gray-400 overflow-hidden whitespace-nowrap flex'>
-              <span id='task-0-date-setting-element' class='relative'>
-                <input id='due-date' type='date' class='opacity-0 unison absolute inset-0 peer'>
-                <label for='due-date' id='due-date-label' class='peer-focus:bg-[#b5d5ff] peer-focus:text-black'>Due on Monday, Jun 24</label>
+          <div class='flex pt-1 items-center text-gray-400 h-6'>
+              <span id='task-template-date-setting-element' class='relative'>
+                <input id='due-date' type='date' data-date-setting-id='template' class='opacity-0 unison absolute inset-0 peer appearance-none'>
+                <label for='due-date' class='peer-focus:bg-[#b5d5ff] peer-focus:text-black pointer-events-none'>Due on Monday, Jun 24</label>
               </span>
-              <span id='task-0-time-setting-element' class='relative w-[179px] ml-1'>
-                <input id='due-time' type='time' class='unison bg-transparent outline-0 focus:bg-[#b5d5ff] focus:text-black peer pl-[2.1ch] appearance-none' value='00:00'>
-                <label for='due-time' id='due-time-label' class='absolute left-0 pl-[0.1ch] pt-[1px] peer-focus:text-black pointer-events-none'>at</label>
+              <span id='task-template-time-setting-element' class='relative w-[179px] ml-1'>
+                <input id='due-time' type='time' data-time-setting-id='template' class='unison bg-transparent outline-0 focus:bg-[#b5d5ff] focus:text-black peer pl-[2.1ch] appearance-none' value='00:00'>
+                <label for='due-time' class='absolute inset-0 pl-[0.1ch] pt-[0.04ch] peer-focus:text-black pointer-events-none w-full'>at</label>
               </span>
-            </div>
  
-            <div class='relative w-10 h-4 shrink-0 bg-gray-50 flex grow'>
-              <input type='checkbox' id='task-selector' class='absolute h-4 w-4 appearance-none border-4 border-[currentcolor] peer opacity-10 checked:opacity-60 checked:border-blue-700 right-0 checked:bg-blue-500'> 
+            <div class='relative w-10 h-4 shrink-0 bg-gray-50 flex grow text-gray-600'>
+              <input type='checkbox' data-task-selection='template' class='absolute h-4 w-4 appearance-none border-4 border-[currentcolor] peer opacity-10 checked:opacity-60 checked:border-blue-700 right-0 checked:bg-blue-500'> 
               <button id='task-grip-btn' class='absolute left-4 inset-y-0 right-8 peer-checked:block hidden pt-0.5 -my-0.5 text-gray-300'>
-                <div class='border-t-4 border-dotted border-[currentcolor] h-1/5'></div>
-                <div class='border-t-4 border-dotted border-[currentcolor] h-1/5'></div>
-                <div class='border-t-4 border-dotted border-[currentcolor] h-1/5'></div>
-                <div class='border-t-4 border-dotted border-[currentcolor] h-1/5'></div>
-                <div class='border-t-4 border-dotted border-[currentcolor] h-1/5'></div>
+                <div class='border-t-4 border-dotted border-[currentcolor] h-1/5 pointer-events-none'></div>
+                <div class='border-t-4 border-dotted border-[currentcolor] h-1/5 pointer-events-none'></div>
+                <div class='border-t-4 border-dotted border-[currentcolor] h-1/5 pointer-events-none'></div>
+                <div class='border-t-4 border-dotted border-[currentcolor] h-1/5 pointer-events-none'></div>
+                <div class='border-t-4 border-dotted border-[currentcolor] h-1/5 pointer-events-none'></div>
               </button>
             </div>
           </div>
 
         </div>
+
       </div>
+
+      <div id='project-task-container' class='px-2 pt-2 pb-32 overflow-y-scroll bg-gray-100 grow'></div>
+
+      <!--
+      <div class='w-full h-8 text-left flex justify-around items-center text-sm text-gray-300 overflow-hidden border-b-8 border-transparent shrink-0 -mt-8 z-0'>
+        <button class='rounded border-4 bg-gray-50 flex items-center justify-center'>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+        </button>
+      </div>
+      -->
+
+      <div class='w-full h-8 text-left flex items-center text-sm text-gray-400 overflow-hidden border-t-4 shrink-0'>
+        <p class='w-1/3 text-center'><span id='selected-task-count'>0</span> tasks selected</p>
+        <!--
+        <button class='w-1/3 border-x-4 hover:underline h-8'>deselect all</button>
+        <button class='w-1/3 flex items-center hover:underline h-8 justify-center'>
+          <input type='checkbox' id='select-all' class='w-4 h-4 mr-2 opacity-50 checked:opacity-100'>
+          <label for='select-all' class='cursor-pointer'>Select all</p>
+        </button>
+        -->
+      </div>
+ 
     </div>
 
   </body>
