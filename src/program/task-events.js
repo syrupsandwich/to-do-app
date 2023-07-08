@@ -1,5 +1,6 @@
 import { findTask } from "./to-do.js";
 import {
+  makeTaskElement,
   cloneTemplateLiElement,
   formatDate,
 } from "./task-element-generator.js";
@@ -559,4 +560,16 @@ taskOptionsContainer.addEventListener("click", (e) => {
 
   //    if(e.target.id === 'transfer-task-btn'){}
   //    if(e.target.id === 'pin-task-btn'){}
+});
+
+let makeTaskBtn = document.getElementById("make-task-btn");
+
+makeTaskBtn.addEventListener("click", () => {
+  currentProject.makeTask({
+    title: "Task title",
+  });
+  let taskIndex = currentProject.tasks.length - 1;
+  let task = currentProject.tasks[taskIndex];
+  let taskElement = makeTaskElement(task);
+  projectTaskContainer.append(taskElement);
 });

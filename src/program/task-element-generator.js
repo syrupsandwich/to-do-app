@@ -147,4 +147,4 @@ function appendTaskElements(container, category) {
   });
 }
 
-export { formatDate, cloneTemplateLiElement, appendTaskElements };
+export { formatDate, cloneTemplateLiElement, appendTaskElements, makeTaskElement };
