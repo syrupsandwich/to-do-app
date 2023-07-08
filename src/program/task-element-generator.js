@@ -98,6 +98,7 @@ function cloneTemplateHeader({ timestamp, title }) {
 
 function cloneTemplateContainer({ timestamp }) {
   let element = taskTemplateElement.cloneNode(false);
+  element.dataset.timestamp = timestamp;
   element.id = `task-${timestamp}`;
   return element;
 }
@@ -134,6 +135,7 @@ function cloneTemplateControlsContainer({ timestamp, dueDate, dueTime }) {
   }
 
   let taskSelector = element.children[2].children[0];
+  taskSelector.id = `task-${timestamp}-selector`;
   taskSelector.dataset.taskSelection = timestamp;
 
   return element;

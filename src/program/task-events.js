@@ -3,6 +3,7 @@ import {
   cloneTemplateLiElement,
   formatDate,
 } from "./task-element-generator.js";
+import { currentProject } from "./main.js";
 
 let projectTaskContainer = document.getElementById("project-task-container");
 
@@ -33,6 +34,8 @@ function exitTaskEditMode() {
 let selectedElements = [];
 
 let selectedTaskCountDisplay = document.getElementById("selected-task-count");
+
+let taskOptionsContainer = document.getElementById("task-options-container");
 
 //function updateSelectedElements() {}
 
@@ -261,6 +264,47 @@ projectTaskContainer.addEventListener("click", (e) => {
     e.preventDefault();
   }
 
+  if (
+    e.target.hasAttribute("data-date-setting-id") &&
+    !e.target.hasAttribute("data-change-event-listener")
+  ) {
+    taskTimestampId = e.target.dataset.dateSettingId;
+    e.target.setAttribute("data-change-event-listener", "true");
+    e.target.addEventListener("change", updateTaskDate);
+
+    return;
+  }
+
+  if (
+    e.target.hasAttribute("data-time-setting-id") &&
+    !e.target.hasAttribute("data-change-event-listener")
+  ) {
+    taskTimestampId = e.target.dataset.timeSettingId;
+    e.target.setAttribute("data-change-event-listener", "true");
+    e.target.addEventListener("change", updateTaskTime);
+    return;
+  }
+
+  if (e.target.hasAttribute("data-task-selection")) {
+    taskTimestampId = e.target.dataset.taskSelection;
+    let taskElement = document.getElementById(`task-${taskTimestampId}`);
+    if (e.target.checked) {
+      selectedElements.push(taskElement);
+      selectedTaskCountDisplay.textContent = selectedElements.length;
+    } else {
+      let taskIndex = selectedElements.indexOf(taskElement);
+      selectedElements.splice(taskIndex, 1);
+      selectedTaskCountDisplay.textContent = selectedElements.length;
+    }
+    if (selectedElements.length > 0) {
+      taskOptionsContainer.classList.remove("hidden");
+    } else {
+      taskOptionsContainer.classList.add("hidden");
+    }
+
+    return;
+  }
+
   if (clickCount === 2) {
     return;
   }
@@ -295,41 +339,46 @@ projectTaskContainer.addEventListener("click", (e) => {
       updateNoteCheckStatus(e.target.parentElement);
     }
 
-    if (e.target.hasAttribute("data-task-selection")) {
-      taskTimestampId = e.target.dataset.taskSelection;
-      let taskElement = document.getElementById(`task-${taskTimestampId}`);
-      if (e.target.checked) {
-        selectedElements.push(taskElement);
-        selectedTaskCountDisplay.textContent = selectedElements.length;
-      } else {
-        let taskIndex = selectedElements.indexOf(taskElement);
-        selectedElements.splice(taskIndex, 1);
-        selectedTaskCountDisplay.textContent = selectedElements.length;
-      }
+    //    if (e.target.hasAttribute("data-task-selection")) {
+    //      taskTimestampId = e.target.dataset.taskSelection;
+    //      let taskElement = document.getElementById(`task-${taskTimestampId}`);
+    //      if (e.target.checked) {
+    //        selectedElements.push(taskElement);
+    //        selectedTaskCountDisplay.textContent = selectedElements.length;
+    //      } else {
+    //        let taskIndex = selectedElements.indexOf(taskElement);
+    //        selectedElements.splice(taskIndex, 1);
+    //        selectedTaskCountDisplay.textContent = selectedElements.length;
+    //      }
+    //      if (selectedElements.length > 0) {
+    //        taskOptionsContainer.classList.remove("hidden");
+    //      } else {
+    //        taskOptionsContainer.classList.add("hidden");
+    //      }
+    //
+    //      return;
+    //    }
 
-      return;
-    }
-
-    if (
-      e.target.hasAttribute("data-date-setting-id") &&
-      !e.target.hasAttribute("data-change-event-listener")
-    ) {
-      taskTimestampId = e.target.dataset.dateSettingId;
-      e.target.setAttribute("data-change-event-listener", "true");
-      e.target.addEventListener("change", updateTaskDate);
-
-      return;
-    }
-
-    if (
-      e.target.hasAttribute("data-time-setting-id") &&
-      !e.target.hasAttribute("data-change-event-listener")
-    ) {
-      taskTimestampId = e.target.dataset.timeSettingId;
-      e.target.setAttribute("data-change-event-listener", "true");
-      e.target.addEventListener("change", updateTaskTime);
-      return;
-    }
+    //    if (
+    //      e.target.hasAttribute("data-date-setting-id") &&
+    //      !e.target.hasAttribute("data-change-event-listener")
+    //    ) {
+    //      taskTimestampId = e.target.dataset.dateSettingId;
+    //      e.target.setAttribute("data-change-event-listener", "true");
+    //      e.target.addEventListener("change", updateTaskDate);
+    //
+    //      return;
+    //    }
+    //
+    //    if (
+    //      e.target.hasAttribute("data-time-setting-id") &&
+    //      !e.target.hasAttribute("data-change-event-listener")
+    //    ) {
+    //      taskTimestampId = e.target.dataset.timeSettingId;
+    //      e.target.setAttribute("data-change-event-listener", "true");
+    //      e.target.addEventListener("change", updateTaskTime);
+    //      return;
+    //    }
 
     clickEventStartTimestamp = 0;
   }, clickEventDelay);
@@ -464,3 +513,50 @@ function updateTaskNotes(task, timestamp) {
     }
   });
 }
+
+let selectAllBtn = document.getElementById("select-all");
+
+selectAllBtn.addEventListener("click", (e) => {
+  selectedElements = [];
+  let allTaskElements = Array.from(projectTaskContainer.children);
+  allTaskElements.forEach((element) => {
+    let timestamp = element.dataset.timestamp;
+    let taskSelector = document.getElementById(`task-${timestamp}-selector`);
+    if (e.target.checked) {
+      taskSelector.checked = true;
+      selectedElements.push(element);
+      taskOptionsContainer.classList.remove("hidden");
+    } else {
+      taskSelector.checked = false;
+      taskOptionsContainer.classList.add("hidden");
+    }
+  });
+  selectedTaskCountDisplay.textContent = selectedElements.length;
+});
+
+//let projectOptionsContainer = document.getElementById(
+//  "project-options-container"
+//);
+
+//projectOptionsContainer.addEventListener("click", (e) => {
+//    if(e.target.id === 'delete-project-btn'){}
+//});
+
+taskOptionsContainer.addEventListener("click", (e) => {
+  if (e.target.id === "remove-task-btn") {
+    selectedElements.forEach((element) => {
+      let timestamp = element.dataset.timestamp;
+      let task = findTask(timestamp);
+      let taskIndex = currentProject.tasks.indexOf(task);
+      currentProject.removeTask(taskIndex);
+      element.remove();
+    });
+
+    selectedElements = [];
+    e.target.parentElement.classList.add("hidden");
+    selectedElements.textContent = selectedElements.length;
+  }
+
+  //    if(e.target.id === 'transfer-task-btn'){}
+  //    if(e.target.id === 'pin-task-btn'){}
+});
