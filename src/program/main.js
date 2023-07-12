@@ -122,7 +122,7 @@ categoryDetails.addEventListener("click", () => {
 
 let projectTaskContainer = document.getElementById("project-task-container");
 
-let currentProject = categories[2].projects[1];
+let currentProject = categories[0].projects[0];
 appendTaskElements(projectTaskContainer, currentProject);
 
-export{currentProject};
+export { currentProject };

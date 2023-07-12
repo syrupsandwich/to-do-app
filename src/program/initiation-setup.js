@@ -53,25 +53,51 @@ const loadDemo = () => {
   });
 
   welcome.projects[0].makeTask({
-    title: "Check out this task card :v",
+    title: "Read these instructions.",
     timestamp: taskCount++,
     timeExtension: { minutes: 5 },
     notes: [
       {
         type: "text",
-        text: "Double click the text and the note options menu will open, allowing you to add, remove, convert, or reorder these notes",
-      },
-      {
-        type: "checkbox",
-        text: "This is what a checkbox note looks like",
+        text: "Open the note options menu to add, remove, convert, or reorder the notes contained within a task",
       },
       {
         type: "bullet",
-        text: "And this is what a bullet note looks like",
+        text: "mobile: tap and hold the text",
+      },
+      {
+        type: "bullet",
+        text: "desktop: double click",
       },
       {
         type: "text",
-        text: "Pressing close on the note options menu will exit the edit mode and save the changes. Clicking on an input such as the date setting or the checkbox will do the same thing.",
+        text: "Pressing close on the note options menu will exit the editing mode and save the changes. Clicking on an input such as the date setting or the checkbox will do the same thing.",
+      },
+    ],
+  });
+
+  welcome.projects[0].makeTask({
+    title: "Add your own task",
+    timestamp: taskCount++,
+    notes: [
+      {
+        type: "text",
+        text: 'Click the "+ Add task" button on the bottom left corner of the window',
+      },
+    ],
+  });
+
+  welcome.projects[0].makeTask({
+    title: "Remove tasks",
+    timestamp: taskCount++,
+    notes: [
+      {
+        type: "text",
+        text: "Click the checkbox button on the bottom right of this task or the one at the bottom right of the window,",
+      },
+      {
+        type: "text",
+        text: "...a removal button should appear.",
       },
     ],
   });

@@ -112,7 +112,6 @@ noteOptionsContainer.addEventListener("click", (e) => {
       checked: false,
     });
 
-    console.log(liClone.children[1].checked);
     injectLiElement(titleTest, liClone), resetEachTextareaIndex();
     task.makeNote({});
 
@@ -438,6 +437,74 @@ function updateTaskTime() {
   return;
 }
 
+projectTaskContainer.addEventListener("touchstart", (e) => {
+  if (
+    !(
+      e.target.hasAttribute("data-note-index") ||
+      e.target.hasAttribute("data-title")
+    )
+  ) {
+    return;
+  }
+
+  e.target.click();
+  let startTime = Date.now();
+
+  let intervalId;
+
+  e.target.addEventListener(
+    "touchend",
+    () => {
+      clearInterval(intervalId);
+    },
+    { once: true }
+  );
+
+  e.target.addEventListener(
+    "touchmove",
+    () => {
+      clearInterval(intervalId);
+    },
+    { once: true }
+  );
+
+  function startInterval(textarea, action) {
+    intervalId = setInterval(() => {
+      console.log("shots fired by interval");
+      let currentTime = Date.now();
+
+      if (currentTime - startTime > 500) {
+        action(textarea);
+        clearInterval(intervalId);
+      }
+    }, 20);
+  }
+
+  function editOtherTask(textarea) {
+    exitTaskEditMode();
+    writeToTask();
+    clickCount = 2;
+    enterTaskEditMode(textarea);
+  }
+
+  function editTask(textarea) {
+    clickCount = 2;
+    enterTaskEditMode(textarea);
+  }
+
+  if (taskEditingInProgress && e.target.dataset.timestamp !== taskTimestampId) {
+    e.preventDefault();
+
+    startInterval(e.target, editOtherTask);
+
+    return;
+  } else if (!taskEditingInProgress) {
+    e.preventDefault();
+
+    startInterval(e.target, editTask);
+  }
+});
+
 projectTaskContainer.addEventListener("dblclick", (e) => {
   if (!noteOptionsContainer.classList.contains("hidden")) {
     return;
@@ -453,34 +520,38 @@ projectTaskContainer.addEventListener("dblclick", (e) => {
     e.target.hasAttribute("data-note-index") ||
     e.target.hasAttribute("data-title")
   ) {
-    taskTimestampId = e.target.dataset.timestamp;
-    let taskElement = document.getElementById(`task-${taskTimestampId}`);
-    taskElement.before(noteOptionsContainer);
-    noteOptionsContainer.classList.remove("hidden");
-    let noteContainer = document.getElementById(
-      `task-${taskTimestampId}-note-container`
-    );
-    let noteElements = Array.from(noteContainer.children);
-    noteElements.forEach((element) => {
-      element.children[0].toggleAttribute("disabled");
-      element.children[1].toggleAttribute("disabled");
-    });
-
-    let taskHeader = document.getElementById(`task-${taskTimestampId}-header`);
-    let titleElement = taskHeader.children[0];
-    titleElement.disabled = false;
-
-    taskEditingInProgress = true;
-
-    selectedTextareaElement = e.target;
-    showTextVisualSelection(e.target);
-    setCursorOnTextarea(e.target);
+    enterTaskEditMode(e.target);
     return;
   } else {
     clickCount = 0;
     return;
   }
 });
+
+function enterTaskEditMode(textarea) {
+  taskTimestampId = textarea.dataset.timestamp;
+  let taskElement = document.getElementById(`task-${taskTimestampId}`);
+  taskElement.before(noteOptionsContainer);
+  noteOptionsContainer.classList.remove("hidden");
+  let noteContainer = document.getElementById(
+    `task-${taskTimestampId}-note-container`
+  );
+  let noteElements = Array.from(noteContainer.children);
+  noteElements.forEach((element) => {
+    element.children[0].toggleAttribute("disabled");
+    element.children[1].toggleAttribute("disabled");
+  });
+
+  let taskHeader = document.getElementById(`task-${taskTimestampId}-header`);
+  let titleElement = taskHeader.children[0];
+  titleElement.disabled = false;
+
+  taskEditingInProgress = true;
+
+  selectedTextareaElement = textarea;
+  showTextVisualSelection(textarea);
+  setCursorOnTextarea(textarea);
+}
 
 function setCursorOnTextarea(textarea) {
   textarea.click();
