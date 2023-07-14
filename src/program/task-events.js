@@ -630,7 +630,8 @@ taskOptionsContainer.addEventListener("click", (e) => {
 
     selectedElements = [];
     e.target.parentElement.classList.add("hidden");
-    selectedElements.textContent = selectedElements.length;
+    selectedTaskCountDisplay.textContent = selectedElements.length;
+    selectAllBtn.checked = false;
   }
 
   //    if(e.target.id === 'transfer-task-btn'){}
