@@ -452,6 +452,16 @@ projectTaskContainer.addEventListener("touchstart", (e) => {
 
   let intervalId;
 
+  document.addEventListener(
+    "contextmenu",
+    (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    },
+    { once: true }
+  );
+
   e.target.addEventListener(
     "touchend",
     () => {
@@ -465,7 +475,7 @@ projectTaskContainer.addEventListener("touchstart", (e) => {
     () => {
       clearInterval(intervalId);
     },
-    { once: true }
+    { once: true, passive: true }
   );
 
   function startInterval(textarea, action) {
@@ -493,14 +503,8 @@ projectTaskContainer.addEventListener("touchstart", (e) => {
   }
 
   if (taskEditingInProgress && e.target.dataset.timestamp !== taskTimestampId) {
-    e.preventDefault();
-
     startInterval(e.target, editOtherTask);
-
-    return;
   } else if (!taskEditingInProgress) {
-    e.preventDefault();
-
     startInterval(e.target, editTask);
   }
 });
