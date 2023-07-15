@@ -297,9 +297,9 @@ projectTaskContainer.addEventListener("click", (e) => {
       selectedTaskCountDisplay.textContent = selectedElements.length;
     }
     if (selectedElements.length > 0) {
-      taskOptionsContainer.classList.remove("hidden");
+      showTaskOptionsContainer();
     } else {
-      taskOptionsContainer.classList.add("hidden");
+      hideTaskOptionsContainer();
     }
 
     return;
@@ -592,21 +592,50 @@ function updateTaskNotes(task, timestamp) {
 
 let selectAllBtn = document.getElementById("select-all");
 
+function showTaskOptionsContainer() {
+  let taskOptionBtns = Array.from(taskOptionsContainer.children);
+
+  taskOptionBtns.forEach((button) => {
+    button.classList.remove("opacity-0");
+    button.classList.remove("max-h-0");
+    button.classList.add("max-h-10");
+    button.classList.add("border-t-4");
+  });
+}
+
+function hideTaskOptionsContainer() {
+  let taskOptionBtns = Array.from(taskOptionsContainer.children);
+
+  taskOptionBtns.forEach((button) => {
+    button.classList.add("opacity-0");
+    button.classList.add("max-h-0");
+    button.classList.remove("max-h-10");
+    button.classList.remove("border-t-4");
+  });
+}
+
 selectAllBtn.addEventListener("click", (e) => {
   selectedElements = [];
+
   let allTaskElements = Array.from(projectTaskContainer.children);
+
   allTaskElements.forEach((element) => {
     let timestamp = element.dataset.timestamp;
     let taskSelector = document.getElementById(`task-${timestamp}-selector`);
+
     if (e.target.checked) {
       taskSelector.checked = true;
       selectedElements.push(element);
-      taskOptionsContainer.classList.remove("hidden");
     } else {
       taskSelector.checked = false;
-      taskOptionsContainer.classList.add("hidden");
     }
   });
+
+  if (selectAllBtn.checked) {
+    showTaskOptionsContainer();
+  } else {
+    hideTaskOptionsContainer();
+  }
   selectedTaskCountDisplay.textContent = selectedElements.length;
 });
 
@@ -629,7 +658,7 @@ taskOptionsContainer.addEventListener("click", (e) => {
     });
 
     selectedElements = [];
-    e.target.parentElement.classList.add("hidden");
+    hideTaskOptionsContainer();
     selectedTaskCountDisplay.textContent = selectedElements.length;
     selectAllBtn.checked = false;
   }
