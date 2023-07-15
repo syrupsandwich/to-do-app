@@ -103,8 +103,8 @@ function cloneTemplateContainer({ timestamp }) {
   return element;
 }
 
-function formatDate(date) {
-  if (date === "none" || date === "") {
+function getDateLabelText(date) {
+  if (date === "none" || !date) {
     return "Click to set date and time.";
   } else {
     return `Due on ${format(parseISO(date), "EEEE, MMM d")}`;
@@ -118,7 +118,7 @@ function cloneTemplateControlsContainer({ timestamp, dueDate, dueTime }) {
   dateInput.dataset.dateSettingId = timestamp;
   let dateInputLabel = element.children[0].children[1];
   dateInputLabel.htmlFor = `task-${timestamp}-due-date`;
-  dateInputLabel.textContent = formatDate(dueDate);
+  dateInputLabel.textContent = getDateLabelText(dueDate);
   dateInput.value = dueDate;
 
   let timeInput = element.children[1].children[0];
@@ -147,4 +147,9 @@ function appendTaskElements(container, category) {
   });
 }
 
-export { formatDate, cloneTemplateLiElement, appendTaskElements, makeTaskElement };
+export {
+  getDateLabelText,
+  cloneTemplateLiElement,
+  appendTaskElements,
+  makeTaskElement,
+};

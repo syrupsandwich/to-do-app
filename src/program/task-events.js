@@ -2,7 +2,7 @@ import { findTask } from "./to-do.js";
 import {
   makeTaskElement,
   cloneTemplateLiElement,
-  formatDate,
+  getDateLabelText,
 } from "./task-element-generator.js";
 import { currentProject } from "./main.js";
 
@@ -391,32 +391,35 @@ function updateTaskDate() {
 
   let task = findTask(dateInputElement.dataset.dateSettingId);
 
-  if (task.getDueDate() !== dateInputElement.value) {
+  let timeInputElement = document.getElementById(
+    `task-${taskTimestampId}-due-time`
+  );
+
+  if (dateInputElement.hasAttribute("data-change-event-listener")) {
     dateInputElement.removeAttribute("data-change-event-listener");
     dateInputElement.removeEventListener("change", updateTaskDate);
+  }
 
-    let dateInputLabel = dateInputElement.labels[0];
-
-    let timeInputElement = document.getElementById(
-      `task-${taskTimestampId}-due-time`
-    );
-
-    if (!dateInputElement.value) {
-      task.setDueDate("none");
-      task.setDueTime("00:00");
-      updateTaskTime();
-      timeInputElement.parentElement.classList.add("hidden");
-    } else {
-      task.setDueDate(dateInputElement.value);
-
-      if (timeInputElement.parentElement.classList.contains("hidden")) {
-        timeInputElement.parentElement.classList.remove("hidden");
-      }
-    }
-
-    dateInputLabel.textContent = formatDate(dateInputElement.value);
+  if (task.getDueDate() === dateInputElement.value) {
     return;
   }
+
+  if (!dateInputElement.value) {
+    task.setDueDate("none");
+    task.setDueTime("00:00");
+    timeInputElement.value = "00:00";
+    timeInputElement.parentElement.classList.add("hidden");
+    dateInputElement.labels[0].textContent = getDateLabelText();
+    return;
+  } else if (timeInputElement.parentElement.classList.contains("hidden")) {
+    timeInputElement.parentElement.classList.remove("hidden");
+  }
+
+  task.setDueDate(dateInputElement.value);
+  dateInputElement.labels[0].textContent = getDateLabelText(
+    dateInputElement.value
+  );
+
   return;
 }
 
@@ -425,13 +428,18 @@ function updateTaskTime() {
     `task-${taskTimestampId}-due-time`
   );
   let task = findTask(timeInputElement.dataset.timeSettingId);
+
+  if (!timeInputElement.value) {
+    timeInputElement.value = "00:00";
+  }
+
   if (task.getDueTime() !== timeInputElement.value) {
     task.setDueTime(timeInputElement.value);
+  }
 
-    if (timeInputElement.hasAttribute("datachange-event-listener")) {
-      timeInputElement.removeAttribute("data-change-event-listener");
-      timeInputElement.removeEventListener("change", updateTaskTime);
-    }
+  if (timeInputElement.hasAttribute("data-change-event-listener")) {
+    timeInputElement.removeAttribute("data-change-event-listener");
+    timeInputElement.removeEventListener("change", updateTaskTime);
     return;
   }
   return;
@@ -480,7 +488,7 @@ projectTaskContainer.addEventListener("touchstart", (e) => {
 
   function startInterval(textarea, action) {
     intervalId = setInterval(() => {
-      console.log("shots fired by interval");
+      //console.log("shots fired by interval");
       let currentTime = Date.now();
 
       if (currentTime - startTime > 500) {
