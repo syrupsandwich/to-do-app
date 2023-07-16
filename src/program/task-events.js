@@ -38,8 +38,6 @@ let selectedTaskCountDisplay = document.getElementById("selected-task-count");
 
 let taskOptionsContainer = document.getElementById("task-options-container");
 
-//function updateSelectedElements() {}
-
 let taskEditingInProgress = false;
 
 let selectedTextareaElement;
@@ -264,25 +262,63 @@ projectTaskContainer.addEventListener("click", (e) => {
     e.preventDefault();
   }
 
-  if (
-    e.target.hasAttribute("data-date-setting-id") &&
-    !e.target.hasAttribute("data-change-event-listener")
-  ) {
+  if (e.target.hasAttribute("data-date-setting-id")) {
     taskTimestampId = e.target.dataset.dateSettingId;
-    e.target.setAttribute("data-change-event-listener", "true");
+    let taskElementSelector = document.getElementById(
+      `task-${taskTimestampId}-selector`
+    );
+
+    if (taskElementSelector.checked && selectedElements.length > 1) {
+      e.target.addEventListener("change", updateSelectedTaskDates);
+      e.target.addEventListener(
+        "focusout",
+        () => {
+          e.target.removeEventListener("change", updateSelectedTaskDates);
+        },
+        { once: true }
+      );
+      return;
+    }
+    e.target.addEventListener(
+      "focusout",
+      () => {
+        e.target.removeEventListener("change", updateTaskDate);
+      },
+      { once: true }
+    );
     e.target.addEventListener("change", updateTaskDate);
 
     return;
   }
 
-  if (
-    e.target.hasAttribute("data-time-setting-id") &&
-    !e.target.hasAttribute("data-change-event-listener")
-  ) {
+  if (e.target.hasAttribute("data-time-setting-id")) {
     taskTimestampId = e.target.dataset.timeSettingId;
-    e.target.setAttribute("data-change-event-listener", "true");
-    e.target.addEventListener("change", updateTaskTime);
-    return;
+
+    let taskElementSelector = document.getElementById(
+      `task-${taskTimestampId}-selector`
+    );
+
+    if (taskElementSelector.checked && selectedElements.length > 1) {
+      e.target.addEventListener("change", updateSelectedTaskTimes);
+      e.target.addEventListener(
+        "focusout",
+        () => {
+          e.target.removeEventListener("change", updateSelectedTaskTimes);
+        },
+        { once: true }
+      );
+      return;
+    } else {
+      e.target.addEventListener("change", updateTaskTime);
+      e.target.addEventListener(
+        "focusout",
+        () => {
+          e.target.removeEventListener("change", updateTaskTime);
+        },
+        { once: true }
+      );
+      return;
+    }
   }
 
   if (e.target.hasAttribute("data-task-selection")) {
@@ -339,50 +375,45 @@ projectTaskContainer.addEventListener("click", (e) => {
       updateNoteCheckStatus(e.target.parentElement);
     }
 
-    //    if (e.target.hasAttribute("data-task-selection")) {
-    //      taskTimestampId = e.target.dataset.taskSelection;
-    //      let taskElement = document.getElementById(`task-${taskTimestampId}`);
-    //      if (e.target.checked) {
-    //        selectedElements.push(taskElement);
-    //        selectedTaskCountDisplay.textContent = selectedElements.length;
-    //      } else {
-    //        let taskIndex = selectedElements.indexOf(taskElement);
-    //        selectedElements.splice(taskIndex, 1);
-    //        selectedTaskCountDisplay.textContent = selectedElements.length;
-    //      }
-    //      if (selectedElements.length > 0) {
-    //        taskOptionsContainer.classList.remove("hidden");
-    //      } else {
-    //        taskOptionsContainer.classList.add("hidden");
-    //      }
-    //
-    //      return;
-    //    }
-
-    //    if (
-    //      e.target.hasAttribute("data-date-setting-id") &&
-    //      !e.target.hasAttribute("data-change-event-listener")
-    //    ) {
-    //      taskTimestampId = e.target.dataset.dateSettingId;
-    //      e.target.setAttribute("data-change-event-listener", "true");
-    //      e.target.addEventListener("change", updateTaskDate);
-    //
-    //      return;
-    //    }
-    //
-    //    if (
-    //      e.target.hasAttribute("data-time-setting-id") &&
-    //      !e.target.hasAttribute("data-change-event-listener")
-    //    ) {
-    //      taskTimestampId = e.target.dataset.timeSettingId;
-    //      e.target.setAttribute("data-change-event-listener", "true");
-    //      e.target.addEventListener("change", updateTaskTime);
-    //      return;
-    //    }
-
     clickEventStartTimestamp = 0;
   }, clickEventDelay);
 });
+
+function updateSelectedTaskDates() {
+  let initialElement = document.getElementById(`task-${taskTimestampId}`);
+
+  let date = document.getElementById(`task-${taskTimestampId}-due-date`).value;
+
+  selectedElements.forEach((taskElement) => {
+    taskTimestampId = taskElement.dataset.timestamp;
+    let dateInputElement = document.getElementById(
+      `task-${taskTimestampId}-due-date`
+    );
+
+    dateInputElement.value = date;
+    updateTaskDate();
+  });
+
+  initialElement.removeEventListener("change", updateSelectedTaskDates);
+}
+
+function updateSelectedTaskTimes() {
+  let initialElement = document.getElementById(`task-${taskTimestampId}`);
+
+  let time = document.getElementById(`task-${taskTimestampId}-due-time`).value;
+
+  selectedElements.forEach((taskElement) => {
+    taskTimestampId = taskElement.dataset.timestamp;
+    let timeInputElement = document.getElementById(
+      `task-${taskTimestampId}-due-time`
+    );
+
+    timeInputElement.value = time;
+    updateTaskTime();
+  });
+
+  initialElement.removeEventListener("change", updateSelectedTaskTimes);
+}
 
 function updateTaskDate() {
   let dateInputElement = document.getElementById(
@@ -395,10 +426,7 @@ function updateTaskDate() {
     `task-${taskTimestampId}-due-time`
   );
 
-  if (dateInputElement.hasAttribute("data-change-event-listener")) {
-    dateInputElement.removeAttribute("data-change-event-listener");
-    dateInputElement.removeEventListener("change", updateTaskDate);
-  }
+  dateInputElement.removeEventListener("change", updateTaskDate);
 
   if (task.getDueDate() === dateInputElement.value) {
     return;
@@ -437,11 +465,8 @@ function updateTaskTime() {
     task.setDueTime(timeInputElement.value);
   }
 
-  if (timeInputElement.hasAttribute("data-change-event-listener")) {
-    timeInputElement.removeAttribute("data-change-event-listener");
-    timeInputElement.removeEventListener("change", updateTaskTime);
-    return;
-  }
+  timeInputElement.removeEventListener("change", updateTaskTime);
+
   return;
 }
 
