@@ -455,7 +455,7 @@ projectTaskContainer.addEventListener("touchstart", (e) => {
     return;
   }
 
-  e.target.click();
+  //e.target.click();
   let startTime = Date.now();
 
   let intervalId;
@@ -486,13 +486,14 @@ projectTaskContainer.addEventListener("touchstart", (e) => {
     { once: true, passive: true }
   );
 
-  function startInterval(textarea, action) {
+  function startInterval(textarea, send) {
     intervalId = setInterval(() => {
       //console.log("shots fired by interval");
       let currentTime = Date.now();
 
       if (currentTime - startTime > 500) {
-        action(textarea);
+        selectAllBtn.checked = false;
+        send(textarea);
         clearInterval(intervalId);
       }
     }, 20);
@@ -541,6 +542,9 @@ projectTaskContainer.addEventListener("dblclick", (e) => {
 });
 
 function enterTaskEditMode(textarea) {
+  deselectAllTasks();
+  hideTaskOptionsContainer();
+
   taskTimestampId = textarea.dataset.timestamp;
   let taskElement = document.getElementById(`task-${taskTimestampId}`);
   taskElement.before(noteOptionsContainer);
@@ -622,28 +626,45 @@ function hideTaskOptionsContainer() {
   });
 }
 
-selectAllBtn.addEventListener("click", (e) => {
-  selectedElements = [];
-
+function selectAllTasks() {
   let allTaskElements = Array.from(projectTaskContainer.children);
 
   allTaskElements.forEach((element) => {
     let timestamp = element.dataset.timestamp;
     let taskSelector = document.getElementById(`task-${timestamp}-selector`);
 
-    if (e.target.checked) {
-      taskSelector.checked = true;
-      selectedElements.push(element);
-    } else {
-      taskSelector.checked = false;
-    }
+    taskSelector.checked = true;
+    selectedElements.push(element);
   });
+}
+
+function deselectAllTasks() {
+  selectAllBtn.checked = false;
+  let allTaskElements = Array.from(projectTaskContainer.children);
+
+  allTaskElements.forEach((element) => {
+    let timestamp = element.dataset.timestamp;
+    let taskSelector = document.getElementById(`task-${timestamp}-selector`);
+
+    taskSelector.checked = false;
+  });
+}
+
+selectAllBtn.addEventListener("click", () => {
+  if (taskEditingInProgress) {
+    exitTaskEditMode();
+  }
+
+  selectedElements = [];
 
   if (selectAllBtn.checked) {
+    selectAllTasks();
     showTaskOptionsContainer();
   } else {
+    deselectAllTasks();
     hideTaskOptionsContainer();
   }
+
   selectedTaskCountDisplay.textContent = selectedElements.length;
 });
 
