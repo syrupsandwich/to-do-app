@@ -234,6 +234,79 @@ function selectInput(e) {
   e.target.showPicker();
 }
 
+projectTaskContainer.addEventListener("dragstart", (e) => {
+  exitTaskEditMode();
+  writeToTask();
+  hideTaskOptionsContainer();
+
+  taskTimestampId = e.target.dataset.timestamp;
+
+  selectedElements.forEach((element) => {
+    let allTaskElements = Array.from(projectTaskContainer.children);
+    let origin = allTaskElements.indexOf(element);
+    currentProject.moveTask(origin, {
+      destination: currentProject.tasks.length - 1,
+    });
+  });
+
+  let dragImage = document.getElementById(`selected-task-count`).parentElement;
+
+  let xOffset = dragImage.getBoundingClientRect().width;
+  let yOffset = dragImage.getBoundingClientRect().height;
+  e.dataTransfer.setDragImage(dragImage, xOffset, yOffset);
+});
+
+const insertionPositionIndicator = document.createElement("div");
+insertionPositionIndicator.classList.add(
+  "w-full",
+  "border-4",
+  "border-red-700",
+  "mb-1",
+  "-mt-1",
+  "rounded"
+);
+
+projectTaskContainer.addEventListener("dragover", (e) => {
+  selectedElements.forEach((element) => {
+    element.classList.add("hidden");
+  });
+
+  e.preventDefault();
+  let nextElement = getNextElement(projectTaskContainer, e.clientY);
+
+  if (nextElement === undefined) {
+    projectTaskContainer.appendChild(insertionPositionIndicator);
+  } else {
+    projectTaskContainer.insertBefore(insertionPositionIndicator, nextElement);
+  }
+});
+
+projectTaskContainer.addEventListener("dragend", () => {
+  showTaskOptionsContainer();
+  selectedElements.forEach(() => {
+    let allElements = Array.from(projectTaskContainer.children).filter(
+      (element) => !element.classList.contains("hidden")
+    );
+    let insertionPositionIndicatorIndex = allElements.indexOf(
+      insertionPositionIndicator
+    );
+    currentProject.moveTask(currentProject.tasks.length - 1, {
+      destination: insertionPositionIndicatorIndex,
+    });
+  });
+
+  let hiddenTaskElements = Array.from(projectTaskContainer.children).filter(
+    (element) => element.classList.contains("hidden")
+  );
+
+  hiddenTaskElements.forEach((element) => {
+    element.classList.remove("hidden");
+    insertionPositionIndicator.before(element);
+  });
+
+  insertionPositionIndicator.remove();
+});
+
 projectTaskContainer.addEventListener("click", (e) => {
   clickEventStartTimestamp = Date.now();
 
@@ -324,13 +397,18 @@ projectTaskContainer.addEventListener("click", (e) => {
   if (e.target.hasAttribute("data-task-selection")) {
     taskTimestampId = e.target.dataset.taskSelection;
     let taskElement = document.getElementById(`task-${taskTimestampId}`);
+    let taskGrip = document.getElementById(`task-${taskTimestampId}-grip`);
     if (e.target.checked) {
       selectedElements.push(taskElement);
       selectedTaskCountDisplay.textContent = selectedElements.length;
+
+      taskGrip.draggable = true;
     } else {
       let taskIndex = selectedElements.indexOf(taskElement);
       selectedElements.splice(taskIndex, 1);
       selectedTaskCountDisplay.textContent = selectedElements.length;
+
+      taskGrip.draggable = false;
     }
     if (selectedElements.length > 0) {
       showTaskOptionsContainer();
@@ -732,3 +810,49 @@ makeTaskBtn.addEventListener("click", () => {
   let taskElement = makeTaskElement(task);
   projectTaskContainer.append(taskElement);
 });
+
+const categoriesContainer = document.getElementById("categories-container");
+const categoryDraggables = Array.from(categoriesContainer.children);
+
+categoryDraggables.forEach((draggable) => {
+  draggable.addEventListener("dragstart", () => {
+    draggable.classList.add("dragging");
+    draggable.classList.add("opacity-50", "bg-blue-400");
+  });
+
+  draggable.addEventListener("dragend", () => {
+    draggable.classList.remove("dragging");
+    draggable.classList.remove("opacity-50", "bg-blue-400");
+  });
+});
+
+categoriesContainer.addEventListener("dragover", (e) => {
+  e.preventDefault();
+  let nextElement = getNextElement(categoriesContainer, e.clientY);
+  const dragElement = document.querySelector(".dragging");
+
+  if (nextElement === undefined) {
+    categoriesContainer.appendChild(dragElement);
+  } else {
+    categoriesContainer.insertBefore(dragElement, nextElement);
+  }
+});
+
+const getNextElement = (container, y) => {
+  const draggableElements = [
+    ...container.querySelectorAll(".draggable:not(.dragging)"),
+  ];
+
+  return draggableElements.reduce(
+    (closest, child) => {
+      const box = child.getBoundingClientRect();
+      const offset = box.top - y + box.height / 2;
+      if (offset > 0 && offset < closest.offset) {
+        return { offset: offset, element: child };
+      } else {
+        return closest;
+      }
+    },
+    { offset: Number.POSITIVE_INFINITY }
+  ).element;
+};

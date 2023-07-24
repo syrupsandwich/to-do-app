@@ -478,6 +478,8 @@ const categoryFactory = ({
       let task = tasks.splice(index, 1)[0];
       tasks.splice(destination, 0, task);
       printTasks("The task list has been reordered.");
+
+      updateSessionStorageObject(exportOwnData());
     };
 
     const getTaskTimestamps = () => {

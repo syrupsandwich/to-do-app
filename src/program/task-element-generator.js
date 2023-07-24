@@ -35,6 +35,8 @@ function makeTaskElement(taskObject) {
   });
   templateClone.append(controlsContainerClone);
 
+  templateClone.classList.add("draggable");
+
   return templateClone;
 }
 
@@ -137,6 +139,10 @@ function cloneTemplateControlsContainer({ timestamp, dueDate, dueTime }) {
   let taskSelector = element.children[2].children[0];
   taskSelector.id = `task-${timestamp}-selector`;
   taskSelector.dataset.taskSelection = timestamp;
+
+  let taskGripper = element.children[2].children[1];
+  taskGripper.id = `task-${timestamp}-grip`;
+  taskGripper.setAttribute("data-timestamp", timestamp);
 
   return element;
 }
