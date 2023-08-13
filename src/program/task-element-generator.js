@@ -35,7 +35,7 @@ function makeTaskElement(taskObject) {
   });
   templateClone.append(controlsContainerClone);
 
-  templateClone.classList.add("draggable");
+  templateClone.classList.add("sortable");
 
   return templateClone;
 }
@@ -85,6 +85,7 @@ function cloneTemplateLiElement({
   liTextareaElement.dataset.timestamp = timestamp;
   liTextareaElement.dataset.noteIndex = noteIndex;
 
+  liTextareaElement.id = `task-${timestamp}-textarea-${noteIndex}`;
   liInputElement.id = `task-${timestamp}-note-${noteIndex}`;
   return element;
 }
@@ -94,6 +95,7 @@ function cloneTemplateHeader({ timestamp, title }) {
   element.id = `task-${timestamp}-header`;
   element.dataset.replicatedValue = title;
   element.children[0].value = title;
+  element.children[0].id = `task-${timestamp}-title`;
   element.children[0].dataset.timestamp = timestamp;
   return element;
 }

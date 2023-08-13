@@ -230,7 +230,7 @@
           <div id='task-template-header' class='text-xl text-gray-500 font-bold min-h-[1.4rem] relative min-h-[1.4rem] border-2 border-transparent
             after:content-[attr(data-replicated-value)] after:whitespace-pre-wrap after:invisible after:break-words after:block'>
 
-            <textarea data-timestamp='template' data-title disabled rows='1' autocomplete='off' onInput='this.parentNode.dataset.replicatedValue = this.value'
+            <textarea id='task-template-title' data-timestamp='template' data-title disabled rows='1' autocomplete='off' onInput='this.parentNode.dataset.replicatedValue = this.value'
             class='bg-transparent resize-none scroll-hidden overflow-hidden whitespace-pre-wrap absolute inset-0 focus:outline-none break-words'></textarea>
 
           </div>
@@ -239,17 +239,17 @@
 
             <li class='-ml-1 rounded-sm relative group list-none after:content-[attr(data-replicated-value)] after:whitespace-pre-wrap min-h-[1.4rem] after:invisible after:break-words border-2 border-transparent after:block after:px-1'>
 
-              <textarea disabled data-timestamp='template' data-note-index='00' autocomplete='off' rows='1' onInput='this.parentNode.dataset.replicatedValue = this.value'
+              <textarea id='task-template-textarea-00' disabled data-timestamp='template' data-note-index='00' autocomplete='off' rows='1' onInput='this.parentNode.dataset.replicatedValue = this.value'
                 class='px-1 bg-gray-50 resize-none scroll-hidden overflow-hidden whitespace-pre-wrap absolute inset-0 focus:outline-none break-words'></textarea>
 
-              <input id='task-template-note-01' type='checkbox' class='absolute -left-[2.4ch] h-[1.5ch] top-[0.5ch] w-[1.5ch]
+              <input id='task-template-note-00' type='checkbox' class='absolute -left-[2.4ch] h-[1.5ch] top-[0.5ch] w-[1.5ch]
                 group-[.list-checkbox]:block hidden'>
 
             </li>
 
             <li class='rounded-sm list-disc relative group ml-6 after:content-[attr(data-replicated-value)] after:whitespace-pre-wrap min-h-[1.4rem] after:invisible after:break-words border-2 border-transparent after:block after:px-1'>
 
-              <textarea disabled data-timestamp='template' data-note-index='01' autocomplete='off' rows='1' onInput='this.parentNode.dataset.replicatedValue = this.value'
+              <textarea id='task-template-textarea-01' disabled data-timestamp='template' data-note-index='01' autocomplete='off' rows='1' onInput='this.parentNode.dataset.replicatedValue = this.value'
                 class='px-1 bg-gray-50 resize-none scroll-hidden overflow-hidden whitespace-pre-wrap absolute inset-0 focus:outline-none break-words'></textarea>
 
               <input id='task-template-note-01' type='checkbox' class='absolute -left-[2.4ch] h-[1.5ch] top-[0.5ch] w-[1.5ch]
@@ -258,7 +258,7 @@
 
             <li class='rounded-sm list-checkbox relative group ml-6 after:content-[attr(data-replicated-value)] after:whitespace-pre-wrap min-h-[1.4rem] after:invisible after:break-words border-2 border-transparent after:block after:px-1'>
 
-              <textarea disabled data-timestamp='template' data-note-index='02' autocomplete='off' rows='1' onInput='this.parentNode.dataset.replicatedValue = this.value'
+              <textarea id='task-template-textarea-02' disabled data-timestamp='template' data-note-index='02' autocomplete='off' rows='1' onInput='this.parentNode.dataset.replicatedValue = this.value'
                         class='px-1 bg-gray-50 resize-none scroll-hidden overflow-hidden whitespace-pre-wrap absolute inset-0 focus:outline-none break-words'></textarea>
 
               <input id='task-template-note-02' type='checkbox' class='absolute -left-[2.4ch] h-[1.6ch] top-[0.5ch] w-[1.6ch]
@@ -278,7 +278,7 @@
               </span>
  
             <div class='relative w-10 h-4 shrink-0 bg-gray-50 flex grow text-gray-600'>
-              <input type='checkbox' data-task-selection='template' class='absolute h-4 w-4 appearance-none border-4 border-[currentcolor] peer opacity-10 checked:opacity-60 checked:border-blue-700 right-0 checked:bg-blue-500'> 
+              <input id='task-template-selector' type='checkbox' data-task-selection='template' class='absolute h-4 w-4 appearance-none border-4 border-[currentcolor] peer opacity-10 checked:opacity-60 checked:border-blue-700 right-0 checked:bg-blue-500'> 
               <button id='task-grip-btn' class='absolute left-4 inset-y-0 right-8 peer-checked:block hidden pt-0.5 -my-0.5 text-gray-300'>
                 <div class='border-t-4 border-dotted border-[currentcolor] h-1/5 pointer-events-none'></div>
                 <div class='border-t-4 border-dotted border-[currentcolor] h-1/5 pointer-events-none'></div>

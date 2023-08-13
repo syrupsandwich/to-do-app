@@ -234,25 +234,49 @@ function selectInput(e) {
   e.target.showPicker();
 }
 
+function hideSelectedElements() {
+  selectedElements.forEach((element) => {
+    element.classList.add("hidden");
+  });
+}
+
+function moveSelectedTaskObjectsToBottom() {
+  let selectedElementsInOrder = Array.from(
+    projectTaskContainer.children
+  ).filter((element) => {
+    let elementTimestamp = element.dataset.timestamp;
+    let selector = document.getElementById(`task-${elementTimestamp}-selector`);
+    if (selector.checked === true) {
+      return true;
+    }
+  });
+  console.log("selected elements in order:", selectedElementsInOrder);
+
+  let endOfTaskObjectArray = currentProject.tasks.length - 1;
+
+  let allTaskElements = Array.from(projectTaskContainer.children);
+  selectedElementsInOrder.forEach((element) => {
+    let origin = allTaskElements.indexOf(element);
+    currentProject.moveTask(origin, {
+      destination: endOfTaskObjectArray,
+    });
+    allTaskElements.splice(origin, 1);
+  });
+}
+
 projectTaskContainer.addEventListener("dragstart", (e) => {
+  selectedElements.forEach((element) => {
+    element.classList.add("dragging");
+  });
   exitTaskEditMode();
   writeToTask();
   hideTaskOptionsContainer();
-
   taskTimestampId = e.target.dataset.timestamp;
-
-  selectedElements.forEach((element) => {
-    let allTaskElements = Array.from(projectTaskContainer.children);
-    let origin = allTaskElements.indexOf(element);
-    currentProject.moveTask(origin, {
-      destination: currentProject.tasks.length - 1,
-    });
-  });
-
-  let dragImage = document.getElementById(`selected-task-count`).parentElement;
-
-  let xOffset = dragImage.getBoundingClientRect().width;
-  let yOffset = dragImage.getBoundingClientRect().height;
+  moveSelectedTaskObjectsToBottom();
+  dragImage = getDragImage();
+  document.body.prepend(dragImage);
+  let xOffset = dragImage.getBoundingClientRect().width * 1.5;
+  let yOffset = dragImage.getBoundingClientRect().height / 2;
   e.dataTransfer.setDragImage(dragImage, xOffset, yOffset);
 });
 
@@ -266,45 +290,109 @@ insertionPositionIndicator.classList.add(
   "rounded"
 );
 
-projectTaskContainer.addEventListener("dragover", (e) => {
-  selectedElements.forEach((element) => {
-    element.classList.add("hidden");
-  });
-
-  e.preventDefault();
-  let nextElement = getNextElement(projectTaskContainer, e.clientY);
+function repositionInsertionIndicator(y) {
+  let nextElement = getNextElement(projectTaskContainer, y);
 
   if (nextElement === undefined) {
     projectTaskContainer.appendChild(insertionPositionIndicator);
   } else {
     projectTaskContainer.insertBefore(insertionPositionIndicator, nextElement);
   }
+}
+
+projectTaskContainer.addEventListener("dragover", (e) => {
+  e.preventDefault();
+  hideSelectedElements();
+  repositionInsertionIndicator(e.clientY);
 });
 
-projectTaskContainer.addEventListener("dragend", () => {
-  showTaskOptionsContainer();
+let windowDivisor = 4;
+let windowTopArea = window.innerHeight / windowDivisor;
+let windowBottomArea = window.innerHeight - windowTopArea;
+
+projectTaskContainer.addEventListener("touchmove", (e) => {
+  e.preventDefault();
+  let touchClientX = e.touches[0].clientX;
+  let touchClientY = e.touches[0].clientY;
+  repositionMobileDragImage(touchClientX, touchClientY);
+  repositionInsertionIndicator(e.touches[0].clientY);
+  if (touchClientY <= windowTopArea && scrollIntervalId === "") {
+    scroll(projectTaskContainer, -40);
+  } else if (touchClientY >= windowBottomArea && scrollIntervalId === "") {
+    scroll(projectTaskContainer, 40);
+  } else if (touchClientY > windowTopArea && touchClientY < windowBottomArea) {
+    clearInterval(scrollIntervalId);
+    scrollIntervalId = "";
+    console.log("Not scrolling; interval has been cleared.");
+  }
+});
+
+let scrollIntervalId = "";
+
+function scroll(element, amount) {
+  scrollIntervalId = setInterval(() => {
+    element.scrollTop += amount;
+    console.log(`scrolling ${amount}`);
+  }, 50);
+}
+
+function insertSelectedElements() {
+  let hiddenTaskElementsInOrder = Array.from(
+    projectTaskContainer.children
+  ).filter((element) => element.classList.contains("hidden"));
+
+  hiddenTaskElementsInOrder.forEach((element) => {
+    insertionPositionIndicator.before(element);
+  });
+}
+
+function revealSelectedElements() {
+  selectedElements.forEach((element) => {
+    element.classList.remove("hidden");
+  });
+}
+
+function reorderTaskObjects() {
   selectedElements.forEach(() => {
-    let allElements = Array.from(projectTaskContainer.children).filter(
+    let visibleTaskElements = Array.from(projectTaskContainer.children).filter(
       (element) => !element.classList.contains("hidden")
     );
-    let insertionPositionIndicatorIndex = allElements.indexOf(
+    let insertionPositionIndicatorIndex = visibleTaskElements.indexOf(
       insertionPositionIndicator
     );
+
     currentProject.moveTask(currentProject.tasks.length - 1, {
       destination: insertionPositionIndicatorIndex,
     });
   });
+}
 
-  let hiddenTaskElements = Array.from(projectTaskContainer.children).filter(
-    (element) => element.classList.contains("hidden")
-  );
-
-  hiddenTaskElements.forEach((element) => {
-    element.classList.remove("hidden");
-    insertionPositionIndicator.before(element);
+projectTaskContainer.addEventListener("dragend", (e) => {
+  selectedElements.forEach((element) => {
+    element.classList.remove("dragging");
   });
-
+  e.preventDefault();
+  showTaskOptionsContainer();
+  reorderTaskObjects();
+  insertSelectedElements();
+  revealSelectedElements();
   insertionPositionIndicator.remove();
+  dragImage.remove();
+});
+
+projectTaskContainer.addEventListener("touchend", () => {
+  if (!draggingOnMobile) {
+    return;
+  }
+  showTaskOptionsContainer();
+  reorderTaskObjects();
+  insertSelectedElements();
+  revealSelectedElements();
+  insertionPositionIndicator.remove();
+  dragImage.remove();
+  draggingOnMobile = false;
+  clearInterval(scrollIntervalId);
+  scrollIntervalId = "";
 });
 
 projectTaskContainer.addEventListener("click", (e) => {
@@ -549,16 +637,6 @@ function updateTaskTime() {
 }
 
 projectTaskContainer.addEventListener("touchstart", (e) => {
-  if (
-    !(
-      e.target.hasAttribute("data-note-index") ||
-      e.target.hasAttribute("data-title")
-    )
-  ) {
-    return;
-  }
-
-  //e.target.click();
   let startTime = Date.now();
 
   let intervalId;
@@ -589,48 +667,76 @@ projectTaskContainer.addEventListener("touchstart", (e) => {
     { once: true, passive: true }
   );
 
-  function startInterval(textarea, send) {
+  function sendElementAfterTimer(element, sendFunction) {
     intervalId = setInterval(() => {
-      //console.log("shots fired by interval");
+      console.log("tick");
       let currentTime = Date.now();
 
       if (currentTime - startTime > 500) {
-        selectAllBtn.checked = false;
-        send(textarea);
+        sendFunction(element, e);
+        console.log("fire");
         clearInterval(intervalId);
       }
     }, 20);
   }
 
-  function editOtherTask(textarea) {
-    exitTaskEditMode();
-    writeToTask();
-    clickCount = 2;
-    enterTaskEditMode(textarea);
-  }
-
-  function editTask(textarea) {
-    clickCount = 2;
-    enterTaskEditMode(textarea);
-  }
-
-  if (taskEditingInProgress && e.target.dataset.timestamp !== taskTimestampId) {
-    startInterval(e.target, editOtherTask);
-  } else if (!taskEditingInProgress) {
-    startInterval(e.target, editTask);
+  if (
+    e.target.hasAttribute("data-note-index") ||
+    e.target.hasAttribute("data-title")
+  ) {
+    sendElementAfterTimer(e.target, enterTaskEditMode);
+  } else if (e.target.hasAttribute("draggable")) {
+    sendElementAfterTimer(e.target, dragSelectedTasks);
+  } else {
+    return;
   }
 });
 
-projectTaskContainer.addEventListener("dblclick", (e) => {
-  if (!noteOptionsContainer.classList.contains("hidden")) {
-    return;
-  }
+let draggingOnMobile;
 
+function dragSelectedTasks(element, e) {
+  exitTaskEditMode();
+  writeToTask();
+  hideTaskOptionsContainer();
+  taskTimestampId = element.dataset.timestamp;
+  hideSelectedElements();
+  moveSelectedTaskObjectsToBottom();
+  dragImage = getDragImage();
+  document.body.append(dragImage);
+  repositionMobileDragImage(e.touches[0].clientX, e.touches[0].clientY);
+  draggingOnMobile = true;
+}
+
+function getDragImage() {
+  let dragImage = document
+    .getElementById("selected-task-count")
+    .parentElement.cloneNode(true);
+  dragImage.id = "drag-image";
+  dragImage.classList.add(
+    "absolute",
+    "text-gray-400",
+    "rounded",
+    "bg-white",
+    "p-2",
+    "drop-shadow-lg"
+  );
+  return dragImage;
+}
+
+let dragImage;
+
+function repositionMobileDragImage(x, y) {
+  let width = dragImage.getBoundingClientRect().width;
+  let height = dragImage.getBoundingClientRect().height;
+  let offsetX = 100;
+  dragImage.style.left = `${x - width - offsetX}px`;
+  dragImage.style.top = `${y - height / 2}px`;
+}
+
+projectTaskContainer.addEventListener("dblclick", (e) => {
   if (Date.now() - clickEventStartTimestamp >= 300) {
     return;
   }
-
-  clickCount = 2;
 
   if (
     e.target.hasAttribute("data-note-index") ||
@@ -645,6 +751,12 @@ projectTaskContainer.addEventListener("dblclick", (e) => {
 });
 
 function enterTaskEditMode(textarea) {
+  if (taskEditingInProgress && textarea.dataset.timestamp !== taskTimestampId) {
+    exitTaskEditMode();
+    writeToTask();
+  }
+  clickCount = 2;
+
   deselectAllTasks();
   hideTaskOptionsContainer();
 
@@ -669,7 +781,9 @@ function enterTaskEditMode(textarea) {
 
   selectedTextareaElement = textarea;
   showTextVisualSelection(textarea);
-  setCursorOnTextarea(textarea);
+  setTimeout(() => {
+    setCursorOnTextarea(textarea);
+  }, 300);
 }
 
 function setCursorOnTextarea(textarea) {
@@ -839,11 +953,11 @@ categoriesContainer.addEventListener("dragover", (e) => {
 });
 
 const getNextElement = (container, y) => {
-  const draggableElements = [
-    ...container.querySelectorAll(".draggable:not(.dragging)"),
+  const sortableElements = [
+    ...container.querySelectorAll(".sortable:not(.dragging)"),
   ];
 
-  return draggableElements.reduce(
+  return sortableElements.reduce(
     (closest, child) => {
       const box = child.getBoundingClientRect();
       const offset = box.top - y + box.height / 2;
