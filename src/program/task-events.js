@@ -311,6 +311,9 @@ let windowTopArea = window.innerHeight / windowDivisor;
 let windowBottomArea = window.innerHeight - windowTopArea;
 
 projectTaskContainer.addEventListener("touchmove", (e) => {
+  if (!draggingOnMobile) {
+    return;
+  }
   e.preventDefault();
   let touchClientX = e.touches[0].clientX;
   let touchClientY = e.touches[0].clientY;
