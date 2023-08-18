@@ -118,6 +118,7 @@ function getDateLabelText(date) {
 function cloneTemplateControlsContainer({ timestamp, dueDate, dueTime }) {
   let element = taskTemplateElement.children[2].cloneNode(true);
   let dateInput = element.children[0].children[0];
+  dateInput.parentElement.id = `task-${timestamp}-date-setting-element`;
   dateInput.id = `task-${timestamp}-due-date`;
   dateInput.dataset.dateSettingId = timestamp;
   let dateInputLabel = element.children[0].children[1];
@@ -126,6 +127,7 @@ function cloneTemplateControlsContainer({ timestamp, dueDate, dueTime }) {
   dateInput.value = dueDate;
 
   let timeInput = element.children[1].children[0];
+  timeInput.parentElement.id = `task-${timestamp}-time-setting-element`;
   timeInput.dataset.timeSettingId = timestamp;
   timeInput.id = `task-${timestamp}-due-time`;
   let timeInputLabel = element.children[1].children[1];
