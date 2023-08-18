@@ -831,7 +831,7 @@ function showTaskOptionsContainer() {
     button.classList.remove("opacity-0");
     button.classList.remove("max-h-0");
     button.classList.add("max-h-10");
-    button.classList.add("border-t-4");
+    button.classList.add("border-t-2");
   });
 }
 
@@ -842,7 +842,7 @@ function hideTaskOptionsContainer() {
     button.classList.add("opacity-0");
     button.classList.add("max-h-0");
     button.classList.remove("max-h-10");
-    button.classList.remove("border-t-4");
+    button.classList.remove("border-t-2");
   });
 }
 

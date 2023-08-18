@@ -44,7 +44,7 @@ projectOptionsBtn.addEventListener("click", () => {
     button.classList.toggle("max-h-0");
     button.classList.toggle("max-h-32");
     button.classList.toggle("py-3");
-    button.classList.toggle("border-b-4");
+    button.classList.toggle("border-b-2");
     button.classList.toggle("opacity-0");
   }
 });
